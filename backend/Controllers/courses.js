@@ -1,5 +1,6 @@
 const express = require("express");
-const { pool } = require("../Models/db");
+const { pool } = require("../models/db");
+
 
 
 
@@ -57,4 +58,28 @@ const getCourseById= (req,res)=>{
       });
     });
 }
-module.exports = { createNewCourse, getAllcourses, getCourseById};
+const deleteCoursesById = (req, res) => {
+  const { id } = req.params;
+
+  pool
+    .query(`DELETE FROM corses WHERE id `)
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        message: `Delete courses By Id: ${id} successfully`,
+        articles: result.rows,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+};
+const updateCourseById = (req,res)=>{
+    
+}
+module.exports = { createNewCourse, getAllcourses, getCourseById, deleteCoursesById};

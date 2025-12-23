@@ -1,7 +1,10 @@
 const { pool } = require("../models/db")
 
+
+
 const createlessons = (req, res) => {
     const { title, video, course } = req.body;
+
 
     pool
         .query(
@@ -51,8 +54,8 @@ const getAlllessons = (req, res) => {
 
 const getlessonsById = (req, res) => {
     const { id } = req.params
+    pool.query(`SELECT * FROM lessons WHERE id`,[id])
 
-    pool.query(`SELECT * FROM lessons WHERE id`)
         .then((result) => {
             res.status(200).json({
                 success: true,
@@ -69,11 +72,9 @@ const getlessonsById = (req, res) => {
             });
         });
 
-}
-
-
 const deletelessonsById = (req, res) => {
     const { id } = req.params
+
 
     pool.query(`DELETE FROM lessons WHERE id=$1 `,[id])
         .then((result) => {
@@ -93,10 +94,10 @@ const deletelessonsById = (req, res) => {
         });
 }
 
-
 const updatelessonsById = (req, res) => {
     const { id } = req.params;
     const { title, video, course } = req.body;
+
 
     pool
         .query("SELECT * FROM lessons WHERE id = $1 AND is_deleted = 0", [id])
@@ -113,6 +114,7 @@ const updatelessonsById = (req, res) => {
             const newTitle = title || lesson.title;
             const newVideo = video || lesson.video;
             const newCourse = course || lesson.course
+
 
             return pool
                 .query(
@@ -136,6 +138,7 @@ const updatelessonsById = (req, res) => {
             });
         });
 }
+
 
 
 
