@@ -1,5 +1,8 @@
 const express = require("express");
 const usersRouter = express.Router();
+
+
+
 const authentication = require("../middleware/authentication");
 const authorization = require("../middleware/authorization");
 const { register, login, getAllUsers } = require("../controllers/users");
@@ -20,5 +23,6 @@ usersRouter.delete(
   authentication,
   authorization("DELETE_USERS"),
 );
+
 
 module.exports = usersRouter;
