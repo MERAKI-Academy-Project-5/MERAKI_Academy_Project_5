@@ -1,4 +1,4 @@
-const { pool } = require("../Models/db")
+const { pool } = require("../models/db")
 
 const createlessons=(req,res)=>{
 const { title , video , course } = req.body;
