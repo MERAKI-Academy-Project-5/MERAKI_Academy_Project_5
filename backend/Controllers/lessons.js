@@ -52,7 +52,7 @@ const getAlllessons = (req, res) => {
 const getlessonsById = (req, res) => {
     const { id } = req.params
 
-    pool.query(`SELECT * FROM lessons WHERE id`)
+    pool.query(`SELECT * FROM lessons WHERE id=$1`,[id])
         .then((result) => {
             res.status(200).json({
                 success: true,

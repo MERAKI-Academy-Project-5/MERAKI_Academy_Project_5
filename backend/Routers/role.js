@@ -4,8 +4,7 @@ const authentication = require("../middleware/authentication");
 const authorization = require("../middleware/authorization");
 const { createNewRole, updateRoleById, createNewPermissions, updatePermissionByRole } = require("../controllers/role");
 
-rolesRouter.post("/", authentication,
-  authorization("CREATE_ROLE"),createNewRole);
+rolesRouter.post("/",createNewRole);
 rolesRouter.put(
   "/:id",
   authentication,
