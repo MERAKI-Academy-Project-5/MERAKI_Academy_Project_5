@@ -18,6 +18,4 @@ rolesRouter.post("/permissions" ,  authentication,
 rolesRouter.put("/permissions" ,  authentication,
   authorization("UPDATE_PERMISSIONS"),updatePermissionByRole);
 
-
-
 module.exports = rolesRouter;
