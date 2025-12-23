@@ -73,7 +73,24 @@ pool.query(`SELECT * FROM users WHERE id`)
 
 
 const deletelessonsById=(req,res)=>{
+const {id}=req.params
 
+pool.query(`DELETE FROM users WHERE id `)
+.then((result) => {
+      res.status(200).json({
+        success: true,
+        message: `Delete lessons By Id: ${id} successfully`,
+        articles: result.rows,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
 }
 
 
@@ -83,10 +100,9 @@ const updatelessonsById=(req,res)=>{
 
 
 
-// title , video , course, id
-
+// DELETE FROM users WHERE user_id 
 
 
 module.exports= {
-createlessons,getAlllessons,getlessonsById
+createlessons,getAlllessons,getlessonsById,deletelessonsById
 }
