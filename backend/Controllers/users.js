@@ -69,7 +69,6 @@ const login = (req, res) => {
 };
 
 const getAllUsers = (req, res) => {
-  // ask nazzal
   const userId = req.token.userId;
   pool
     .query(`SELECT * FROM users`)
@@ -102,7 +101,7 @@ const updateUserById = async (req, res) => {
     .then((result) => {
       res.status(201).json({
         success: true,
-        message: `Role created`,
+        message: `user updated`,
         role: result,
       });
     })
@@ -115,9 +114,30 @@ const updateUserById = async (req, res) => {
     });
 };
 
+const deleteUserById=(req,res)=>{
+const {id}=req.params
+pool.query(`DELETE FROM users WHERE id = $1 `, [id])
+.then((result) => {
+      res.status(200).json({
+        success: true,
+        message: `Delete users By Id: ${id} successfully`,
+        articles: result.rows,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+}
+
 module.exports = {
   register,
   login,
   getAllUsers,
-  updateUserById
+  updateUserById,
+  deleteUserById
 };

@@ -6,7 +6,7 @@ const usersRouter = express.Router();
 
 const authentication = require("../middleware/authentication");
 const authorization = require("../middleware/authorization");
-const { register, login, getAllUsers, updateUserById } = require("../controllers/users");
+const { register, login, getAllUsers, updateUserById, deleteUserById } = require("../controllers/users");
 
 usersRouter.get("/", authentication,getAllUsers );
 usersRouter.post("/register",
@@ -24,6 +24,7 @@ usersRouter.delete(
   "/:id",
   authentication,
   authorization("DELETE_USERS"),
+  deleteUserById
 );
 
 
