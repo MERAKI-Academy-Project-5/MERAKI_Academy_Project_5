@@ -2,6 +2,7 @@ const { pool } = require("../models/db")
 
 
 
+
 const createlessons = (req, res) => {
     const { title, video, course } = req.body;
 
@@ -28,7 +29,9 @@ const createlessons = (req, res) => {
                 err: err.message,
             });
         });
+
 }
+
 
 const getAlllessons = (req, res) => {
     pool
@@ -72,6 +75,7 @@ const getlessonsById = (req, res) => {
             });
         });
 
+
 const deletelessonsById = (req, res) => {
     const { id } = req.params
 
@@ -109,13 +113,12 @@ const updatelessonsById = (req, res) => {
                 });
             }
 
+
             const lesson = result.rows[0];
 
             const newTitle = title || lesson.title;
             const newVideo = video || lesson.video;
             const newCourse = course || lesson.course
-
-
             return pool
                 .query(
                     "UPDATE lessons SET title = $1, video = $2, course=$3 WHERE id = $4 RETURNING *",
@@ -138,10 +141,6 @@ const updatelessonsById = (req, res) => {
             });
         });
 }
-
-
-
-
 
 
 module.exports = {
