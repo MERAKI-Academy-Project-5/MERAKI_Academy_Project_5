@@ -1,21 +1,26 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { pool } = require("../models/db");
 
 const register = async (req, res) => {
   const { firstName, lastName, role, age, email, password, image } = req.body;
   const hashpassowrd = await bcrypt.hash(password, 10);
   pool
     .query(
-      `INSERT INTO users (firstName,lastName,role,age,email,password,image) VALUES ($1,$2,$3,$4,$5,$6)`,
+      `INSERT INTO users (firstName,lastName,role,age,email,password,image) VALUES ($1,$2,$3,$4,$5,$6,$7)`,
       [firstName, lastName, role, age, email, hashpassowrd, image]
     )
     .then((result) => {
-      req.status(201).json({
+        console.log(result);
+        
+      res.status(201).json({
         success: true,
         message: "Account created successfully",
       });
     })
     .catch((err) => {
+        console.log(err);
+        
       res.status(409).json({
         success: false,
         message: "The email already exists",
