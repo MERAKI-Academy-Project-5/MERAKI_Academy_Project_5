@@ -1,5 +1,8 @@
 const { pool } = require("../models/db");
 
+
+
+
 const createNewRole = (req, res) => {
   const { role } = req.body;
   pool.query(`INSERT INTO roles (role) VALUES ($1) RETURNING * ` , [role])

@@ -1,9 +1,13 @@
-const express = require("express")
+const express = require("express");
+const { createNewCourse, getAllcourses, getCourseById} = require("../Controllers/courses");
+const authentication = require("../middleware/authentication");
+const authorization = require("../middleware/authorization");
 const courseRouter = express.Router();
-const {createNewCourse} = require ("../controllers/courses")
 
 
-courseRouter.post("/createNewCourse",createNewCourse)
-
+//add permissions
+courseRouter.post("/createNewCourse",authentication,createNewCourse)
+courseRouter.get("/getAllcourses",authentication,getAllcourses)
+courseRouter.get("/getCourseById/:id",authentication,getCourseById)
 
 module.exports =courseRouter
