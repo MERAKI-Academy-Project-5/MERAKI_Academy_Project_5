@@ -2,13 +2,12 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const register = async (req, res) => {
-  const { firstName, lastName,role, age,  email, password , image } =
-    req.body;
+  const { firstName, lastName, role, age, email, password, image } = req.body;
   const hashpassowrd = await bcrypt.hash(password, 10);
   pool
     .query(
       `INSERT INTO users (firstName,lastName,role,age,email,password,image) VALUES ($1,$2,$3,$4,$5,$6)`,
-      [firstName, lastName, role,age, email, hashpassowrd,image]
+      [firstName, lastName, role, age, email, hashpassowrd, image]
     )
     .then((result) => {
       req.status(201).json({
@@ -71,8 +70,9 @@ const login = (req, res) => {
 
 const getAllUsers = (req, res) => {
   // ask nazzal
-const userId = req.token.userId;
- pool.query(`SELECT * FROM users`)
+  const userId = req.token.userId;
+  pool
+    .query(`SELECT * FROM users`)
     .then((result) => {
       if (result.length) {
         res.status(200).json({
@@ -89,12 +89,16 @@ const userId = req.token.userId;
       }
     })
     .catch((err) => {});
-}
-;const updateUserById = async(req, res) => {
-    const {userId} =  req.parms;
-    const { firstName,lastName,age,password, image } = req.body;
-    const hashpassowrd = await bcrypt.hash(password, 10);
-  pool.query(`UPDATE roles SET firstName = $1 WHERE role_id = $2 ` , [newRole , roleId])
+};
+const updateUserById = async (req, res) => {
+  const { userId } = req.parms;
+  const { firstName, lastName, age, password, image } = req.body;
+  const hashpassowrd = await bcrypt.hash(password, 10);
+  pool
+    .query(
+      `UPDATE users SET firstName = COALESCE($1,firstName) , lastName = COALESCE($2,lastName) , age = COALESCE($3,age) , password = COALESCE($4,password) , image =COALESCE($5,image) WHERE userId = $6 `,
+      [firstName, lastName, age, hashpassowrd, image, userId]
+    )
     .then((result) => {
       res.status(201).json({
         success: true,
@@ -114,5 +118,6 @@ const userId = req.token.userId;
 module.exports = {
   register,
   login,
-  getAllUsers
+  getAllUsers,
+  updateUserById
 };

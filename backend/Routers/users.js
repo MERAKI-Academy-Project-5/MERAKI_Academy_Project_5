@@ -2,7 +2,7 @@ const express = require("express");
 const usersRouter = express.Router();
 const authentication = require("../middleware/authentication");
 const authorization = require("../middleware/authorization");
-const { register, login, getAllUsers } = require("../controllers/users");
+const { register, login, getAllUsers, updateUserById } = require("../controllers/users");
 
 usersRouter.get("/", authentication,getAllUsers );
 usersRouter.post("/register",
@@ -14,6 +14,7 @@ usersRouter.put(
   "/:id",
   authentication,
   authorization("UPDATE_USERS"),
+  updateUserById
 );
 usersRouter.delete(
   "/:id",
