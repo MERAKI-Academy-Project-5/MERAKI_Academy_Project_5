@@ -32,44 +32,48 @@ const register = async (req, res) => {
 const login = (req, res) => {
   const { email, password } = req.body;
   pool
-    .query(`SELECT email, password FROM users`)
-    .then(async (result) => {
-      console.log(result.rows);
-      if (!result.rows) {
-        res.status(404).json("email not found");
-      } else {
-        const isCorrectPassword = await bcrypt.compare(
-          password,
-          result.password
-        );
-        console.log(isCorrectPassword);
-        if (!isCorrectPassword) {
-          res.status(403).json({
+    .query(
+      "SELECT * FROM users WHERE email = $1",
+      [email]
+    )
+    .then((result) => {
+      if (result.rows.length === 0) {
+        return res.status(403).json({
+          success: false,
+          massage: "The email doesn’t exist or the password you’ve entered is incorrect",
+        });
+      }
+      const user = result.rows;
+      return bcrypt.compare(password, user.password).then((isPassword) => {
+        if (!isPassword) {
+          return res.status(403).json({
             success: false,
-            massage:
-              "The email doesn’t exist or the password you’ve entered is incorrect",
-          });
-        } else {
-          const payload = {
-            userId: result.id,
-            country: result.country,
-            role: result.role,
-          };
-          const options = {
-            expiresIn: "60m",
-          };
-          const userToken = jwt.sign(payload, process.env.SECRET, options);
-          res.status(200).json({
-            success: true,
-            massage: "Valid login credentials",
-            token: token,
-            userId: result.id,
+            massage: "The email doesn’t exist or the password you’ve entered is incorrect",
           });
         }
-      }
+        const payload = {
+          userId: user.id,
+          country: user.country,
+          role: user.role_id,
+        };
+        const token = jwt.sign(payload, process.env.SECRET, {
+          expiresIn: "1d",
+        });
+        res.status(200).json({
+          success: true,
+          massage: "Valid login credentials",
+          token: token,
+          userId: user.id,
+        });
+      });
     })
     .catch((err) => {
-      res.json(err);
+      console.log(err);
+      res.status(500).json({
+        success: false,
+        massage: "Server error",
+        err: err,
+      });
     });
 };
 
