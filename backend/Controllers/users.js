@@ -43,7 +43,9 @@ const login = (req, res) => {
           massage: "The email doesn’t exist or the password you’ve entered is incorrect",
         });
       }
-      const user = result.rows;
+
+      const user = result.rows[0];
+
       return bcrypt.compare(password, user.password).then((isPassword) => {
         if (!isPassword) {
           return res.status(403).json({
