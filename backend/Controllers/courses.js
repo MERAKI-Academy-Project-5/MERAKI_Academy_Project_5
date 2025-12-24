@@ -2,19 +2,21 @@ const express = require("express");
 const { pool } = require("../models/db");
 
 const createNewCourse = (req, res) => {
-  const { title, description, image, instructorId, strat, end } = req.body;
+  const { title, description, image, instructorId, stratCourse, endCourse} = req.body;
   pool
     .query(
-      `INSERT INTO courses (title,description,image,instructorId,strat,end) VALUES ($1,$2,$3,$4,$5,$6,)`,
-      [title, description, image, instructorId, strat, end]
+      `INSERT INTO courses (title,description,image,instructorId,startCourse,endCourse) VALUES ($1,$2,$3,$4,$5,$6)`,
+      [title, description, image, instructorId, stratCourse, endCourse]
     )
     .then((result) => {
-      req.status(201).json({
+      res.status(201).json({
         success: true,
         message: "course created successfully",
       });
     })
     .catch((err) => {
+      console.log(err);
+
       res.status(409).json({
         success: false,
         err: err,
