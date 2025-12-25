@@ -4,6 +4,7 @@ import "./App.css";
 import { Routes, Route, Link } from "react-router-dom";
 import Home from "./component/home";
 import About from "./component/About";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
   return (

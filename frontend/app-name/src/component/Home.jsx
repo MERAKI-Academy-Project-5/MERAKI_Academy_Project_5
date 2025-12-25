@@ -1,11 +1,11 @@
 import React from 'react'
 import "./Home.css";
 import Navbar from './navbar';
+
  const Home = () => {
   return (
     <div className="home">
     <Navbar />
-    
     <section className="hero">
     <div className='hero-text'>
     <h1>hi squad</h1>

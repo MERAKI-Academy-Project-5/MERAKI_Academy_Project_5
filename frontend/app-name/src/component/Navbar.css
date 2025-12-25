@@ -6,6 +6,7 @@
 }
 
 
+
 .nav-links {
   list-style: none;
   display: flex;
@@ -20,6 +21,7 @@
 .nav-buttons {
   display: flex;
   gap: 10px;
+  margin-right: -300px;
 }
 
 .btn-outline {
