@@ -1,0 +1,41 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+}
+
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links li {
+  cursor: pointer;
+  color: #444;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-outline {
+  padding: 8px 16px;
+  border: 1px solid #6a0dad;
+  background: transparent;
+  color: #6a0dad;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  padding: 8px 18px;
+  background: #6a0dad;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
