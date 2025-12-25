@@ -1,11 +1,16 @@
-import React from 'react'
+
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import './App.css'
 import { Routes, Route, Link } from "react-router-dom";
-import About from './component/About';
-import Home from './component/Home';
+import Home from './component/home';
+
+function App() {
+
 
 const App = () => {
   return (
-    <div>
+    <
 
 <Link to="/">Home</Link>
 <Link to="/about"> About </Link>
@@ -24,6 +29,8 @@ const App = () => {
 
 
       </Routes>
+    
+
     </div>
   )
 }
