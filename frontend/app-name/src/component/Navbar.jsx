@@ -17,8 +17,12 @@ const Navbar = () => {
         <li>Courses</li>
       </ul>
       <div className="nav-buttons">
-        <button>login</button>
-        <button>logout</button>
+       <button onClick={() => {
+            navigate("/login")
+        }}>login</button>
+       <button onClick={() => {
+            navigate("/register")
+        }}>Register</button>
       </div>
     </div>
   );
