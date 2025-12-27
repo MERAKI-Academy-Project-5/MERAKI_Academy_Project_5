@@ -1,0 +1,23 @@
+:root {
+  --primary: #6a0dad;
+  --secondary: #1e293b;
+  --background: #f8fafc;
+  --card: #ffffff;
+  --text: #0f172a;
+}
+
+.unauth-wrapper {
+  min-height: calc(100vh - 70px);
+  background-color: var(--background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.unauth-image {
+  max-width: 700px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
