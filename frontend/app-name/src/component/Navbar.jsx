@@ -9,7 +9,8 @@ const Navbar = () => {
     <Container fluid>
       <Row className="navbar">
         <Col md={3}>Teaching squad</Col>
-        <Col md={6}><ul className="nav-links">
+        <Col md={6}>
+        <ul className="nav-links">
           <li onClick={() => {
             navigate("/")
           }}>Home</li>
@@ -19,28 +20,13 @@ const Navbar = () => {
           <li>Favourite</li>
           <li>Courses</li>
         </ul></Col>
-        <Col md={3}><Button>login</Button> <Button>logout</Button></Col>
-
-        }}>About us</li>
-        <li>Favourite</li>
-        <li>Courses</li>
-
-      </ul>
-      <div className="nav-buttons">
-       <button onClick={() => {
+        <Col md={3} ><Button className="btn-btn" onClick={() => {
             navigate("/login")
-        }}>login</button>
-       <button onClick={() => {
+        }}>login</Button> <Button className="btn-btn1" onClick={() => {
             navigate("/register")
-        }}>Register</button>
-      </div>
-    </div>
-
-      </ul></Col>
-        <Col md={3} ><Button className="btn-btn">login</Button> <Button className="btn-btn1">Guest</Button></Col>
+        }}>Register</Button></Col>
       </Row>
     </Container>
- 
   );
 };
 
