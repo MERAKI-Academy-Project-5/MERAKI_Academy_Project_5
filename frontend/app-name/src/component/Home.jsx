@@ -1,31 +1,38 @@
-import React from 'react'
+import React from "react";
 import "./Home.css";
-import Navbar from './navbar';
+import Navbar from "./navbar";
 
- const Home = () => {
+const Home = () => {
   return (
     <div className="home">
-    <Navbar />
-    <section className="hero">
-    <div className='hero-text'>
-    <h1>hi squad</h1>
-    <button>click me</button>
-    </div>
-    <div className='hero-image'>
-    <img src="https://www.21kschool.com/pk/wp-content/uploads/sites/17/2025/03/Education-Empowers-Life-of-Every-Students.png"  />
-    </div>
-    </section>
-    <section className='cards'>
-        <div className='card'>
-            <h3>hello</h3>
-            <p>enjoy our courses</p>
+      <Navbar />
+      <section className="hero">
+        <div className="hero-text">
+          <h1>Smarter tools for modern eductaion</h1>
+          <button>Explore Feature</button>
         </div>
-        <div className='card'>
-            <h3>welcome</h3>
-            <p>join us </p>
+        <div className="below_hero">
+          <section className="cards">
+            <div className="card-right">
+              <h3>Join Our Community</h3>
+              <p>1550+ Students</p>
+            </div>
+          </section>
+          <div className="hero-image">
+            <img className="girl-home" src="/images/girl.png" />
+          </div>
+          <section className="cards">
+            <div className="card-left">
+              <h3>Flexible Learning Experiences For Modern Education</h3>
+              <p>
+                Give Your Students And Teachers The Freedom To Learn Anywhere,
+                Anytime, With Tools Built For Modern, Flexible Education.{" "}
+              </p>
+            </div>
+          </section>
         </div>
-    </section>
+      </section>
     </div>
-  )
-}
-export default Home
+  );
+};
+export default Home;
