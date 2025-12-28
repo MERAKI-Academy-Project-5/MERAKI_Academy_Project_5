@@ -1,6 +1,7 @@
 html, body {
 background-image: url("/images/home-background.png")  !important;
-
+background-repeat: no-repeat;
+background-size: cover;
 }
 
 .hero {
@@ -11,6 +12,7 @@ background-image: url("/images/home-background.png")  !important;
   align-items: center;
   padding: 10px;
   margin-top: 60px;
+  margin-left: 100px;
 }
 
 .hero-text{
@@ -65,7 +67,7 @@ background-image: url("/images/home-background.png")  !important;
   width: 240px !important;
   border-radius: 16px !important;
   box-shadow: 0 10px 30px rgba(0,0,0,0.08) !important;
-    left: 14%;
+  left: 14%;
   top: 60%;
   transform: translateY(-50%);
 

@@ -6,7 +6,7 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 const Navbar = () => {
   const navigate = useNavigate();
   return (
-    <Container fluid>
+    <Container className="all" fluid>
       <Row className="navbar">
         <Col md={3}>Teaching squad</Col>
         <Col md={6}>
@@ -18,7 +18,9 @@ const Navbar = () => {
             navigate("/about")
           }}>About us</li>
           <li>Favourite</li>
-          <li>Courses</li>
+          <li onClick={() => {
+            navigate("/courses")
+          }}>Courses</li>
         </ul></Col>
         <Col md={3} ><Button className="btn-btn" onClick={() => {
             navigate("/login")

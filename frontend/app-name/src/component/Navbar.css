@@ -1,16 +1,42 @@
-
 .navbar {
-  margin-top: 20px;
+  position: fixed !important;
+  top: 0 !important;
+  border-radius: 20px;
+  width: 1200px !important;
+  padding: 12px 40px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+  z-index: 1000 !important;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.nav-links {
+  list-style: none;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 60px;
+  gap: 25px;
+}
+
+.nav-links li {
+  color: #fff;
+  cursor: pointer
+
 }
 .nav-links {
   list-style: none;
   display: flex;
   gap: 20px;
-  align-items: center;
+  justify-content: center;
   margin-top: 10px;
 }
 .nav-links li {

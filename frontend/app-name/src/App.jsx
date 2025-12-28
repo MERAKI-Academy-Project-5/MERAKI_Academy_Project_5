@@ -10,6 +10,7 @@ import Login from "./component/Login";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Unauthorized from "./component/Unauthorized";
+import Courses from "./component/Courses";
 
 
 
@@ -22,7 +23,7 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/" element={<Home />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
-
+        <Route path="/courses" element={<Courses />} />
         <Route path="/register" element ={<Rigester/>}/>
         <Route path="/login" element = {<Login/>}/>
       </Routes>
