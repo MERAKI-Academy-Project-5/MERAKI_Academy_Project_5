@@ -8,7 +8,8 @@ import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 const Register = () => {
     const navigate = useNavigate();
-  return (<><Navbar/>
+  return (<div>
+  <Navbar/>
   <div className="register">
     <div className="register-logo">
        <DotLottieReact
@@ -53,7 +54,7 @@ const Register = () => {
         </div>
       </div>
     </div>
-    </>
+    </div>
     
   );
 };
