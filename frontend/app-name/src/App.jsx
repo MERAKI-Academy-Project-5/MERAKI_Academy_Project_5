@@ -13,7 +13,10 @@ import Unauthorized from "./component/Unauthorized";
 import Courses from "./component/Courses";
 import CoursesDetails from "./component/CoursesDetails";
 import Navbar from "./component/navbar";
+
+import Footer from "./component/Footer ";
 import Page404 from "./component/Page404";
+
 
 const App = () => {
   return (
@@ -29,6 +32,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/*" element={<Page404/>}/>
       </Routes>
+      <Footer/>
     </div>
   );
 };
