@@ -30,6 +30,8 @@ const register = async (req, res) => {
 };
 
 const login = (req, res) => {
+  
+  
   const { email, password } = req.body;
   pool
     .query(
@@ -55,7 +57,6 @@ const login = (req, res) => {
         }
         const payload = {
           userId: user.id,
-          country: user.country,
           role: user.role_id,
         };
         const token = jwt.sign(payload, process.env.SECRET, {

@@ -1,8 +1,10 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const PORT = 5000;
 require("dotenv").config();
 app.use(express.json());
+app.use(cors());
 const { pool } = require("./models/db");
 const rolesRouter = require("./routers/role");
 const usersRouter = require("./routers/users");
