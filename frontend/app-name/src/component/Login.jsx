@@ -30,7 +30,6 @@ const Login = () => {
 
   return (
     <div>
-      <Navbar />
       <div className="login">
         <div>
           <DotLottieReact src="/file.lottie" loop autoplay />

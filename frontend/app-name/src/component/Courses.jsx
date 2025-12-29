@@ -92,7 +92,6 @@ const Courses = () => {
 
   return (
     <div>
-      <Navbar />
       <section className="courses-section">
         <h2>Popular Courses</h2>
         <div className="filters">

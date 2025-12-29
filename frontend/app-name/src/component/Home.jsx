@@ -28,7 +28,6 @@ const Home = () => {
   }]
   return (
     <div className="home">
-      <Navbar />
       <section className="hero">
         <div className="hero-text">
           <h1>Smarter tools for modern eductaion</h1>

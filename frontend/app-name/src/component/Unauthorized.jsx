@@ -6,8 +6,6 @@ import "./Unauthorized.css";
 const Unauthorized = () => {
   return (
     <>
-      <Navbar />
-
       <div className="unauth-wrapper">
         <div className="unauth-card">
           <div className="browser-bar">

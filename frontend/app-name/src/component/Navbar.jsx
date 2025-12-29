@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
 const Navbar = () => {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
   return (
-    <Container className="all" fluid>
-      <Row className="bb">
-        <Col md={3}>Teaching squad</Col>
-        <Col md={6}>
+    <div className="all" >
+      <div className="bb">
+        <div md={3}>Teaching squad</div>
+        <div md={6}>
         <ul className="nav-links">
           <li onClick={() => {
             navigate("/")
@@ -21,14 +21,14 @@ const Navbar = () => {
           <li onClick={() => {
             navigate("/courses")
           }}>Courses</li>
-        </ul></Col>
-        <Col md={3} ><Button className="btn-btn" onClick={() => {
+        </ul></div>
+        <div md={3} ><Button className="btn-btn" onClick={() => {
             navigate("/login")
         }}>login</Button> <Button className="btn-btn1" onClick={() => {
             navigate("/register")
-        }}>Register</Button></Col>
-      </Row>
-    </Container>
+        }}>Register</Button></div>
+      </div>
+    </div>
   );
 };
 

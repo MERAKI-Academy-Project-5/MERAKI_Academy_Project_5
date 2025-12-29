@@ -3,7 +3,7 @@ import "./CoursesDetails.css";
 const CourseDetails =()=> {
   return (
     <div className="course-page">
-      <div className="course-card">
+      <div className="coursedetails-card">
         <img
           src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"
           alt="course"

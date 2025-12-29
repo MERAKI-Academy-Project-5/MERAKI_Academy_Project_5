@@ -82,8 +82,6 @@ const About = () => {
   
   return (
     <>
-      <Navbar />
-
       <div className="about-page py-5">
         <div className="container">
           <div className="about-header text-center mb-5">

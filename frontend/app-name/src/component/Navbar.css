@@ -1,5 +1,5 @@
 .bb {
-  position: fixed ;
+
   top: 0 ;
   border-radius: 20px;
   width: 1200px ;
@@ -14,7 +14,8 @@
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); 
   z-index: 1000 ;
 }
-
+.all{
+color: red;}
 .logo {
   font-size: 20px;
   font-weight: bold;
@@ -47,7 +48,6 @@
 .nav-buttons {
   display: flex;
   gap: 10px;
-  margin-right: -300px;
 }
 
 .btn-btn {

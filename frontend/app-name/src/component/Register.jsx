@@ -9,7 +9,6 @@ import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 const Register = () => {
     const navigate = useNavigate();
   return (<div>
-  <Navbar/>
   <div className="register">
     <div className="register-logo">
        <DotLottieReact
