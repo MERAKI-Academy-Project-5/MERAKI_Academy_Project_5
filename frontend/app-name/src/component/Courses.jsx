@@ -1,7 +1,30 @@
 import React from "react";
 import "./Courses.css";
 import Navbar from "./navbar";
+import axios from "axios";
+import { useEffect } from "react";
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
 const Courses = () => {
+    const navigate = useNavigate();
+  /*const [allCourses, setAllCourses] = useState([]);
+  //const headers = {}
+  const getAllCourses = () => {
+    axios
+      .get(`http://localhost:5000/getAllcourses`, )
+      .then((result) => {
+        setAllCourses(result.rows);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  console.log(allCourses);
+  
+ useEffect(() => {
+    getAllCourses();
+  }, [allCourses])*/
   const courses = [
     {
       title: "Graphic Design Essentials",
@@ -83,7 +106,9 @@ const Courses = () => {
         <div className="courses-grid">
           {courses.map((course, index) => (
             <div className="course-card" key={index}>
-              <img src={course.image} alt={course.title} />
+              <img onClick={()=>{
+                navigate("/courseDetails")
+              }} src={course.image} alt={course.title} />
               <h3>{course.title}</h3>
               <p>
                 {course.lessons} Lessons • {course.students} Students

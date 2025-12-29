@@ -7,7 +7,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   return (
     <Container className="all" fluid>
-      <Row className="navbar">
+      <Row className="bb">
         <Col md={3}>Teaching squad</Col>
         <Col md={6}>
         <ul className="nav-links">

@@ -8,24 +8,22 @@ import About from "./component/About";
 import Rigester from "./component/Register";
 import Login from "./component/Login";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import Unauthorized from "./component/Unauthorized";
 import Courses from "./component/Courses";
-
-
+import CoursesDetails from "./component/CoursesDetails";
 
 const App = () => {
   return (
     <div>
-     
-      
       <Routes>
         <Route path="/about" element={<About />} />
         <Route path="/" element={<Home />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="/courses" element={<Courses />} />
-        <Route path="/register" element ={<Rigester/>}/>
-        <Route path="/login" element = {<Login/>}/>
+        <Route path="/courseDetails" element={<CoursesDetails />} />
+        <Route path="/register" element={<Rigester />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </div>
   );
