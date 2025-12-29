@@ -5,18 +5,30 @@ import "./Unauthorized.css";
 
 const Unauthorized = () => {
   return (
-<div>
-  <Navbar />
+    <>
+      <Navbar />
 
-  <div className="unauth-wrapper">
-    <img
-      src="https://contabo.com/blog/wp-content/uploads/2025/03/blog-head_how2-fix-403-forbidden-error.jpg.webp"
-      className="unauth-image"
-      alt="403 Unauthorized"
-    />
-  </div>
-</div>
-   
+      <div className="unauth-wrapper">
+        <div className="unauth-card">
+          <div className="browser-bar">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <div className="unauth-content">
+            <div className="unauth-emoji">🚫</div>
+
+            <h1 className="unauth-code">403</h1>
+            <h2 className="unauth-title">Unauthorized Response</h2>
+
+            <p className="unauth-text">
+              We're sorry, but you don't have access to this page.
+            </p>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 
