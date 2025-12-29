@@ -16,13 +16,13 @@
 }
 
 .course-image {
-  width: 45%;
+  width: 2000px;
+  height: 300px;
   border-radius: 12px;
-  object-fit: cover;
 }
 
 .course-info {
-  flex: 1;
+  font-size: medium;
 }
 
 .course-info h2 {

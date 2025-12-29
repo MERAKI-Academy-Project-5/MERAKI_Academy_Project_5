@@ -11,6 +11,9 @@ const Navbar = () => {
         <div md={3}>Teaching squad</div>
         <div md={6}>
         <ul className="nav-links">
+             <li onClick={() => {
+            navigate("/profile")
+          }}>Profile</li>
           <li onClick={() => {
             navigate("/")
           }}>Home</li>

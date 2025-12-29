@@ -1,6 +1,6 @@
 import "./CoursesDetails.css";
 
-const CourseDetails =()=> {
+const CourseDetails = () => {
   return (
     <div className="course-page">
       <div className="coursedetails-card">
@@ -13,8 +13,10 @@ const CourseDetails =()=> {
         <div className="course-info">
           <h2>HEADLINE FOR THE COURSE</h2>
           <p>
-            Short course description goes here. Explain what the student will
-            learn from this course.
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure
+            facere odio, non illo atque quasi accusamus eligendi explicabo esse
+            temporibus tenetur nam dolor, nostrum commodi, rerum ad! Veritatis,
+            eveniet voluptates.wewwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
           </p>
 
           <div className="course-meta">
@@ -30,11 +32,11 @@ const CourseDetails =()=> {
         <div className="lessons">
           <h3>Course Outline</h3>
           Lesson One Name <br></br>
-            Lesson Two Name<br></br>
-            Lesson Three Name<br></br>
-            Lesson Four Name<br></br>
-            Lesson Five Name<br></br>
-            Lesson Six Name<br></br>
+          Lesson Two Name<br></br>
+          Lesson Three Name<br></br>
+          Lesson Four Name<br></br>
+          Lesson Five Name<br></br>
+          Lesson Six Name<br></br>
         </div>
         <div className="instructor">
           <img
@@ -52,5 +54,5 @@ const CourseDetails =()=> {
       </div>
     </div>
   );
-}
-export default CourseDetails 
+};
+export default CourseDetails;
