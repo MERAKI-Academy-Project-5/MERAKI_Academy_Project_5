@@ -5,16 +5,18 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
+import {setCourses} from "../redux/coursesSlice"
 const Courses = () => {
     const navigate = useNavigate();
-  /*const [allCourses, setAllCourses] = useState([]);
+     const dispatch = useDispatch();
+  /*
   //const headers = {}
   const getAllCourses = () => {
     axios
       .get(`http://localhost:5000/getAllcourses`, {headers})
       .then((result) => {
-        setAllCourses(result.rows);
+       setCourses(result.rows);
       })
       .catch((err) => {
         console.log(err);

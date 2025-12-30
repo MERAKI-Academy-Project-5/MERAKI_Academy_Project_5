@@ -29,7 +29,7 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="hero-login">
       <div className="login">
         <div>
           <DotLottieReact src="/file.lottie" loop autoplay />

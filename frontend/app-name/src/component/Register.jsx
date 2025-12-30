@@ -1,60 +1,125 @@
-import React from "react";
+import React, { useState } from "react";
 import "./register.css";
 import Navbar from "./navbar";
 import Login from "./Login";
 import { useNavigate } from "react-router-dom";
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
-
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import axios from "axios";
 
 const Register = () => {
-    const navigate = useNavigate();
-  return (<div>
-  <div className="register">
-    <div className="register-logo">
-       <DotLottieReact
-      src="Login.lottie"
-      loop
-      autoplay
-    />
-    </div>
-      <div className="register-container">
-        <div className="register-card">
-          <h2>Join the community</h2>
-          <h1>Create an account</h1>
+  const navigate = useNavigate();
+  const [firstName, setfirstName] = useState("");
+  const [lastName, setlastName] = useState("");
+  const [age, setage] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [image, setimage] = useState("");
+  const [message, setMessage] = useState("");
 
-          <form>
-            <label>First Name</label>
-            <input type="text" placeholder="First name" />
+  const handleRegister = () => {
+    axios
+      .post("http://localhost:5000/users/register", {
+        firstName,
+        lastName,
+        age,
+        email,
+        password,
+        image,
+      })
+      .then((res) => {
+        setMessage(res.data.message);
+      })
+      .catch((err) => {
+        setMessage(err.response?.data?.message || "Registration failed");
+      });
+  };
 
-            <label>Last Name</label>
-            <input type="text" placeholder="Last name" />
+  return (
+    <div>
+      <div className="register">
+        <div className="register-logo">
+          <DotLottieReact src="Login.lottie" loop autoplay />
+        </div>
+        <div className="register-container">
+          <div className="register-card">
+            <h2>Join the community</h2>
+            <h1>Create an account</h1>
 
-            <label>Age</label>
-            <input type="number" placeholder="Age" />
+            <form>
+              <label>First Name</label>
+              <input
+                type="text"
+                placeholder="First name"
+                onChange={(e) => {
+                  setfirstName(e.target.value);
+                }}
+              />
 
-            <label>Email</label>
-            <input type="email" placeholder="Email" />
+              <label>Last Name</label>
+              <input
+                type="text"
+                placeholder="Last name"
+                onChange={(e) => {
+                  setlastName(e.target.value);
+                }}
+              />
 
-            <label>Password</label>
-            <input type="password" placeholder="Password" />
+              <label>Age</label>
+              <input
+                type="number"
+                placeholder="Age"
+                onChange={(e) => {
+                  setage(e.target.value);
+                }}
+              />
 
-            <label>Image</label>
-            <input type="file" />
+              <label>Email</label>
+              <input
+                type="email"
+                placeholder="Email"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
 
-            <button type="submit">Register</button>
-          </form>
+              <label>Password</label>
+              <input
+                type="password"
+                placeholder="Password"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
 
-          <p>
-            By continuing, you agree to our Terms and Privacy Policy.
-          </p>
-          <p>Don't have an account?<button onClick={()=>{
-            navigate("/login");
-          }}>login</button></p>
+              <label>Image</label>
+              <input
+                type="file"
+                onChange={(e) => {
+                  setimage(e.target.value);
+                }}
+              />
+            </form>
+            <button type="submit" onClick={handleRegister}>
+              Register
+            </button>
+
+            <p>By continuing, you agree to our Terms and Privacy Policy.</p>
+            <p>
+              already have an account?
+              <button
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
+                login
+              </button>
+            </p>
+
+            {message && <p className="muted small">{message}</p>}
+          </div>
         </div>
       </div>
     </div>
-    </div>
-    
   );
 };
 
