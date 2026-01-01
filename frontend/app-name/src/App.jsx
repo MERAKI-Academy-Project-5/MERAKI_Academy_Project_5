@@ -16,6 +16,7 @@ import Navbar from "./component/navbar";
 import Profile from "./component/Profile";
 import Footer from "./component/Footer ";
 import Page404 from "./component/Page404";
+import Favourite from "./component/Favourite";
 import Search from "./component/Search"
 
 import Lesson from "./component/Lesson";
@@ -37,6 +38,9 @@ const App = () => {
         <Route path="/register" element={<Rigester />} />
         <Route path="/login" element={<Login />} />
         <Route path="/*" element={<Page404/>}/>
+        <Route path="/favourite" element={<Favourite />} />
+
+
         <Route path="/search" element={<Search/>}/>
       </Routes>
       <Footer/>

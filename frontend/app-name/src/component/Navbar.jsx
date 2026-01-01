@@ -34,7 +34,13 @@ const Navbar = () => {
             >
               About us
             </li>
-            <li>Favourite</li>
+            <li
+              onClick={() => {
+                navigate("/favourite");
+              }}
+            >
+              Favourite ❤️
+            </li>
             <li
               onClick={() => {
                 navigate("/courses");
@@ -42,6 +48,18 @@ const Navbar = () => {
             >
               Courses
             </li>
+            <li>
+              <form className="search-wrapper" onSubmit={(e) => {
+                e.preventDefault();
+                console.log("Search submitted");
+              }}>
+                <input type="text" placeholder="Search" />
+                <button type="submit" className="search-btn">
+                  🔍
+                </button>
+              </form>
+            </li>
+
            <li>
   <form className="search-wrapper" onSubmit={(e) => {
     e.preventDefault();
