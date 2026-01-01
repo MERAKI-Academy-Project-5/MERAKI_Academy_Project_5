@@ -11,7 +11,7 @@ const CourseDetails = () => {
     { id: 3, title: "CSS Fundamentals", duration: "20 min", status: "inprogress" },
     { id: 4, title: "JavaScript Basics", duration: "25 min", status: "locked" },
   ];
-  const dispatch = useDispatch();
+  /*const dispatch = useDispatch();
   const getCourseById = () => {
     const id = localStorage.getItem("token.");
     axios
@@ -27,6 +27,8 @@ const CourseDetails = () => {
         console.log(err);
       });
   };
+*/
+console.log("LESSONS ARRAY:", lessons);
 
   return (
     <div className="course-page">
@@ -55,11 +57,21 @@ const CourseDetails = () => {
       <div className="course-content">
         <div className="lessons">
           <h3>Course Outline</h3>
-           <div  className="lesson-list">
-        {lessons.map((lesson) => (
-         <p onClick={() =>  navigate("/lesson")}><Lesson  key={lesson.id} {...lesson}   /></p> 
-        ))}
-      </div>
+ <div className="lesson-list">
+  {lessons.map((lesson) => (
+    <div
+      key={lesson.id}
+      className="lesson-wrapper"
+      onClick={() => navigate("/lesson")}
+    >
+      <Lesson
+        title={lesson?.title || ""}
+        duration={lesson?.duration || ""}
+        status={lesson?.status || ""}
+      />
+    </div>
+  ))}
+</div>
         </div>
         <div className="instructor">
           <img

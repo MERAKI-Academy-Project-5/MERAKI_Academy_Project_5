@@ -18,11 +18,7 @@ import Footer from "./component/Footer ";
 import Page404 from "./component/Page404";
 import Favourite from "./component/Favourite";
 import Search from "./component/Search"
-
 import Lesson from "./component/Lesson";
-
-
-
 const App = () => {
   return (
     <div>

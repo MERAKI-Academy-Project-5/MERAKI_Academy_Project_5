@@ -1,6 +1,11 @@
 import "./Lesson.css";
+import React from "react";
 
  const Lesson = ({ title, duration, status })=> {
+  console.log(duration);
+  console.log(title);
+  console.log(status);
+ 
   return (
     <div className="lesson-item">
       <div className="lesson-left">
