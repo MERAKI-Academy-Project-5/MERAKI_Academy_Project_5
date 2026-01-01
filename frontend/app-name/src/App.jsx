@@ -20,7 +20,7 @@ import Favourite from "./component/Favourite";
 import Search from "./component/Search"
 
 import Lesson from "./component/Lesson";
- main
+
 
 
 const App = () => {

@@ -4,7 +4,8 @@ import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import("./login.css");
+import "./login.css";
+
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout, setUserId } from "../redux/auth";
 const Login = () => {
