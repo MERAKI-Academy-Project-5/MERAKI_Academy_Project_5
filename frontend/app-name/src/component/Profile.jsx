@@ -1,5 +1,5 @@
 import React from "react";
-import "./Courses.css";
+import "./Profile.css";
 import Navbar from "./navbar";
 import axios from "axios";
 import { useEffect } from "react";

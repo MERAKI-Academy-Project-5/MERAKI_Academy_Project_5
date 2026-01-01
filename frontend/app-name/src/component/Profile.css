@@ -73,7 +73,6 @@
   background: #6b2fa8;
 }
 
-/* Responsive */
 @media (max-width: 900px) {
   .profile-card {
     flex-direction: column;

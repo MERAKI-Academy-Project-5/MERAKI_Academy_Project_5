@@ -1,7 +1,6 @@
 import React from "react";
 import "./Home.css";
 import Navbar from "./navbar";
-import "./Courses.css";
 
 const Home = () => {
   const courses = [

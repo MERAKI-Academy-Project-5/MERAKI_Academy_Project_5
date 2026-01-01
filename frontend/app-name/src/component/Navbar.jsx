@@ -59,21 +59,6 @@ const Navbar = () => {
                 </button>
               </form>
             </li>
-
-           <li>
-  <form className="search-wrapper" onSubmit={(e) => {
-    e.preventDefault();
-    
-  }}>
-    <input type="text" placeholder="Search" onChange={(e)=>{
-      setsearchValue(e.target.value)
-    }}/>
-    <button type="submit" className="search-btn" >
-      🔍
-    </button>
-  </form>
-</li>
-
           </ul>
         </div>
 
