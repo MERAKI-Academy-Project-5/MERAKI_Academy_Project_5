@@ -80,7 +80,14 @@ body {
   font-size: 15px;
   cursor: pointer;
   transition: 0.3s;
+  
+  width: 100%;
+  margin-top: 15px;
+  padding: 14px;
+  border-radius: 30px;
+  font-size: 16px;
 }
+
 
 .register-card button:hover {
   transform: translateY(-2px);
@@ -112,4 +119,29 @@ body {
     height: 400px;
     margin-top: 50px;
   
+}
+.form-row {
+  display: flex;
+  gap: 12px;
+}
+
+.form-row input {
+  width: 100%;
+}
+.image-upload {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px dashed #6d5dfc;
+  color: #6d5dfc;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+  transition: 0.3s;
+  background: #f5f4ff;
+}
+
+.image-upload:hover {
+  background: #6d5dfc;
+  color: white;
 }

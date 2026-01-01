@@ -46,32 +46,20 @@ const Register = () => {
             <h1>Create an account</h1>
 
             <form>
-              <label>First Name</label>
-              <input
-                type="text"
-                placeholder="First name"
-                onChange={(e) => {
-                  setfirstName(e.target.value);
-                }}
-              />
+              <div className="form-row">
+  <input
+    type="text"
+    placeholder="First name"
+    onChange={(e) => setfirstName(e.target.value)}
+  />
 
-              <label>Last Name</label>
-              <input
-                type="text"
-                placeholder="Last name"
-                onChange={(e) => {
-                  setlastName(e.target.value);
-                }}
-              />
-
-              <label>Age</label>
-              <input
-                type="number"
-                placeholder="Age"
-                onChange={(e) => {
-                  setage(e.target.value);
-                }}
-              />
+  <input
+    type="text"
+    placeholder="Last name"
+    onChange={(e) => setlastName(e.target.value)}
+  />
+</div>
+             
 
               <label>Email</label>
               <input
@@ -91,13 +79,22 @@ const Register = () => {
                 }}
               />
 
-              <label>Image</label>
-              <input
-                type="file"
-                onChange={(e) => {
-                  setimage(e.target.value);
-                }}
-              />
+             <div className="form-row">
+  <input
+    type="number"
+    placeholder="Age"
+    onChange={(e) => setAge(e.target.value)}
+  />
+
+  <label className="image-upload">
+    Upload Image
+    <input
+      type="file"
+      onChange={(e) => setImage(e.target.files[0])}
+      hidden
+    />
+  </label>
+</div>
             </form>
             <button type="submit" onClick={handleRegister}>
               Register
@@ -106,13 +103,13 @@ const Register = () => {
             <p>By continuing, you agree to our Terms and Privacy Policy.</p>
             <p>
               already have an account?
-              <button
+              <a
                 onClick={() => {
                   navigate("/login");
                 }}
               >
                 login
-              </button>
+              </a>
             </p>
 
             {message && <p className="muted small">{message}</p>}

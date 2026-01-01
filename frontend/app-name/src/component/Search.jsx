@@ -1,20 +1,16 @@
-import React from 'react'
-import { useSelector } from 'react-redux';
-
 import { useState } from "react";
-const courses = useSelector((state) => state.courses.courses)
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const Search = () => {
-  const [searchValue, setSearchValue] = useState("");
+  const navigate = useNavigate();
+  
   const [searchCourses, setsearchCourses] = useState(courses);
+const courses = useSelector((state)=> state.courses.courses)
 
   const handleSearch = (e) => {
-    e.preventDefault();
-
-    const result = courses.filter(course =>
-      course.title.toLowerCase().includes(searchValue.toLowerCase())
-    );
-
-    setsearchCourses(result);
+    courses.map((elem,i)=>{
+      elem
+    })
   };
 
   return (
@@ -25,16 +21,21 @@ const Search = () => {
           type="text"
           placeholder="Search courses"
           value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
+          onChange={(e) => setsearchValue(e.target.value)}
+          
         />
-        <button type="submit" className="search-btn">🔍</button>
+        <button type="submit" className="search-btn" onClick={()=>{
+            navigate("/courses")
+          }}>🔍</button>
       </form>
 
       
       <ul>
         {searchCourses.length > 0 ? (
           searchCourses.map(course => (
-            <li key={course.id}>{course.title}</li>
+            <li key={course.id} onClick={()=>{
+              navigate("/coursesDetails")
+            }}>{course.title} </li>
           ))
         ) : (
           <p>No courses found</p>
@@ -43,5 +44,6 @@ const Search = () => {
     </>
   );
 };
+
 
 export default Search

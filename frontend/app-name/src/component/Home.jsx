@@ -54,7 +54,7 @@ const Home = () => {
           </section>
         </div>
       </section>
-     <section style={{"width":"1300px","borderRadius":"20px", "marginLeft":"-30px" , "marginTop":"-10px" , 
+     <section style={{"width":"100%",  "marginTop":"-10px" , 
      "backgroundColor": "#4B3F72"}} className="courses-section">
       <div className="courses-grid">
         {courses.map((course, index) => (

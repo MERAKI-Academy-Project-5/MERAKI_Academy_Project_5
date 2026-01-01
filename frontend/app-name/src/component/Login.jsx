@@ -62,7 +62,7 @@ const Login = () => {
               />
             </label>
             <br />
-            <button onClick={handleLogin}>login</button>
+            <button onClick={handleLogin} className="login-box button">login</button>
             <br />
             <p className="terms">
               By continuing, you agree to our Terms and Privacy Policy.
@@ -70,13 +70,13 @@ const Login = () => {
             <br />
             <p className="register-link">
               Don't have an account?{" "}
-              <button
+              <a
                 onClick={() => {
                   navigate("/register");
                 }}
               >
                 register
-              </button>
+              </a>
             </p>
           </div>
         </div>
