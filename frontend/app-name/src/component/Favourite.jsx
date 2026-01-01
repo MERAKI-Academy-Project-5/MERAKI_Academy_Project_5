@@ -9,27 +9,39 @@ function Favourite() {
   );
 
   return (
-    <div className="container mt-4">
+    <div className="favourite-section">
       <h1>Favourite Courses ❤️</h1>
 
       {favouriteCourses.length === 0 ? (
-        <p>No favourite courses yet</p>
+        <p className="favourite-empty">
+          No favourite courses yet
+        </p>
       ) : (
-        favouriteCourses.map((course) => (
-          <div key={course.id} className="card mb-3 p-3">
-            <h4>{course.title}</h4>
-            <p>{course.description}</p>
+        <div className="favourite-grid">
+          {favouriteCourses.map((course) => (
+            <div className="favourite-card" key={course.id}>
+              <img src={course.image} alt={course.title} />
 
-            <button
-              className="btn btn-danger"
-              onClick={() =>
-                dispatch(removeFromFavourite(course.id))
-              }
-            >
-              Remove ❌
-            </button>
-          </div>
-        ))
+              <h3>{course.title}</h3>
+              <p>{course.description}</p>
+
+              <div className="favourite-bottom">
+                <span className="price">
+                  ${course.price}
+                </span>
+
+                <button
+                  className="remove-btn"
+                  onClick={() =>
+                    dispatch(removeFromFavourite(course.id))
+                  }
+                >
+                  Remove ❌
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );
