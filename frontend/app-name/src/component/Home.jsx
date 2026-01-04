@@ -72,6 +72,8 @@ const Home = () => {
           width: "100%",
           marginTop: "-10px",
           backgroundColor: "#4B3F72",
+          
+          
         }}
         className="courses-section"
       >
@@ -79,7 +81,7 @@ const Home = () => {
           {latestCourses.map((course, index) => (
             <div
               style={{ width: "350px", backgroundColor: "#8E7CC3" }}
-              className="course-card"
+              className="course-card1"
               key={index}
             >
               <img

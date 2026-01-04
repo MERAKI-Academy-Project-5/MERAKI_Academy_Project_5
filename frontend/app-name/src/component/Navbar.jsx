@@ -5,6 +5,14 @@ import { Button } from "react-bootstrap";
 import Search from "./Search";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/auth";
+import { MdOutlineFavorite } from "react-icons/md";
+import { CgProfile } from "react-icons/cg";
+import { FaBook } from "react-icons/fa";
+import { IoIosHome } from "react-icons/io";
+import { CgFileDocument } from "react-icons/cg";
+import { GrLogout } from "react-icons/gr";
+import { TbLogin } from "react-icons/tb";
+import { FaRegIdCard } from "react-icons/fa";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -14,23 +22,32 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.clear();
-    dispatch(logout()); 
+    dispatch(logout());
     navigate("/login");
   };
 
   return (
     <div className="all">
       <div className="bb">
-        <div className="logo">Teaching squad</div>
+        <a href="#" className="logo">
+          <img  src="/images/p1.jpeg" style={{
+            "width":"75px"
+          }}></img>
+        </a>
 
         <ul className="nav-links">
-          <li onClick={() => navigate("/")}>Home</li>
-          <li onClick={() => navigate("/courses")}>Courses</li>
-          <li onClick={() => navigate("/about")}>About us</li>
+          <li onClick={() => navigate("/")}>Home <IoIosHome />
+          </li>
+          <li onClick={() => navigate("/courses")}>Courses <FaBook />
+          </li>
+          <li onClick={() => navigate("/about")}>About us <CgFileDocument />
+          </li>
           {isLoggedIn && (
             <>
-              <li onClick={() => navigate("/profile")}>Profile</li>
-              <li onClick={() => navigate("/favourite")}>Favourite ❤️</li>
+              <li onClick={() => navigate("/profile")}>Profile <CgProfile />
+              </li>
+              <li onClick={() => navigate("/favourite")}>Favourite <MdOutlineFavorite />
+              </li>
             </>
           )}
           <li>
@@ -41,12 +58,14 @@ const Navbar = () => {
         <div className="auth-buttons">
           {isLoggedIn ? (
             <Button variant="danger" onClick={handleLogout}>
-              Logout
+              Logout  <GrLogout />
+
             </Button>
           ) : (
             <>
-              <Button className="btn-btn" onClick={() => navigate("/login")}>Login</Button>
-              <Button className="btn-btn1" onClick={() => navigate("/register")}>Register</Button>
+              <Button className="btn-btn" onClick={() => navigate("/login")}>Login <TbLogin /></Button>
+              <Button className="btn-btn1" onClick={() => navigate("/register")}>Register <FaRegIdCard />
+</Button>
             </>
           )}
         </div>
