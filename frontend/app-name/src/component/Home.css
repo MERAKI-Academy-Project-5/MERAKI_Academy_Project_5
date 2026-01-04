@@ -93,3 +93,19 @@ html, body {
   gap: 20px;
   margin-top: 30px;
 }
+
+
+.course-card1{
+ background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(200px)
+ !important;
+ background-color: #f6f5f8bc !important; 
+  border-radius: 12px;
+  padding: 15px;
+  text-align: left;
+  color: #000;
+}
+
+
+
+  

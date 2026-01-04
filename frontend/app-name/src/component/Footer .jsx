@@ -1,5 +1,7 @@
 import React from "react";
-import "./Footer.css"; 
+import "./Footer.css";
+import { FaFacebook } from "react-icons/fa";
+import { FaInstagram } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -21,7 +23,9 @@ const Footer = () => {
 
         <div className="footer-section">
           <h3>Follow us :</h3>
-          <p>📘Facebook | 📸 Instagram</p>
+          <p><FaFacebook />
+            Facebook | <FaInstagram />
+            Instagram</p>
         </div>
       </div>
 
