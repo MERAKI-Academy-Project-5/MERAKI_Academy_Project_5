@@ -1,30 +1,44 @@
 import React from "react";
 import "./Home.css";
 import Navbar from "./navbar";
+import { useDispatch, useSelector } from "react-redux";
+import { setCourses } from "../redux/coursesSlice";
+import axios from "axios";
+import { useEffect } from "react";
+import { setCourseId } from "../redux/courseDetailsSlice";
+import { useNavigate } from "react-router-dom";
+
 
 const Home = () => {
-  const courses = [
-  {
-    title: "Graphic Design Essentials",
-    lessons: 8,
-    students: 50,
-    price: 250,
-    image: "https://ifda.in/img/graphic-mobile-banner.jpg",
-  },
-  {
-    title: "Python for Data Science",
-    lessons: 10,
-    students: 60,
-    price: 150,
-    image: "https://img-c.udemycdn.com/course/750x422/2314160_8d61_6.jpg",
-  },
-  {
-    title: "Full-Stack Web Development",
-    lessons: 12,
-    students: 80,
-    price: 299,
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq2kXQ160NtpDaqElV1m7BMwaDSwezpFO7mA&s",
-  }]
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const getAllCourses = () => {
+    axios
+      .get(`http://localhost:5000/courses/getAllcourses`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((result) => {
+        console.log(result.data.allcourses);
+        dispatch(setCourses(result.data.allcourses));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const courses = useSelector((state) => state.courses.courses);
+  console.log(courses);
+  const latestCourses = [];
+  courses.forEach((course, index) => {
+    if (courses.length - index <= 3) {
+      latestCourses.push(course);
+    }
+  });
+  console.log(latestCourses);
+  useEffect(() => {
+    getAllCourses();
+  }, []);
   return (
     <div className="home">
       <section className="hero">
@@ -53,24 +67,41 @@ const Home = () => {
           </section>
         </div>
       </section>
-     <section style={{"width":"100%",  "marginTop":"-10px" , 
-     "backgroundColor": "#4B3F72"}} className="courses-section">
-      <div className="courses-grid">
-        {courses.map((course, index) => (
-          <div style={{"width":"350px" , "backgroundColor":"#8E7CC3"}} className="course-card" key={index}>
-            <img  src={course.image} alt={course.title} />
-            <h3>{course.title}</h3>
-            <p>
-              {course.lessons} Lessons • {course.students} Students
-            </p>
-            <div className="bottom">
-              <span className="price">${course.price}</span>
+      <section
+        style={{
+          width: "100%",
+          marginTop: "-10px",
+          backgroundColor: "#4B3F72",
+        }}
+        className="courses-section"
+      >
+        <div className="courses-grid1">
+          {latestCourses.map((course, index) => (
+            <div
+              style={{ width: "350px", backgroundColor: "#8E7CC3" }}
+              className="course-card"
+              key={index}
+            >
+              <img
+                onClick={() => {
+                  dispatch(setCourseId(setCourseId(course.id)));
+                  navigate("/courseDetails");
+                }}
+                src={course.image}
+                alt={course.title}
+              />
+              <h3>{course.title}</h3>
+              <p>
+                {course.lessons} Lessons • {course.students} Students
+              </p>
+              <div className="bottom">
+                <span className="price">${course.price}</span>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
-      <button className="load-more">Load More</button>
-    </section>
+          ))}
+        </div>
+        <button className="load-more">Load More</button>
+      </section>
     </div>
   );
 };

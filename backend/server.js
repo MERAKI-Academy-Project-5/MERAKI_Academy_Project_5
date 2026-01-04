@@ -10,7 +10,6 @@ const rolesRouter = require("./routers/role");
 const usersRouter = require("./routers/users");
 const courseRouter = require("./routers/courrses")
 const lessonsRouter=require("./Routers/lessons")
-
 app.use("/lessons", lessonsRouter)
 app.use("/users", usersRouter);
 app.use("/roles", rolesRouter);

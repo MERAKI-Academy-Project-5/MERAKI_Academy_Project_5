@@ -14,7 +14,6 @@ body {
   height: 250px;
 }
 .courses-section {
-  
   padding: 40px;
   width: 100%;
   background-color: #4B3F72;
@@ -43,6 +42,7 @@ body {
 }
 
 .courses-grid {
+  margin-left: -4px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 20px;

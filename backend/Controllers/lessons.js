@@ -3,10 +3,10 @@ const createlessons = (req, res) => {
     const { title, video, course ,image ,duration, is_completed} = req.body;
     pool
         .query(
-            `INSERT INTO lessons (title , video , course,image ,duration, is_completed)
-       VALUES ($1, $2, $3,$4, $5, $6)
-       RETURNING *`,
-            [title, video, course,image ,duration, is_completed]
+        `INSERT INTO lessons (title , video , course,image ,duration, is_completed)
+        VALUES ($1, $2, $3,$4, $5, $6)
+        RETURNING *`,
+        [title, video, course,image ,duration, is_completed]
         )
         .then((result) => {
             res.status(201).json({

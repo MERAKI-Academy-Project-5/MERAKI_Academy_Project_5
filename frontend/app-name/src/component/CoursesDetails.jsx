@@ -11,8 +11,6 @@ const CourseDetails = () => {
   const [lessons , setLessons] = useState(null)
   const navigate = useNavigate();
   const id = useSelector((state) => state.courseDetails.courseId.payload);
-
-
   const getCourseById = () => {
     axios
       .get(`http://localhost:5000/courses/getCourseById/${id}`, {
@@ -21,7 +19,6 @@ const CourseDetails = () => {
       .then((result) => setCourse(result.data.course))
       .catch((err) => console.log(err));
   };
-
   const getUserById = (instructorId) => {
     if (!instructorId) return;
     axios
@@ -44,13 +41,11 @@ const CourseDetails = () => {
   useEffect(() => {
     getCourseById();
   }, [id]);
-
   useEffect(() => {
     if (course) {
       getUserById(course.instructorid); 
     }
   }, [course]);
-
   useEffect(()=>{
     if(course){
       getLessonsByCourseId(course.id)
@@ -62,9 +57,7 @@ const CourseDetails = () => {
     const end = new Date(course.endcourse);
     diffDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
   }
-
   if (!course) return <p>Loading course...</p>;
-
   return (
     <div className="course-page">
       <div className="coursedetails-card">
@@ -80,7 +73,6 @@ const CourseDetails = () => {
           <button className="start-btn">Start Course</button>
         </div>
       </div>
-
       <div className="course-content">
         <div className="lessons">
           <h3>Course Outline</h3>
@@ -97,7 +89,6 @@ const CourseDetails = () => {
               : <p>No lessons found</p>}
           </div>
         </div>
-
         {user && (
           <div className="instructor">
             <img src={user.image} alt="instructor" />

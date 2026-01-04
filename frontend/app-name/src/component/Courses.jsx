@@ -7,9 +7,7 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setCourses } from "../redux/coursesSlice";
-import { jwtDecode } from "jwt-decode";
 import { setCourseId } from "../redux/courseDetailsSlice";
-
 const Courses = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -33,8 +31,6 @@ const Courses = () => {
   useEffect(() => {
     getAllCourses();
   }, []);
-  console.log(courses);
-
   return (
     <div>
       <section className="courses-section">
@@ -48,7 +44,7 @@ const Courses = () => {
           <button>Management</button>
         </div>
         <div className="courses-grid">
-          {courses.map((course, index) => (
+          { courses.map((course, index) => (
             <div className="course-card" key={index}>
               <img
                 onClick={() => {
@@ -73,5 +69,4 @@ const Courses = () => {
     </div>
   );
 };
-
 export default Courses;
