@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {setCourses} from "../redux/coursesSlice"
 import { useNavigate } from "react-router-dom";
 import ListGroup from 'react-bootstrap/ListGroup';
 import "./Search.css"
@@ -13,11 +14,12 @@ const courses = [
 
 const Search = () => {
   const navigate = useNavigate();
-
+ const dispatch = useDispatch();
+  //const courses = useSelector((state) => state.courses.courses);
   const [searchValue, setSearchValue] = useState("");
   const [searchCourses, setSearchCourses] = useState([]);
 
-  const handleChange = (e) => {
+  const handleSearch = (e) => {
     const value = e.target.value;
     setSearchValue(value);
 
@@ -39,21 +41,17 @@ const Search = () => {
         type="text"
         placeholder="Search courses..."
         value={searchValue}
-        onChange={handleChange}
+        onChange={handleSearch}
       />
-
-      {searchCourses.length > 0 && (
-        <ul className="search-results">
-          {searchCourses.map(course => (
-            <li
-              key={course.id}
-              onClick={() => navigate(`/courseDetails/${course.id}`)}
-            >
-              {course.title}
-            </li>
-          ))}
-        </ul>
-      )}
+ {searchCourses.length > 0 && (
+        <ListGroup className="search-results">
+           {searchCourses.map(course => (
+      <ListGroup.Item  key={course.id}
+              onClick={() => navigate(`/courseDetails/${course.id}`)}>  {course.title}</ListGroup.Item>
+    ))}
+    </ListGroup>
+ )}
+      
     </div>
   );
 };

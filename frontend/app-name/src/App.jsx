@@ -2,12 +2,10 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import "./App.css";
 import { Routes, Route, Link } from "react-router-dom";
-import Home from "./component/home";
+import Home from "./component/Home";
 import About from "./component/About";
-
 import Rigester from "./component/Register";
 import Login from "./component/Login";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import Unauthorized from "./component/Unauthorized";
 import Courses from "./component/Courses";
@@ -17,7 +15,7 @@ import Profile from "./component/Profile";
 import Footer from "./component/Footer ";
 import Page404 from "./component/Page404";
 import Favourite from "./component/Favourite";
-import Search from "./component/Search"
+import Search from "./component/Search";
 import Lesson from "./component/Lesson";
 const App = () => {
   return (
@@ -25,7 +23,7 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path="/about" element={<About />} />
-                <Route path="/lesson" element={<Lesson />} />
+        <Route path="/lesson" element={<Lesson />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/" element={<Home />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
@@ -33,13 +31,11 @@ const App = () => {
         <Route path="/courseDetails" element={<CoursesDetails />} />
         <Route path="/register" element={<Rigester />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/*" element={<Page404/>}/>
-        <Route path="/favourite" element={<Favourite />} />
-
-
-        <Route path="/search" element={<Search/>}/>
+        <Route path="/*" element={<Page404 />} />
+        <Route path="/favourite" element={<Favourite />} />{" "}
+        <Route path="/search" element={<Search />} />
       </Routes>
-      <Footer/>
+      <Footer />
     </div>
   );
 };
