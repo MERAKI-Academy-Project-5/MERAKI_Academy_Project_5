@@ -1,0 +1,95 @@
+
+.update-course-page {
+  min-height: 100vh;
+  padding: 120px 20px 80px; 
+  background: linear-gradient(135deg, #f5f7fa, #e4e8f0);
+}
+
+.update-course-card {
+  max-width: 600px;
+  margin: auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+.update-course-card h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 600;
+  color: #333;
+}
+
+.update-course-card input,
+.update-course-card textarea {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.update-course-card input:focus,
+.update-course-card textarea:focus {
+  border-color: #8e44ad;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(142, 68, 173, 0.2);
+}
+
+.update-course-card button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background: #8e44ad;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.update-course-card button:hover {
+  background: #732d91;
+}
+
+
+@media (max-width: 600px) {
+  .update-course-card {
+    padding: 20px;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.update-course-card {
+  animation: fadeUp 0.7s ease-out;
+}
+.update-course-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.update-course-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.15);
+}
+.update-course-card button {
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.update-course-card button:active {
+  transform: scale(0.97);
+}

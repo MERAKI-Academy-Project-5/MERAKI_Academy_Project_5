@@ -13,7 +13,7 @@ const courseRouter = express.Router();
 //add permissions
 courseRouter.post("/createNewCourse", authentication, createNewCourse);
 courseRouter.get("/getAllcourses", getAllcourses);
-courseRouter.get("/getCourseById/:id", authentication, getCourseById);
+courseRouter.get("/getCourseById/:id", getCourseById);
 courseRouter.delete(
   "/deleteCoursesById/:id",
   authentication,

@@ -17,6 +17,7 @@ import Page404 from "./component/Page404";
 import Favourite from "./component/Favourite";
 import Search from "./component/Search";
 import Lesson from "./component/Lesson";
+import UpdateCourses from "./component/UpdateCourses";
 const App = () => {
   return (
     <div>
@@ -34,6 +35,7 @@ const App = () => {
         <Route path="/*" element={<Page404 />} />
         <Route path="/favourite" element={<Favourite />} />{" "}
         <Route path="/search" element={<Search />} />
+        <Route path="/updatecourses" element={<UpdateCourses />} />
       </Routes>
       <Footer />
     </div>
