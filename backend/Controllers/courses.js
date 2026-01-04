@@ -25,13 +25,16 @@ const createNewCourse = (req, res) => {
 };
 
 const getAllcourses = (req, res) => {
+  console.log("hi");
+  
   pool
     .query(`SELECT * FROM courses `)
     .then((result) => {
+      console.log(result.rows);
       res.status(200).json({
         success: true,
         message: "All courses",
-        "all courses": result.rows,
+        allcourses: result.rows,
       });
     })
     .catch((err) => {
@@ -45,13 +48,15 @@ const getAllcourses = (req, res) => {
 };
 
 const getCourseById = (req, res) => {
+  console.log("hi");
+  
   id = req.params.id;
   pool
-    .query(`SELECT * FROM courses WHERE ${id} =$1`, [id])
+    .query(`SELECT * FROM courses WHERE id =$1`, [id])
     .then((result) => {
       res.status(200).json({
         success: true,
-        course: result.rows,
+        course: result.rows[0],
       });
     })
     .catch((err) => {

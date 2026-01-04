@@ -11,6 +11,7 @@ import React from "react";
       <div className="lesson-left">
         <span className="lesson-dot"></span>
         <div>
+          <video src="" alt="video"></video>
           <h4>{title}</h4>
           <p>{duration}</p>
         </div>

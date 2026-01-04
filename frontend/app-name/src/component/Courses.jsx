@@ -8,9 +8,9 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setCourses } from "../redux/coursesSlice";
 import { jwtDecode } from "jwt-decode";
+import { setCourseId } from "../redux/courseDetailsSlice";
 
 const Courses = () => {
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const getAllCourses = () => {
@@ -21,7 +21,9 @@ const Courses = () => {
         },
       })
       .then((result) => {
-        dispatch(setCourses(result.rows));
+        console.log(result.data.allcourses);
+        
+        dispatch(setCourses(result.data.allcourses));
       })
       .catch((err) => {
         console.log(err);
@@ -30,9 +32,8 @@ const Courses = () => {
   const courses = useSelector((state) => state.courses.courses);
   useEffect(() => {
     getAllCourses();
-  }, [courses]);
+  }, []);
   console.log(courses);
-  console.log(localStorage.getItem(""));
 
   return (
     <div>
@@ -51,6 +52,7 @@ const Courses = () => {
             <div className="course-card" key={index}>
               <img
                 onClick={() => {
+                  dispatch(setCourseId(setCourseId(course.id)))
                   navigate("/courseDetails");
                 }}
                 src={course.image}

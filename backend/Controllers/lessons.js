@@ -50,13 +50,31 @@ const getAlllessons = (req, res) => {
 const getlessonsById = (req, res) => {
     const { id } = req.params
     pool.query(`SELECT * FROM lessons WHERE id=$1`, [id])
-
-
         .then((result) => {
             res.status(200).json({
                 success: true,
                 message: `get lessons By Id: ${id} successfully`,
-                articles: result.rows,
+                lessons: result.rows[0],
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json({
+                success: false,
+                message: "Server error",
+                err: err.message,
+            });
+        });
+}
+
+const getlessonsByCourseId = (req, res) => {
+    const { id } = req.params
+    pool.query(`SELECT * FROM lessons WHERE course=$1 `, [id])
+        .then((result) => {
+            res.status(200).json({
+                success: true,
+                message: `get lessons By Id: ${id} successfully`,
+                lessons: result.rows,
             });
         })
         .catch((err) => {
@@ -135,5 +153,5 @@ const updatelessonsById = (req, res) => {
 
 
 module.exports = {
-    createlessons, getAlllessons, getlessonsById, deletelessonsById, updatelessonsById
+    createlessons, getAlllessons, getlessonsById, deletelessonsById, updatelessonsById,getlessonsByCourseId
 }

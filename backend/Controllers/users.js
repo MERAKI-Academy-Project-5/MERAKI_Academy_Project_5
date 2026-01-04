@@ -27,7 +27,7 @@ const register = async (req, res) => {
 };
 
 
-const login = (req, res) => {
+const login = (req, res) => {  
   const { email, password } = req.body;
   pool
     .query(
@@ -41,9 +41,7 @@ const login = (req, res) => {
           massage: "The email doesn’t exist or the password you’ve entered is incorrect",
         });
       }
-
       const user = result.rows[0];
-
       return bcrypt.compare(password, user.password).then((isPassword) => {
         if (!isPassword) {
           return res.status(403).json({
@@ -122,13 +120,15 @@ const updateUserById = async (req, res) => {
     });
 };
 const getUserById = (req, res) => {
+  console.log("no");
+  
   id = req.params.id;
   pool
-    .query(`SELECT * FROM users WHERE ${id} =$1`, [id])
+    .query(`SELECT * FROM users WHERE id =$1`, [id])
     .then((result) => {
       res.status(200).json({
         success: true,
-        course: result.rows,
+        user: result.rows[0],
       });
     })
     .catch((err) => {

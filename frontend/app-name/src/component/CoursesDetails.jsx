@@ -1,93 +1,113 @@
 import "./CoursesDetails.css";
-import { useDispatch, useSelector } from "react-redux";
 import Lesson from "./Lesson";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 const CourseDetails = () => {
-    const navigate = useNavigate();
-   const lessons = [
-    { id: 1, title: "Introduction to Course", duration: "5 min", status: "completed" },
-    { id: 2, title: "HTML Basics", duration: "15 min", status: "completed" },
-    { id: 3, title: "CSS Fundamentals", duration: "20 min", status: "inprogress" },
-    { id: 4, title: "JavaScript Basics", duration: "25 min", status: "locked" },
-  ];
-  /*const dispatch = useDispatch();
+  const [course, setCourse] = useState(null);
+  const [user, setUser] = useState(null);
+  const [lessons , setLessons] = useState(null)
+  const navigate = useNavigate();
+  const id = useSelector((state) => state.courseDetails.courseId.payload);
+
+
   const getCourseById = () => {
-    const id = localStorage.getItem("token.");
     axios
       .get(`http://localhost:5000/courses/getCourseById/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       })
-      .then((result) => {
-        dispatch(setCourses(result.rows));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then((result) => setCourse(result.data.course))
+      .catch((err) => console.log(err));
   };
-*/
-console.log("LESSONS ARRAY:", lessons);
+
+  const getUserById = (instructorId) => {
+    if (!instructorId) return;
+    axios
+      .get(`http://localhost:5000/users/${instructorId}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+      .then((res) => setUser(res.data.user))
+      .catch((err) => console.log(err));
+  };
+  const getLessonsByCourseId = (courseId) => {
+     if (!courseId) return;
+    axios
+      .get(`http://localhost:5000/lessons/getlessonbyCourseId/${courseId}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+      .then((result) =>{console.log(result.data.lessons);
+       setLessons(result.data.lessons)})
+      .catch((err) => console.log(err));
+  };
+  useEffect(() => {
+    getCourseById();
+  }, [id]);
+
+  useEffect(() => {
+    if (course) {
+      getUserById(course.instructorid); 
+    }
+  }, [course]);
+
+  useEffect(()=>{
+    if(course){
+      getLessonsByCourseId(course.id)
+    }
+  },[course])
+  let diffDays = 0;
+  if (course && course.startcourse && course.endcourse) {
+    const start = new Date(course.startcourse);
+    const end = new Date(course.endcourse);
+    diffDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+  }
+
+  if (!course) return <p>Loading course...</p>;
 
   return (
     <div className="course-page">
       <div className="coursedetails-card">
-        <img
-          src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"
-          alt="course"
-          className="course-image"
-        />
+        <img src={course.image} alt="course" className="course-image" />
         <div className="course-info">
-          <h2>HEADLINE FOR THE COURSE</h2>
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure
-            facere odio, non illo atque quasi accusamus eligendi explicabo esse
-            temporibus tenetur nam dolor, nostrum commodi, rerum ad! Veritatis,
-            eveniet voluptates.wewwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
-          </p>
+          <h2>{course.title}</h2>
+          <p>{course.description}</p>
           <div className="course-meta">
-            <span>⏱ 10h</span>
-            <span>⭐ 4.5</span>
-            <span>👥 120 students</span>
+            <span>⏱ {diffDays} days</span>
+            <span>⭐ {course.rate}</span>
+            <span>$ {course.price}</span>
           </div>
           <button className="start-btn">Start Course</button>
         </div>
       </div>
+
       <div className="course-content">
         <div className="lessons">
           <h3>Course Outline</h3>
- <div className="lesson-list">
-  {lessons.map((lesson) => (
-    <div
-      key={lesson.id}
-      className="lesson-wrapper"
-      onClick={() => navigate("/lesson")}
-    >
-      <Lesson
-        title={lesson?.title || ""}
-        duration={lesson?.duration || ""}
-        status={lesson?.status || ""}
-      />
-    </div>
-  ))}
-</div>
-        </div>
-        <div className="instructor">
-          <img
-            src="https://randomuser.me/api/portraits/men/32.jpg"
-            alt="instructor"
-          />
-          <h4>Ali alzawawi</h4>
-          <p>civil engineer.</p>
-          <div className="social">
-            <span></span>
-            <span></span>
-            <span></span>
+          <div className="lesson-list">
+            {lessons && lessons.length > 0
+              ? lessons.map((lesson , index) => (
+                  <Lesson
+                    key={lesson.id}
+                    title={lesson.title}
+                    duration={lesson.duration}
+                    status={lesson.isCompleted}
+                  />
+                ))
+              : <p>No lessons found</p>}
           </div>
         </div>
+
+        {user && (
+          <div className="instructor">
+            <img src={user.image} alt="instructor" />
+            <h4>{user.firstName} {user.lastName}</h4>
+            <p>Instructor</p>
+          </div>
+        )}
       </div>
     </div>
   );
 };
+
 export default CourseDetails;
