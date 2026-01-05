@@ -148,3 +148,10 @@
 .delete-btn:hover {
   background: #5537e6;
 }
+.admin-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-left: 20px;
+}
+

@@ -7,6 +7,7 @@ import axios from "axios";
 
 const CourseDetails = () => {
   const [role, setrole] = useState("");
+  const [isAdmin, setisAdmin] = useState(false);
   const [course, setCourse] = useState(null);
   const [user, setUser] = useState(null);
   const [lessons, setLessons] = useState(null);
@@ -29,6 +30,7 @@ const CourseDetails = () => {
       .then((res) => {
         setUser(res.data.user);
         setrole(res.data.user.role);
+        setisAdmin(res.data.user.role === 1);
       })
       .catch((err) => console.log(err));
   };
@@ -79,19 +81,21 @@ const CourseDetails = () => {
             <span>$ {course.price}</span>
           </div>
           <button className="start-btn">Start Course</button>
-
-          <button
-            className="update-btn"
-            onClick={() => {
-              navigate("/UpdateCourses");
-            }}
-          >
-            Update Course
-          </button>
-          <button className="delete-btn" onClick={() => {}}>
-            Delete Courses
-          </button>
         </div>
+        {isAdmin ? (
+          <div>
+            <button
+              className="update-btn"
+              onClick={() => navigate("/UpdateCourses")}
+            >
+              Update Course
+            </button>
+
+            <button className="delete-btn" onClick={() => {}}>
+              Delete Course
+            </button>
+          </div>
+        ) : null}
       </div>
       <div className="course-content">
         <div className="lessons">

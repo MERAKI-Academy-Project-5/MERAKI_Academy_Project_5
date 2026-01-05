@@ -18,6 +18,8 @@ import Favourite from "./component/Favourite";
 import Search from "./component/Search";
 import Lesson from "./component/Lesson";
 import UpdateCourses from "./component/UpdateCourses";
+import Dashboard from "./component/Dashboard"
+import Student from "./component/Studant"
 const App = () => {
   return (
     <div>
@@ -36,6 +38,8 @@ const App = () => {
         <Route path="/favourite" element={<Favourite />} />{" "}
         <Route path="/search" element={<Search />} />
         <Route path="/updatecourses" element={<UpdateCourses />} />
+        <Route path="/dashboard" element={<Dashboard/>}/>
+        <Route path="/student" element={<Student/>}/>
       </Routes>
       <Footer />
     </div>

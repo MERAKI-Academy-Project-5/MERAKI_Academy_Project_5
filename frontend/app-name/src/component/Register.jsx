@@ -90,7 +90,7 @@ const Register = () => {
     Upload Image
     <input
       type="file"
-      onChange={(e) => setImage(e.target.files[0])}
+      onChange={(e) => setimage(e.target.files[0])}
       hidden
     />
   </label>

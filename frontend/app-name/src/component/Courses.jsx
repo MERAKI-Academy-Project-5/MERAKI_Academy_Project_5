@@ -11,7 +11,10 @@ import { setCourseId } from "../redux/courseDetailsSlice";
 const Courses = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const getAllCourses = () => {
+  
+  const courses = useSelector((state) => state.courses.courses);
+  useEffect(() => {
+    () => {
     axios
       .get(`http://localhost:5000/courses/getAllcourses`, {
         headers: {
@@ -27,9 +30,6 @@ const Courses = () => {
         console.log(err);
       });
   };
-  const courses = useSelector((state) => state.courses.courses);
-  useEffect(() => {
-    getAllCourses();
   }, []);
   return (
     <div>
