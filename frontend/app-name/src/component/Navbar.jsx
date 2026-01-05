@@ -30,9 +30,7 @@ const Navbar = () => {
     <div className="all">
       <div className="bb">
         <a href="#" className="logo">
-          <img  src="/images/p1.jpeg" style={{
-            "width":"75px"
-          }}></img>
+          <img  src="/images/p1.png" ></img>
         </a>
 
         <ul className="nav-links">
