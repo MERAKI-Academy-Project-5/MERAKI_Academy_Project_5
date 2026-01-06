@@ -8,7 +8,7 @@ const favouriteSlice = createSlice({
   reducers: {
     addToFavourite: (state, action) => {
       const exists = state.items.find(
-        (course) => course.id === action.payload.id
+        (course) => course === action.payload
       );
       if (!exists) {
         state.items.push(action.payload);

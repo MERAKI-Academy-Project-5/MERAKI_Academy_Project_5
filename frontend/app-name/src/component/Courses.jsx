@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCourses } from "../redux/coursesSlice";
 import { setCourseId } from "../redux/courseDetailsSlice";
 import { FcLike } from "react-icons/fc";
+import { addToFavourite} from "../redux/favouriteSlice";
 
 const Courses = () => {
   const navigate = useNavigate();
@@ -62,7 +63,9 @@ const Courses = () => {
                 {course.lessons} Lessons • {course.students} Students
               </p>
               <div className="bottom">
-                <span className="price">${course.price}</span> <button ><FcLike />
+                <span className="price">${course.price}</span> <button onClick={(()=>{
+                  dispatch(addToFavourite(course))
+                })}><FcLike />
                 </button>
               </div>
             </div>

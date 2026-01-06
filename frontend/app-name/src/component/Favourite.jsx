@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromFavourite } from "../redux/favouriteSlice";
+import axios from "axios";
 
 function Favourite() {
   const dispatch = useDispatch();
   const favouriteCourses = useSelector(
     (state) => state.favourite.items
-  );
 
+    
+  );
+console.log(favouriteCourses);
+
+useEffect (()=>{
+
+
+
+},[])
   return (
     <div className="unauth-wrapper">
 
@@ -29,6 +38,7 @@ function Favourite() {
       ) : (
         <div className="unauth-grid">
           {favouriteCourses.map((course) => (
+            
             <div className="unauth-card" key={course.id}>
               <img src={course.image} alt={course.title} />
               <h3>{course.title}</h3>
@@ -49,6 +59,7 @@ function Favourite() {
           ))}
         </div>
       )}
+      
     </div>
   );
 }
