@@ -8,10 +8,13 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setCourses } from "../redux/coursesSlice";
 import { setCourseId } from "../redux/courseDetailsSlice";
+import { FcLike } from "react-icons/fc";
+
+
 const Courses = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+
   const courses = useSelector((state) => state.courses.courses);
   console.log(courses);
   return (
@@ -27,7 +30,7 @@ const Courses = () => {
           <button>Management</button>
         </div>
         <div className="courses-grid">
-          { courses.map((course, index) => (
+          {courses.map((course, index) => (
             <div className="course-card" key={index}>
               <img
                 onClick={() => {
@@ -42,7 +45,8 @@ const Courses = () => {
                 {course.lessons} Lessons • {course.students} Students
               </p>
               <div className="bottom">
-                <span className="price">${course.price}</span> <button >❤️</button>
+                <span className="price">${course.price}</span> <button ><FcLike />
+                </button>
               </div>
             </div>
           ))}
