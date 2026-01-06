@@ -7,6 +7,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { setCourseId } from "../redux/courseDetailsSlice";
 import { useNavigate } from "react-router-dom";
+import { FcLike } from "react-icons/fc";
 
 
 const Home = () => {
@@ -77,11 +78,11 @@ const Home = () => {
         }}
         className="courses-section"
       >
-        <div className="courses-grid1">
+        <div className="courses-grid">
           {latestCourses.map((course, index) => (
             <div
               style={{ width: "350px", backgroundColor: "#8E7CC3" }}
-              className="course-card1"
+              className="course-card"
               key={index}
             >
               <img
@@ -98,6 +99,8 @@ const Home = () => {
               </p>
               <div className="bottom">
                 <span className="price">${course.price}</span>
+                <button ><FcLike />
+                                </button>
               </div>
             </div>
           ))}
