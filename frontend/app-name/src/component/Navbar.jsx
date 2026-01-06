@@ -16,16 +16,13 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-
   const [open, setOpen] = useState(false);
-
   const handleLogout = () => {
     localStorage.clear();
     dispatch(logout());
     navigate("/login");
     setOpen(false);
   };
-
   return (
     <div className="all">
       <div className="bb">

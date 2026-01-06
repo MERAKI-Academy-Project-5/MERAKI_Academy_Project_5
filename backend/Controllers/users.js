@@ -139,14 +139,32 @@ const getUserById = (req, res) => {
     });
 };
 const deleteUserById = (req, res) => {
+  console.log("hi");
   const { id } = req.params;
+   pool
+    .query(`DELETE FROM courses WHERE instructorid = $1 `, [id])
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        message: `Delete courses By Id: ${id} successfully`,
+        courses: result.rows,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
   pool
-    .query(`DELETE FROM users WHERE id = $1 `, [id])
+    .query(`DELETE  FROM users WHERE id = $1 `, [id])
     .then((result) => {
       res.status(200).json({
         success: true,
         message: `Delete users By Id: ${id} successfully`,
-        articles: result.rows,
+        user: result.rows,
       });
     })
     .catch((err) => {

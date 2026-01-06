@@ -30,6 +30,8 @@ const GetStudents = () => {
   }, [users]);
 
   const deleteUserById = (id) => {
+    console.log(id);
+    
   axios
     .delete(`http://localhost:5000/users/deleteUserById/${id}`, {
       headers: {
@@ -46,11 +48,10 @@ const GetStudents = () => {
 };
 
 
-
   return (
     <div className="students-page">
       <div className="students-grid">
-        {students.map((student) => (
+        {students && students.map((student) => (
           <div className="student-card" key={student.id}>
             <img src={student.image} alt={student.name} />
 

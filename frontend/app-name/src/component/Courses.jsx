@@ -14,14 +14,11 @@ import { addToFavourite} from "../redux/favouriteSlice";
 const Courses = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const courses = useSelector((state) => state.courses.courses);
   console.log(courses);
   useEffect(() => {
     courses
   }, [])
-
-
   useEffect(() => {
     axios
       .get("http://localhost:5000/courses/getAllcourses", {
@@ -34,7 +31,6 @@ const Courses = () => {
       })
       .catch((err) => console.log(err));
   }, [dispatch]);
-
   return (
     <div>
       <section className="courses-section">
