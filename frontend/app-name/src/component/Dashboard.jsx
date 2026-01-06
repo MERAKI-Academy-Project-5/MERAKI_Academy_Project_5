@@ -1,15 +1,42 @@
 import { useSelector } from "react-redux";
-import Courses from "./Courses";
 import "./Dashboard.css";
 import { useNavigate } from "react-router-dom";
-import Student from "./Studant";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const AdminDashboard = () => {
-  const courses = useSelector((state) => state.courses.courses);
+  const [users, setUsers] = useState([]);
+  const [students, setStudents] = useState([]);
+    const [teachers, setTeachers] = useState([]);
+   const courses = useSelector((state) => state.courses.courses);
+ console.log(courses);
+ 
+ 
   const navigate = useNavigate();
+    useEffect(() => {
+    axios
+      .get("http://localhost:5000/users/", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((result) => {
+        setUsers(result.data.users);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+   useEffect(() => {
+      const filteredStudents = users.filter((user) => Number(user.role) === 2);
+      setStudents(filteredStudents);
+    }, [users]);
+     useEffect(() => {
+      const filteredTeacher = users.filter((user) => Number(user.role) === 3);
+      setTeachers(filteredTeacher);
+    }, [users]);
   return (
     <div className="dashboard">
-      {/* Sidebar */}
       <aside className="sidebar">
         <h2 className="logo">EduAdmin</h2>
         <ul>
@@ -33,27 +60,24 @@ const AdminDashboard = () => {
         </ul>
       </aside>
 
-      {/* Main Content */}
       <main className="main">
-        {/* Navbar */}
         <div className="topbar">
           <h1>Admin Dashboard</h1>
           <div className="profile">Admin</div>
         </div>
 
-        {/* Stats */}
         <div className="stats">
           <div className="card">
             <h3>Total Students</h3>
-            <p>1,540</p>
+            <p>{students.length}</p>
           </div>
           <div className="card">
             <h3>Total Courses</h3>
-            <p>120</p>
+            <p>{courses.length}</p>
           </div>
           <div className="card">
             <h3>Instructors</h3>
-            <p>35</p>
+            <p>{teachers.length}</p>
           </div>
           <div className="card">
             <h3>Revenue</h3>
@@ -61,7 +85,6 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        {/* Table */}
         <div className="table-container">
           <h2>Latest Courses</h2>
           <table>

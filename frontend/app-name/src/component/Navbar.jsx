@@ -62,12 +62,13 @@ const Navbar = () => {
                 <Button variant="danger" onClick={handleLogout}>
                   Logout  <GrLogout />
 
-                </Button>     <a href="/Dashboard">Admin Dashboard</a>
+                </Button>     <button onClick={() => navigate("/dashboard")}>Admin Dashboard</button>
+                
               </div>
             </div>
 
 
-            </Button>     
+            
           ) : (
             <>
               <Button className="btn-btn" onClick={() => navigate("/login")}>Login <TbLogin /></Button>

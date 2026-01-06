@@ -13,26 +13,7 @@ const Courses = () => {
   const dispatch = useDispatch();
   
   const courses = useSelector((state) => state.courses.courses);
-  useEffect(() => {
-    () => {
-    axios
-      .get(`http://localhost:5000/courses/getAllcourses`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((result) => {
-        console.log(result.data.allcourses);
-        
-        dispatch(setCourses(result.data.allcourses));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  }, [courses]);
-
-  
+  console.log(courses);
   return (
     <div>
       <section className="courses-section">
@@ -50,7 +31,7 @@ const Courses = () => {
             <div className="course-card" key={index}>
               <img
                 onClick={() => {
-                  dispatch(setCourseId(setCourseId(course.id)))
+                  dispatch((setCourseId(course.id)))
                   navigate("/courseDetails");
                 }}
                 src={course.image}

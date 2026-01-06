@@ -22,7 +22,7 @@ const GetStudents = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [students]);
 
   useEffect(() => {
     const filteredStudents = users.filter((user) => Number(user.role) === 2);

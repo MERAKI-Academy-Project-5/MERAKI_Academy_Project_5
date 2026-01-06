@@ -12,7 +12,7 @@ const CourseDetails = () => {
   const [user, setUser] = useState(null);
   const [lessons, setLessons] = useState(null);
   const navigate = useNavigate();
-  const id = useSelector((state) => state.courseDetails.courseId.payload);
+  const id = useSelector((state) => state.courseDetails.courseId);
   const getCourseById = () => {
     axios
       .get(`http://localhost:5000/courses/getCourseById/${id}`, {
