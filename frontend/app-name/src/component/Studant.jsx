@@ -1,63 +1,72 @@
+import { useEffect, useState } from "react";
 import "./Student.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-const students = [
-  {
-    id: 1,
-    name: "Ahmed Ali",
-    email: "ahmed@gmail.com",
-    course: "React Basics",
-    status: "Active",
-  },
-  {
-    id: 2,
-    name: "Sara Mohammad",
-    email: "sara@gmail.com",
-    course: "UI/UX Design",
-    status: "Blocked",
-  },
-  {
-    id: 3,
-    name: "Omar Khaled",
-    email: "omar@gmail.com",
-    course: "Node.js",
-    status: "Active",
-  },
-];
+const GetStudents = () => {
+  const navigate = useNavigate();
 
-const Students = () => {
+  const [users, setUsers] = useState([]);
+  const [students, setStudents] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/users/", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((result) => {
+        setUsers(result.data.users);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  useEffect(() => {
+    const filteredStudents = users.filter((user) => Number(user.role) === 2);
+    setStudents(filteredStudents);
+  }, [users]);
+
+  const deleteUserById = (id) => {
+  axios
+    .delete(`http://localhost:5000/users/deleteUserById/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    .then((result) => {
+      setStudents((prev) =>
+        prev.filter((student) => student._id !== id))
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+
+
   return (
     <div className="students-page">
-      {/* Header */}
-      <div className="students-header">
-        <h1>Students</h1>
-        <input type="text" placeholder="Search student..." />
-      </div>
-
-      {/* Students Grid */}
       <div className="students-grid">
         {students.map((student) => (
           <div className="student-card" key={student.id}>
-            <div className="avatar">
-              {student.name.charAt(0)}
-            </div>
+            <img src={student.image} alt={student.name} />
 
             <h3>{student.name}</h3>
-            <p className="email">{student.email}</p>
-            <p className="course">{student.course}</p>
-
-            <span
-              className={
-                student.status === "Active"
-                  ? "status active"
-                  : "status blocked"
-              }
-            >
-              {student.status}
-            </span>
+            <p>
+              {student.firstname} {student.lastname}
+            </p>
 
             <div className="actions">
-              <button className="view">View</button>
-              <button className="block">Delete</button>
+              <button
+                className="view"
+                onClick={() => navigate(`/profile/${student.id}`)}
+              >
+                View
+              </button>
+              <button className="block" onClick={() => deleteUserById(student.id)}>Delete</button>
             </div>
           </div>
         ))}
@@ -66,4 +75,4 @@ const Students = () => {
   );
 };
 
-export default Students;
+export default GetStudents;

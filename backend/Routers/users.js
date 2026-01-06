@@ -23,9 +23,8 @@ usersRouter.put(
   updateUserById
 );
 usersRouter.delete(
-  "/:id",
+  "/deleteUserById/:id",
   authentication,
-  authorization("DELETE_USERS"),
   deleteUserById
 );
 

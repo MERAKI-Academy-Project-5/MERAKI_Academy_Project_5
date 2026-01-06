@@ -10,10 +10,10 @@ const Register = () => {
   const navigate = useNavigate();
   const [firstName, setfirstName] = useState("");
   const [lastName, setlastName] = useState("");
-  const [age, setage] = useState("");
+  const [age, setAge] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [image, setimage] = useState("");
+  const [image, setImage] = useState("");
   const [message, setMessage] = useState("");
 
   const handleRegister = () => {
@@ -47,19 +47,18 @@ const Register = () => {
 
             <form>
               <div className="form-row">
-  <input
-    type="text"
-    placeholder="First name"
-    onChange={(e) => setfirstName(e.target.value)}
-  />
+                <input
+                  type="text"
+                  placeholder="First name"
+                  onChange={(e) => setfirstName(e.target.value)}
+                />
 
-  <input
-    type="text"
-    placeholder="Last name"
-    onChange={(e) => setlastName(e.target.value)}
-  />
-</div>
-             
+                <input
+                  type="text"
+                  placeholder="Last name"
+                  onChange={(e) => setlastName(e.target.value)}
+                />
+              </div>
 
               <label>Email</label>
               <input
@@ -79,22 +78,21 @@ const Register = () => {
                 }}
               />
 
-             <div className="form-row">
-  <input
-    type="number"
-    placeholder="Age"
-    onChange={(e) => setAge(e.target.value)}
-  />
+              <div className="form-row">
+                <input
+                  type="number"
+                  placeholder="Age"
+                  onChange={(e) => setAge(e.target.value)}
+                />
 
-  <label className="image-upload">
-    Upload Image
-    <input
-      type="file"
-      onChange={(e) => setimage(e.target.files[0])}
-      hidden
-    />
-  </label>
-</div>
+                <label >
+                  <input
+                    type="text"
+                    placeholder="Image URL or Base64"
+                    onChange={(e) => setImage(e.target.value)}
+                  />
+                </label>
+              </div>
             </form>
             <button type="submit" onClick={handleRegister}>
               Register

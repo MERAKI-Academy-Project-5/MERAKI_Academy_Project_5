@@ -37,7 +37,7 @@ const Profile = () => {
   useEffect(() => {
     getUserById(id);
   }, [id]);
-  console.log(user);
+  
   let role = "";
   if (user.role === 1) {
     role = "admin";

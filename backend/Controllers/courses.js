@@ -30,7 +30,6 @@ const getAllcourses = (req, res) => {
   pool
     .query(`SELECT * FROM courses `)
     .then((result) => {
-      console.log(result.rows);
       res.status(200).json({
         success: true,
         message: "All courses",
@@ -60,7 +59,7 @@ const getCourseById = (req, res) => {
       });
     })
     .catch((err) => {
-      console.log(err);
+      
       res.status(500).json({
         success: false,
         message: "Server error",
@@ -72,7 +71,7 @@ const deleteCoursesById = (req, res) => {
   const { id } = req.params;
 
   pool
-    .query(`DELETE FROM corses WHERE id `)
+    .query(`DELETE FROM courses WHERE id=${id} `)
     .then((result) => {
       res.status(200).json({
         success: true,

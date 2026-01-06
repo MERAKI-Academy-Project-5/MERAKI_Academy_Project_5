@@ -66,6 +66,22 @@ const CourseDetails = () => {
     diffDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
   }
   console.log(role);
+const deleteCoursesById = () => {
+  axios
+    .delete(`http://localhost:5000/courses/deleteCoursesById/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    .then(() => {
+     
+      navigate("/Courses"); 
+    })
+    .catch((err) => {
+      console.log(err);
+     
+    });
+};
 
   if (!course) return <p>Loading course...</p>;
   return (
@@ -91,7 +107,7 @@ const CourseDetails = () => {
               Update Course
             </button>
 
-            <button className="delete-btn" onClick={() => {}}>
+            <button className="delete-btn" onClick={() => {deleteCoursesById()}}>
               Delete Course
             </button>
           </div>

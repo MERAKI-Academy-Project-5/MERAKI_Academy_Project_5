@@ -26,19 +26,16 @@ const register = async (req, res) => {
     });
 };
 
-
-const login = (req, res) => {  
+const login = (req, res) => {
   const { email, password } = req.body;
   pool
-    .query(
-      "SELECT * FROM users WHERE email = $1",
-      [email]
-    )
+    .query("SELECT * FROM users WHERE email = $1", [email])
     .then((result) => {
       if (result.rows.length === 0) {
         return res.status(403).json({
           success: false,
-          massage: "The email doesn’t exist or the password you’ve entered is incorrect",
+          massage:
+            "The email doesn’t exist or the password you’ve entered is incorrect",
         });
       }
       const user = result.rows[0];
@@ -46,7 +43,6 @@ const login = (req, res) => {
         if (!isPassword) {
           return res.status(403).json({
             success: false,
-
           });
         }
         const payload = {
@@ -79,21 +75,21 @@ const getAllUsers = (req, res) => {
   pool
     .query(`SELECT * FROM users`)
     .then((result) => {
-      if (result.length) {
+      if (result.rows.length) {
         res.status(200).json({
           success: true,
           message: `All the users`,
           adminId: userId,
-          articles: articles,
+          users: result.rows,
         });
       } else {
-        res.status(200).json({
+        res.status(404).json({
           success: false,
           message: `No Users Yet`,
         });
       }
     })
-    .catch((err) => { });
+    .catch((err) => {});
 };
 const updateUserById = async (req, res) => {
   const { userId } = req.parms;
@@ -121,13 +117,13 @@ const updateUserById = async (req, res) => {
 };
 const getUserById = (req, res) => {
   console.log("no");
-  
+
   id = req.params.id;
   pool
     .query(`SELECT * FROM users WHERE id =$1`, [id])
     .then((result) => {
       console.log(result);
-      
+
       res.status(200).json({
         success: true,
         user: result.rows[0],
@@ -143,8 +139,9 @@ const getUserById = (req, res) => {
     });
 };
 const deleteUserById = (req, res) => {
-  const { id } = req.params
-  pool.query(`DELETE FROM users WHERE id = $1 `, [id])
+  const { id } = req.params;
+  pool
+    .query(`DELETE FROM users WHERE id = $1 `, [id])
     .then((result) => {
       res.status(200).json({
         success: true,
@@ -160,7 +157,7 @@ const deleteUserById = (req, res) => {
         err: err.message,
       });
     });
-}
+};
 
 module.exports = {
   register,
@@ -168,5 +165,5 @@ module.exports = {
   getAllUsers,
   updateUserById,
   deleteUserById,
-  getUserById
+  getUserById,
 };

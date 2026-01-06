@@ -30,7 +30,9 @@ const Courses = () => {
         console.log(err);
       });
   };
-  }, []);
+  }, [courses]);
+
+  
   return (
     <div>
       <section className="courses-section">

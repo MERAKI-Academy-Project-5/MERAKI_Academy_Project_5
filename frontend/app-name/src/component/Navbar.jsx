@@ -59,6 +59,8 @@ const Navbar = () => {
               Logout  <GrLogout />
 
             </Button>
+
+            
           ) : (
             <>
               <Button className="btn-btn" onClick={() => navigate("/login")}>Login <TbLogin /></Button>
