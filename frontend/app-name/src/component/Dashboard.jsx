@@ -1,17 +1,16 @@
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector } from "react-redux";
 import "./Dashboard.css";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { setCourses } from "../redux/coursesSlice";
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
   const [students, setStudents] = useState([]);
     const [teachers, setTeachers] = useState([]);
    const courses = useSelector((state) => state.courses.courses);
- console.log(courses);
- 
- 
+const dispatch = useDispatch();
   const navigate = useNavigate();
     useEffect(() => {
     axios
@@ -35,6 +34,19 @@ const AdminDashboard = () => {
       const filteredTeacher = users.filter((user) => Number(user.role) === 3);
       setTeachers(filteredTeacher);
     }, [users]);
+     useEffect(() => {
+    axios
+      .get("http://localhost:5000/courses/getAllcourses", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((result) => {
+        dispatch(setCourses(result.data.allcourses));
+      })
+      .catch((err) => console.log(err));
+  }, [dispatch]);
+
   return (
     <div className="dashboard">
       <aside className="sidebar">
@@ -96,26 +108,16 @@ const AdminDashboard = () => {
                 <th>Status</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>React Basics</td>
-                <td>John Doe</td>
-                <td>320</td>
-                <td className="active-status">Active</td>
-              </tr>
-              <tr>
-                <td>Node.js</td>
-                <td>Sarah Lee</td>
-                <td>210</td>
-                <td className="pending-status">Pending</td>
-              </tr>
-              <tr>
-                <td>UI/UX Design</td>
-                <td>Ali Ahmad</td>
-                <td>180</td>
-                <td className="active-status">Active</td>
-              </tr>
-            </tbody>
+          <tbody>
+  {courses && courses.map((course) => (
+    <tr key={course.id}>
+      <td>{course.title}</td>
+      <td>{course.instructor || "—"}</td>
+      <td>{course.students || 0}</td>
+      <td className="active-status">Active</td>
+    </tr>
+  ))}
+</tbody>
           </table>
         </div>
       </main>
