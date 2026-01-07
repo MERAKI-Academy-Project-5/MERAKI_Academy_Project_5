@@ -22,6 +22,7 @@ const Login = () => {
     axios
       .post("http://localhost:5000/users/login", body)
       .then((res) => {
+        console.log("LOGIN RESPONSE:", res.data);
         dispatch(
           login({
             token: res.data.token,

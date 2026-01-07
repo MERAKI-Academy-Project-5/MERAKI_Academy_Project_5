@@ -34,7 +34,7 @@ const getAlllessons = (req, res) => {
             res.status(200).json({
                 success: true,
                 message: "All lessons",
-                articles: result.rows,
+                lessons: result.rows,
             });
         })
         .catch((err) => {

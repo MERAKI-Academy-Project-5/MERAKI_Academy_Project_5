@@ -57,7 +57,10 @@ const login = (req, res) => {
           massage: "Valid login credentials",
           token: token,
           userId: user.id,
+          role:user.role
+          
         });
+        
       });
     })
     .catch((err) => {

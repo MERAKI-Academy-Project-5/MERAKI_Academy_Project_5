@@ -5,11 +5,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
-import {
-  selectRole,
-  selectIsAdmin,
-  selectIsTeacher,
-} from "../redux/selectors";
+import { selectRole, selectIsAdmin, selectIsTeacher } from "../redux/selectors";
 
 const CourseDetails = () => {
   const navigate = useNavigate();
@@ -152,18 +148,7 @@ const CourseDetails = () => {
           <h3>Course Outline</h3>
 
           <div className="lesson-list">
-            {lessons.length > 0 ? (
-              lessons.map((lesson) => (
-                <Lesson
-                  key={lesson.id}
-                  title={lesson.title}
-                  duration={lesson.duration}
-                  status={lesson.isCompleted}
-                />
-              ))
-            ) : (
-              <p>No lessons found</p>
-            )}
+            <Lesson />
           </div>
         </div>
 

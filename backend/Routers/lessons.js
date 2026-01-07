@@ -7,7 +7,7 @@ const lessonsRouter = express.Router();
 
 lessonsRouter.post("/",authentication,createlessons )
 
-lessonsRouter.get("/",authentication,getAlllessons)
+lessonsRouter.get("/getAlllessons",authentication,getAlllessons)
 
 lessonsRouter.get("/getlessonbyId/:id",authentication,getlessonsById)
 lessonsRouter.get("/getlessonbyCourseId/:id",authentication,getlessonsByCourseId)
