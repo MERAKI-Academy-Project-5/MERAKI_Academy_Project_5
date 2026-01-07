@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { setCourses } from "../redux/coursesSlice";
+import { logout } from "../redux/auth";
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
@@ -72,8 +73,28 @@ const dispatch = useDispatch();
             Students
           </li>
           <li>Instructors</li>
-          <li>Settings</li>
         </ul>
+        <div>
+          <button>Settings</button>
+          <div>
+            <button>content</button>
+
+
+            <button onClick={(()=>{
+              navigate("/about")
+            })}>About us</button>
+
+
+            <button on onClick={(()=>{
+              localStorage.clear();
+                 dispatch(logout());
+                 navigate("/login");                   
+
+
+            })}>Logout</button>
+
+          </div>
+        </div>
       </aside>
 
       <main className="main">
