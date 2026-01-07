@@ -37,7 +37,7 @@ const ChatPage = () => {
   useEffect(() => {
     if (!user_id || !token) return;
 
-    const newSocket = socketInit({ userid: user_id, token });
+    const newSocket = socketInit({ user_id, token });
     setSocket(newSocket);
 
     return () => newSocket.disconnect();

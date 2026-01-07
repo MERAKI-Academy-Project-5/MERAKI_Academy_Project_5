@@ -14,9 +14,9 @@ const Message = ({ socket, user_id, toUser }) => {
       setAllMessages((prev) => [...prev, msg]);
     };
 
-    socket.on("receive_message", handler);
+    socket.on("message", handler);
 
-    return () => socket.off("receive_message", handler);
+    return () => socket.off("message", handler);
   }, [socket]);
 
   // ================== Send message ==================
@@ -24,12 +24,12 @@ const Message = ({ socket, user_id, toUser }) => {
     if (!message || !toUser) return;
 
     const msgData = {
-      toUserId: toUser,
-      fromUserId: user_id,
+      to: toUser,
+      from: user_id,
       message,
     };
-
-    socket.emit("private_message", msgData);
+console.log(msgData)
+    socket.emit("message", msgData);
 
     // Add immediately to sender view
     setAllMessages((prev) => [

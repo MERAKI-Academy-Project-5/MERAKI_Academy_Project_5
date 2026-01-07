@@ -1,8 +1,8 @@
 import { io } from "socket.io-client";
 
-const socketInit = ({ userid, token }) => {
+const socketInit = ({ user_id, token }) => {
   const socket = io("http://localhost:5000", {
-    auth: { userid, token },
+    auth: { user_id, token },
   });
 
   socket.on("connect", () => console.log("✅ Socket connected:", socket.id));

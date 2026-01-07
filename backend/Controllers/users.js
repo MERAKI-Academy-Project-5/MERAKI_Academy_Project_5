@@ -142,7 +142,6 @@ const getUserById = (req, res) => {
     });
 };
 const deleteUserById = (req, res) => {
-  console.log("hi");
   const { id } = req.params;
    pool
     .query(`DELETE FROM courses WHERE instructorid = $1 `, [id])
@@ -180,6 +179,45 @@ const deleteUserById = (req, res) => {
     });
 };
 
+const getInstructorIdByCourseTitle = (res , req)=>{
+  const { title } = req.params;
+  let id ;
+  pool
+    .query(`SELECT * FROM courses WHERE title =$1`, [title])
+    .then((result) => {
+      id = result.rows[0].instructorid
+      console.log(result);
+      res.status(200).json({
+        success: true,
+        course: result.rows[0],
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+     pool
+    .query(`SELECT * FROM users WHERE id =$1`, [id])
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        user: result.rows[0],
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+}
+
 module.exports = {
   register,
   login,
@@ -187,4 +225,5 @@ module.exports = {
   updateUserById,
   deleteUserById,
   getUserById,
+  getInstructorIdByCourseTitle
 };

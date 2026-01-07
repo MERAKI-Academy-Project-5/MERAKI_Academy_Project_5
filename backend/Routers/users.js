@@ -6,10 +6,11 @@ const usersRouter = express.Router();
 
 const authentication = require("../middleware/authentication");
 const authorization = require("../middleware/authorization");
-const { register, login, getAllUsers, updateUserById, deleteUserById, getUserById } = require("../controllers/users");
+const { register, login, getAllUsers, updateUserById, deleteUserById, getUserById, getInstructorIdByCourseTitle } = require("../controllers/users");
 
 usersRouter.get("/", authentication,getAllUsers );
 usersRouter.get("/:id", authentication,getUserById );
+usersRouter.get("/:title", authentication,getInstructorIdByCourseTitle );
 
 usersRouter.post("/register",
 register

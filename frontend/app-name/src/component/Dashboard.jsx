@@ -9,7 +9,11 @@ const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
   const [students, setStudents] = useState([]);
     const [teachers, setTeachers] = useState([]);
+    const [Instructors, setInstrucotrs] = useState([]);
    const courses = useSelector((state) => state.courses.courses);
+   courses.map((course , index)=>{
+      
+   })
 const dispatch = useDispatch();
   const navigate = useNavigate();
     useEffect(() => {

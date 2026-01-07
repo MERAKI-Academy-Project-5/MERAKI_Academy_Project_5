@@ -1,12 +1,17 @@
 const auth = (socket, next) => {
-  const { token, userid } = socket.handshake.auth;
+  const token = socket.handshake.auth.token || socket.handshake.headers.token;
+  const user_id = socket.handshake.auth.user_id || socket.handshake.headers.user_id;
 
-  if (!token || !userid) {
+  console.log(socket.handshake.headers || socket.handshake.auth);
+  console.log(socket.handshake);
+  if (!token || !user_id) {
+    console.log(user_id, token);
+
     return next(new Error("Unauthorized"));
   }
 
   socket.user = {
-    user_id: String(userid),
+    user_id: String(user_id),
     token,
   };
 
