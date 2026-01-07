@@ -1,13 +1,20 @@
-// controllers/messageHandler.js
 const messageHandler = (socket, io) => {
-  socket.on("message", (data) => {
-    console.log("📩 message:", data);
+  socket.on("private_message", (data) => {
+    // data = { toUserId, fromUserId, message }
 
-    // إرسال للمستقبِل
-    io.to("room-" + data.to).emit("message", data);
+    const { toUserId, fromUserId, message } = data;
 
-    // إرسال للمرسِل (عرض فوري)
-    io.to("room-" + data.from).emit("message", data);
+    const msgData = {
+      fromUserId,
+      message,
+      timestamp: new Date(),
+    };
+
+    // Send to recipient
+    io.to("room-" + toUserId).emit("receive_message", msgData);
+
+    // Send to sender for immediate display
+    io.to("room-" + fromUserId).emit("receive_message", msgData);
   });
 };
 

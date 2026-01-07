@@ -1,4 +1,3 @@
-// middleware/auth.js
 const auth = (socket, next) => {
   const { token, userid } = socket.handshake.auth;
 
@@ -11,7 +10,7 @@ const auth = (socket, next) => {
     token,
   };
 
-  // 👈 إدخال المستخدم لغرفته الخاصة
+  // Join the user to a private room
   socket.join("room-" + socket.user.user_id);
 
   next();

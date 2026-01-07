@@ -9,7 +9,6 @@ require("dotenv").config();
 
 const auth = require("./middleware/auth");
 const messageHandler = require("./controllers/messageHandler");
-const socketMdware = require("./middleware/socketMdware");
 
 app.use(express.json());
 app.use(cors());
@@ -35,17 +34,20 @@ const io = socket(server, {
   cors: { origin: "*" },
 });
 
+// Auth middleware
 io.use(auth);
 
 io.on("connection", (socket) => {
   console.log("✅ connected:", socket.user.user_id);
 
+  // Use the new message handler
   messageHandler(socket, io);
 
   socket.on("disconnect", () => {
     console.log("❌ disconnected:", socket.user.user_id);
   });
 });
+
 
 
 // ================= START SERVER =================
