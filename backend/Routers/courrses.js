@@ -5,6 +5,8 @@ const {
   getCourseById,
   deleteCoursesById,
   updateCourseById,
+  getCoursesByInstructorId,
+  getCoursesBystudentId,
 } = require("../Controllers/courses");
 const authentication = require("../middleware/authentication");
 const authorization = require("../middleware/authorization");
@@ -14,6 +16,10 @@ const courseRouter = express.Router();
 courseRouter.post("/createNewCourse", authentication, createNewCourse);
 courseRouter.get("/getAllcourses", getAllcourses);
 courseRouter.get("/getCourseById/:id", getCourseById);
+courseRouter.get("/getCoursesByInstructorId/:id",   getCoursesByInstructorId);
+courseRouter.get("/getCoursesByStudentId/student/:id",   getCoursesBystudentId);
+
+
 courseRouter.delete(
   "/deleteCoursesById/:id",
   authentication,

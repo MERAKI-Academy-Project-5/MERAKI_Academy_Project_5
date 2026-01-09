@@ -8,9 +8,12 @@ import { useEffect } from "react";
 import { setCourseId } from "../redux/courseDetailsSlice";
 import { useNavigate } from "react-router-dom";
 import { FcLike } from "react-icons/fc";
-
+import { jwtDecode } from "jwt-decode";
 
 const Home = () => {
+   const decodedToken = jwtDecode(localStorage.getItem("token"));
+      localStorage.setItem("userId", decodedToken.userId);
+    ;
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const getAllCourses = () => {
@@ -45,7 +48,7 @@ const Home = () => {
       <section className="hero">
         <div className="hero-text">
           <h1>Smarter tools for modern eductaion</h1>
-          <button>Explore Feature</button>
+         
         </div>
         <div className="below_hero">
           <section className="cards">
@@ -78,11 +81,11 @@ const Home = () => {
         }}
         className="courses-section"
       >
-        <div className="courses-grid">
+        <div className="courses-gridHome">
           {latestCourses.map((course, index) => (
             <div
               style={{ width: "350px", backgroundColor: "#8E7CC3" }}
-              className="course-card"
+              className="course-cardHome"
               key={index}
             >
               <img
@@ -105,7 +108,7 @@ const Home = () => {
             </div>
           ))}
         </div>
-        <button className="load-more">Load More</button>
+        <button onClick={()=>{navigate("/courses")}} className="load-more">Explore our Courses</button>
       </section>
     </div>
   );

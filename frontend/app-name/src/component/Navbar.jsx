@@ -16,6 +16,7 @@ import GradientText from "./GradientText/GradientText";
 import "./GradientText/GradientText.css";
 
 const Navbar = () => {
+   const id = localStorage.getItem("userId")
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -56,7 +57,7 @@ const Navbar = () => {
 
           {isLoggedIn && (
             <>
-              <li onClick={() => navigate("/profile")}>
+              <li onClick={() => navigate(`/profile/${id}`)}>
                 Profile <CgProfile />
               </li>
 

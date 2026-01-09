@@ -8,6 +8,7 @@ import { setCourses } from "../redux/coursesSlice";
 import { setCourseId } from "../redux/courseDetailsSlice";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { addToFavourite, removeFromFavourite } from "../redux/favouriteSlice";
+import MagicBento from "./MagicBento/MagicBento";
 
 const Courses = () => {
   const navigate = useNavigate();
@@ -66,43 +67,63 @@ const Courses = () => {
           <button>Management</button>
         </div>
 
-        <div className="courses-grid">
-          {courses.map((course) => {
-            const isFavourite = favouriteCourses.some((c) => c.id === course.id);
-            return (
-              <div className="course-card" key={course.id}>
-                <img
-                  src={course.image}
-                  alt={course.title}
-                  onClick={() => {
-                    dispatch(setCourseId(course.id));
-                    navigate("/courseDetails");
-                  }}
-                />
+       <MagicBento
+  enableStars={true}
+  enableSpotlight={true}
+  enableBorderGlow={true}
+  enableTilt={true}
+  enableMagnetism={true}
+  spotlightRadius={300}
+  particleCount={12}
+  glowColor="132, 0, 255"
+  clickEffect={true}
+>
+  {courses.map((course) => {
+    const isFavourite = favouriteCourses.some(
+      (c) => c.id === course.id
+    );
 
-                <h3>{course.title}</h3>
+    return (
+      <div
+        className="course-card magic-bento-card"
+        key={course.id}
+        style={{
+          backgroundColor: "#060010",
+          "--glow-color": "132, 0, 255",
+        }}
+      >
+        <img
+          src={course.image}
+          alt={course.title}
+          onClick={() => {
+            dispatch(setCourseId(course.id));
+            navigate("/courseDetails");
+          }}
+        />
 
-                <p>
-                  {course.lessons} Lessons • {course.students} Students
-                </p>
+        <h3>{course.title}</h3>
 
-                <div className="bottom">
-                  <span className="price">${course.price}</span>
+        <p>
+          {course.lessons} Lessons • {course.students} Students
+        </p>
 
-                  <button onClick={() => handleToggleFavourite(course)}>
-  {isFavourite ? (
-   <AiFillHeart style={{ color: "red", fontSize: "24px" }} />
-  ) : (
-       <AiOutlineHeart style={{ color: "black", fontSize: "24px" }} />
-  )}
-</button>
-                </div>
-              </div>
-            );
-          })}
+        <div className="bottom">
+          <span className="price">${course.price}</span>
+
+          <button onClick={() => handleToggleFavourite(course)}>
+            {isFavourite ? (
+              <AiFillHeart style={{ color: "red", fontSize: "24px" }} />
+            ) : (
+              <AiOutlineHeart style={{ fontSize: "24px" }} />
+            )}
+          </button>
         </div>
+      </div>
+    );
+  })}
+</MagicBento>
 
-        <button className="load-more">Load More</button>
+        
       </section>
     </div>
   );

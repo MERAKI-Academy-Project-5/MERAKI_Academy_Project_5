@@ -119,7 +119,6 @@ const updateUserById = async (req, res) => {
     });
 };
 const getUserById = (req, res) => {
-  console.log("no");
 
   id = req.params.id;
   pool

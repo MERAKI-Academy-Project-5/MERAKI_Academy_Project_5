@@ -23,6 +23,7 @@ import Student from "./component/Studant";
 import ChatPage from "./Chatpage";
 import Content from "./component/Content";
 import IsCompleted from "./component/IsCompleted";
+import InstructorCourses from "./component/InstructorCourses";
 
 const App = () => {
   return (
@@ -31,7 +32,8 @@ const App = () => {
       <Routes>
         <Route path="/about" element={<About />} />
         <Route path="/lesson" element={<Lesson />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/:id" element={<Profile />} />
+        <Route path="/InstructorCourses/:id/:role1" element={<InstructorCourses />} />
         <Route path="/" element={<Home />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="/courses" element={<Courses />} />
@@ -41,6 +43,8 @@ const App = () => {
         <Route path="/*" element={<Page404 />} />
         <Route path="/content" element={<Content/>} />
         <Route path="/completed" element={<IsCompleted/>} />
+
+        <Route path="/content" element={<Content />} />
         <Route path="/favourite" element={<Favourite />} />{" "}
         <Route path="/search" element={<Search />} />
         <Route path="/updatecourses" element={<UpdateCourses />} />

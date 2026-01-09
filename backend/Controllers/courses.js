@@ -47,8 +47,6 @@ const getAllcourses = (req, res) => {
 };
 
 const getCourseById = (req, res) => {
-  console.log("hi");
-  
   id = req.params.id;
   pool
     .query(`SELECT * FROM courses WHERE id =$1`, [id])
@@ -111,12 +109,52 @@ const updateCourseById = (req, res) => {
       });
     });
 };
-
-
+const getCoursesByInstructorId = (req, res) => {
+  id = req.params.id;
+  pool
+    .query(`SELECT * FROM courses WHERE instructorid =$1`, [id])
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        courses: result.rows,
+      });
+    })
+    .catch((err) => {
+      
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+};
+const getCoursesBystudentId = (req, res) => {
+  console.log("hi");
+  
+  id = req.params.id;
+  pool
+    .query(`SELECT * FROM students_courses WHERE student =$1`, [id])
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        courses: result.rows,
+      });
+    })
+    .catch((err) => {
+      
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+};
 module.exports = {
   createNewCourse,
   getAllcourses,
   getCourseById,
   deleteCoursesById,
-  updateCourseById
+  updateCourseById,
+  getCoursesByInstructorId,
+  getCoursesBystudentId
 };
