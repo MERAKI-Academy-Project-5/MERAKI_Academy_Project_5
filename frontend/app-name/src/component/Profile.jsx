@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCourses } from "../redux/coursesSlice";
 import { jwtDecode } from "jwt-decode";
 const Profile = () => {
+  const courses = useSelector((state)=>{state.courseDetails.courses})
   const decodedToken = jwtDecode(localStorage.getItem("token"));
   localStorage.setItem("userId", decodedToken.userId);
   const id = localStorage.getItem("userId");
@@ -30,6 +31,7 @@ const Profile = () => {
   return (
     <div className="profile-card">
       <div className="profile-image">
+     
         <img src="https://via.placeholder.com/300x380" alt="Student" />
       </div>
 
