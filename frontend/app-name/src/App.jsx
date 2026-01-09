@@ -22,6 +22,7 @@ import Dashboard from "./component/Dashboard";
 import Student from "./component/Studant";
 import ChatPage from "./Chatpage";
 import Content from "./component/Content";
+import IsCompleted from "./component/IsCompleted";
 import InstructorCourses from "./component/InstructorCourses";
 
 const App = () => {
@@ -40,6 +41,9 @@ const App = () => {
         <Route path="/register" element={<Rigester />} />
         <Route path="/login" element={<Login />} />
         <Route path="/*" element={<Page404 />} />
+        <Route path="/content" element={<Content/>} />
+        <Route path="/completed" element={<IsCompleted/>} />
+
         <Route path="/content" element={<Content />} />
         <Route path="/favourite" element={<Favourite />} />{" "}
         <Route path="/search" element={<Search />} />
