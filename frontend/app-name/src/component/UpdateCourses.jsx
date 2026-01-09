@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 const UpdateCourses = () => {
 
- const id = useSelector((state) => state.courseDetails.courseId.payload);
+   const id = useSelector((state) => state.courseDetails.courseId);
  
  
   const navigate = useNavigate();

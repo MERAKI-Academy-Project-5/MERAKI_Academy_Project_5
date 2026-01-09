@@ -11,6 +11,9 @@ import { FaBook, FaRegIdCard } from "react-icons/fa";
 import { IoIosHome } from "react-icons/io";
 import { GrLogout } from "react-icons/gr";
 import { TbLogin } from "react-icons/tb";
+import GradientText from "./GradientText/GradientText";
+
+import "./GradientText/GradientText.css";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -29,6 +32,14 @@ const Navbar = () => {
         <a href="/" className="logo">
           <img src="/images/p1.png" alt="logo" />
         </a>
+        <GradientText
+          colors={["#40ffaa", "#4079ff", "#40ffaa", "#4079ff", "#40ffaa"]}
+          animationSpeed={3}
+          showBorder={false}
+          className="custom-class"
+        >
+         Teaching squad
+        </GradientText>
 
         <ul className="nav-links">
           <li onClick={() => navigate("/")}>
