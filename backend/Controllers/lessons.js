@@ -212,7 +212,7 @@ const getCertificate = (req, res) => {
  
       const data = await pool.query(
         `SELECT * FROM courses WHERE id=$1`,
-        [courseId]
+        [coursesid])
 
       const course = await pool.query(
         `SELECT title FROM courses WHERE id = $1`,
@@ -258,17 +258,7 @@ const addLessonsToCourse = (req, res) => {
     });
 };
 
-module.exports = {
-  createlessons,
-  getAlllessons,
-  getlessonsById,
-  deletelessonsById,
-  updatelessonsById,
-  getlessonsByCourseId,
-  isCourseCompleted,
-  getCertificate,
-  addLessonsToCourse,
-};
+
 
 const getNumberOflessons = (req,res)=>{
     pool.query(`SELECT
@@ -297,7 +287,14 @@ ORDER BY c.id;
 }
 
 module.exports = {
-    createlessons, getAlllessons, getlessonsById, deletelessonsById, 
-    updatelessonsById,getlessonsByCourseId,isCourseCompleted,getCertificate,
-    getNumberOflessons
-}
+  createlessons,
+  getAlllessons,
+  getlessonsById,
+  deletelessonsById,
+  updatelessonsById,
+  getlessonsByCourseId,
+  isCourseCompleted,
+  getCertificate,
+  addLessonsToCourse,
+  getNumberOflessons
+};
