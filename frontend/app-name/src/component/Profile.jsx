@@ -15,7 +15,6 @@ const Profile = () => {
   const getRoleName = (role) => {
     if (role === 1){
       role1 ="Admin"
-        console.log(role1); 
       return "Admin"
 
     }

@@ -209,6 +209,11 @@ const getCertificate = (req, res) => {
         });
       }
 
+ 
+      const data = await pool.query(
+        `SELECT * FROM courses WHERE id=$1`,
+        [courseId]
+
       const course = await pool.query(
         `SELECT title FROM courses WHERE id = $1`,
         [coursesid]

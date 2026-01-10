@@ -231,10 +231,11 @@ const CourseDetails = () => {
             <Lesson />
           </div>
 
+          {allCompleted && (
           {allCompleted && isStudent && (
             <button
               className="completed-btn"
-              onClick={() => navigate("/completed")}
+              onClick={() => navigate(`/completed/${courseId}`)}
             >
               Go to Completed Page
             </button>
