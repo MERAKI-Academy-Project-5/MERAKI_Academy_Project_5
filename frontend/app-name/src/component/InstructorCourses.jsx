@@ -8,60 +8,77 @@ import { setCourses } from "../redux/coursesSlice";
 import { setCourseId } from "../redux/courseDetailsSlice";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { addToFavourite, removeFromFavourite } from "../redux/favouriteSlice";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
-const InstructorCourses = () => {     
-    const { id } = useParams();
-    const { role1 } = useParams();    
+const InstructorCourses = () => {
+  const { id } = useParams();
+  const { role1 } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const favouriteCourses = useSelector((state) => state.favourite.items);
-    const [instructorCourses , setInstructorCourses] = useState([]);
-    const [students , setStudents] = useState([])
-  
-    const getAllStudents =()=>{
-       axios
+  const [instructorCourses, setInstructorCourses] = useState([]);
+  const [students, setStudents] = useState([]);
+  const [numLessons, setNumLessons] = useState([]);
+  const getNumLessons = () => {
+    axios
+      .get(`http://localhost:5000/lessons/getLessonsforallcourses`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((result) => {
+        console.log(result);
+        setNumLessons(result.data.lessons);
+      })
+      .catch((err) => console.log(err));
+  };
+  const getAllStudents = () => {
+    axios
       .get(`http://localhost:5000/courses/getStudents`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then((result) => {
-        setStudents(result.data.students)
+        setStudents(result.data.students);
       })
       .catch((err) => console.log(err));
-    }
+  };
 
   useEffect(() => {
-    if(role1==="Admin"){
-         axios
-      .get(`http://localhost:5000/courses/getCoursesByInstructorId/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((result) => {
-        setInstructorCourses(result.data.courses)
-      })
-      .catch((err) => console.log(err));
-    }else if (role1==="Student"){
+    if (role1 === "Admin") {
       axios
-      .get(`http://localhost:5000/courses/getCoursesByStudentId/student/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((result) => {
-        setInstructorCourses(result.data.courses)
-      })
-      .catch((err) => console.log(err));
+        .get(`http://localhost:5000/courses/getCoursesByInstructorId/${id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then((result) => {
+          setInstructorCourses(result.data.courses);
+        })
+        .catch((err) => console.log(err));
+    } else if (role1 === "Student") {
+      axios
+        .get(
+          `http://localhost:5000/courses/getCoursesByStudentId/student/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        )
+        .then((result) => {
+          setInstructorCourses(result.data.courses);
+        })
+        .catch((err) => console.log(err));
     }
-   
   }, []);
-
-  useEffect(()=>{
-     getAllStudents()
-  },[])
+  useEffect(() => {
+    getNumLessons();
+  }, []);
+  useEffect(() => {
+    getAllStudents();
+  }, []);
   const handleToggleFavourite = (course) => {
     const exists = favouriteCourses.find((c) => c.id === course.id);
 
@@ -77,12 +94,17 @@ const InstructorCourses = () => {
         .post(
           "http://localhost:5000/favourite",
           { courseId: course.id },
-          { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
         )
         .then(() => dispatch(addToFavourite(course)))
         .catch((err) => console.log(err));
     }
   };
+
   return (
     <div>
       <Navbar />
@@ -100,10 +122,15 @@ const InstructorCourses = () => {
 
         <div className="courses-grid">
           {instructorCourses.map((course) => {
-            const numStudents = students.find(s => s.title === course.title) 
-            console.log(numStudents);
-            
-            const isFavourite = favouriteCourses.some((c) => c.id === course.id);
+            const numStudents =
+              students.find((s) => s.title === course.title)?.totalstudents ||
+              0;
+            const numLessons1 =
+              numLessons.find((l) => l.title === course.title)?.totallessons ||
+              0;
+            const isFavourite = favouriteCourses.some(
+              (c) => c.id === course.id
+            );
             return (
               <div className="course-card" key={course.id}>
                 <img
@@ -117,20 +144,20 @@ const InstructorCourses = () => {
 
                 <h3>{course.title}</h3>
 
-                <p>
-                  Lessons • {numStudents.totalstudents} Students
-                </p>
+                <p>{numLessons1}Lessons • {numStudents} Students</p>
 
                 <div className="bottom">
                   <span className="price">${course.price}</span>
 
                   <button onClick={() => handleToggleFavourite(course)}>
-  {isFavourite ? (
-   <AiFillHeart style={{ color: "red", fontSize: "24px" }} />
-  ) : (
-       <AiOutlineHeart style={{ color: "black", fontSize: "24px" }} />
-  )}
-</button>
+                    {isFavourite ? (
+                      <AiFillHeart style={{ color: "red", fontSize: "24px" }} />
+                    ) : (
+                      <AiOutlineHeart
+                        style={{ color: "black", fontSize: "24px" }}
+                      />
+                    )}
+                  </button>
                 </div>
               </div>
             );

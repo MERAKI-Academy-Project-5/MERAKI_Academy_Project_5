@@ -247,7 +247,30 @@ GROUP BY c.id; `
       });
     });
 };
-
+const getAllcoursesInstructors = (req,res)=>{
+  pool.query(`SELECT
+    c.id AS course_id,
+    c.title AS title,
+    u.id AS instructor_id,
+    u.firstName AS firstname,
+    u.lastName AS lastname,
+    u.role AS role
+FROM courses c
+LEFT JOIN users u ON c.instructorId = u.id
+WHERE u.is_deleted = 0;`).then((result) => {
+      res.status(200).json({
+        success: true,
+        instructors: result.rows,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      }); 
+    });
+}
 module.exports = {
   createNewCourse,
   getAllcourses,
@@ -258,5 +281,6 @@ module.exports = {
   getCoursesBystudentId,
   addCourseToStudent,
   getStudents,
+  getAllcoursesInstructors
  
 };

@@ -4,18 +4,50 @@ import Navbar from "./navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { setCourses } from "../redux/coursesSlice";
 import axios from "axios";
-import { useEffect } from "react";
+import  { useEffect, useState } from "react";
 import { setCourseId } from "../redux/courseDetailsSlice";
 import { useNavigate } from "react-router-dom";
 import { FcLike } from "react-icons/fc";
 import { jwtDecode } from "jwt-decode";
 
 const Home = () => {
-   const decodedToken = jwtDecode(localStorage.getItem("token"));
-      localStorage.setItem("userId", decodedToken.userId);
-    ;
+  const decodedToken = jwtDecode(localStorage.getItem("token"));
+  localStorage.setItem("userId", decodedToken.userId);
+  const [students, setStudents] = useState([]);
+  const [numLessons, setNumLessons] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const getNumLessons = () => {
+    axios
+      .get(`http://localhost:5000/lessons/getLessonsforallcourses`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((result) => {
+        console.log(result);
+        setNumLessons(result.data.lessons);
+      })
+      .catch((err) => console.log(err));
+  };
+  const getAllStudents = () => {
+    axios
+      .get(`http://localhost:5000/courses/getStudents`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((result) => {
+        setStudents(result.data.students);
+      })
+      .catch((err) => console.log(err));
+  };
+  useEffect(() => {
+    getNumLessons();
+  }, []);
+  useEffect(() => {
+    getAllStudents();
+  }, []);
   const getAllCourses = () => {
     axios
       .get(`http://localhost:5000/courses/getAllcourses`, {
@@ -45,7 +77,6 @@ const Home = () => {
       <section className="hero">
         <div className="hero-text">
           <h1>Smarter tools for modern eductaion</h1>
-         
         </div>
         <div className="below_hero">
           <section className="cards">
@@ -73,39 +104,55 @@ const Home = () => {
           width: "100%",
           marginTop: "-10px",
           backgroundColor: "#4B3F72",
-          
-          
         }}
         className="courses-section"
       >
         <div className="courses-gridHome">
-          {latestCourses.map((course, index) => (
-            <div
-              style={{ width: "350px", backgroundColor: "#8E7CC3" }}
-              className="course-cardHome"
-              key={index}
-            >
-              <img
-                onClick={() => {
-                  dispatch(setCourseId(setCourseId(course.id)));
-                  navigate("/courseDetails");
-                }}
-                src={course.image}
-                alt={course.title}
-              />
-              <h3>{course.title}</h3>
-              <p>
-                {course.lessons} Lessons • {course.students} Students
-              </p>
-              <div className="bottom">
-                <span className="price">${course.price}</span>
-                <button ><FcLike />
-                                </button>
+          {latestCourses.map((course, index) => {
+            const numStudents =
+              students.find((s) => s.title === course.title)?.totalstudents ||
+              0;
+
+            const numLessons1 =
+              numLessons.find((l) => l.title === course.title)?.totalLessons ||
+              0;
+
+            return (
+              <div
+                style={{ width: "350px", backgroundColor: "#8E7CC3" }}
+                className="course-cardHome"
+                key={index}
+              >
+                <img
+                  onClick={() => {
+                    dispatch(setCourseId(course.id));
+                    navigate("/courseDetails");
+                  }}
+                  src={course.image}
+                  alt={course.title}
+                />
+                <h3>{course.title}</h3>
+                <p>
+                  {numLessons1} Lessons • {numStudents} Students
+                </p>
+                <div className="bottom">
+                  <span className="price">${course.price}</span>
+                  <button>
+                    <FcLike />
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
-        <button onClick={()=>{navigate("/courses")}} className="load-more">Explore our Courses</button>
+        <button
+          onClick={() => {
+            navigate("/courses");
+          }}
+          className="load-more"
+        >
+          Explore our Courses
+        </button>
       </section>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Courses.css";
 import Navbar from "./navbar";
 import axios from "axios";
@@ -15,7 +15,39 @@ const Courses = () => {
   const dispatch = useDispatch();
   const courses = useSelector((state) => state.courses.courses);
   const favouriteCourses = useSelector((state) => state.favourite.items);
+    const [students , setStudents] = useState([])
+    const [numLessons , setNumLessons] = useState([])
 
+    const getNumLessons = ()=>{
+      axios.get(`http://localhost:5000/lessons/getLessonsforallcourses`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((result) => {
+        console.log(result);
+        setNumLessons(result.data.lessons)
+      })
+      .catch((err) => console.log(err));
+    }
+    const getAllStudents =()=>{
+       axios
+      .get(`http://localhost:5000/courses/getStudents`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((result) => {
+        setStudents(result.data.students)
+      })
+      .catch((err) => console.log(err));
+    }
+      useEffect(()=>{
+         getNumLessons()
+      },[])
+     useEffect(()=>{
+         getAllStudents()
+      },[])
   useEffect(() => {
     axios
       .get("http://localhost:5000/courses/getAllcourses", {
@@ -31,7 +63,8 @@ const Courses = () => {
 
   const handleToggleFavourite = (course) => {
     const exists = favouriteCourses.find((c) => c.id === course.id);
-
+    
+    
     if (exists) {
       axios
         .delete(`http://localhost:5000/favourite/${course.id}`, {
@@ -50,7 +83,7 @@ const Courses = () => {
         .catch((err) => console.log(err));
     }
   };
-
+  
   return (
     <div>
       <Navbar />
@@ -79,6 +112,10 @@ const Courses = () => {
   clickEffect={true}
 >
   {courses.map((course) => {
+   const numStudents =
+  students.find((s) => s.title === course.title)?.totalstudents || 0;
+const numLessons1 =
+  numLessons.find((l) => l.title === course.title)?.firstname || 0;
     const isFavourite = favouriteCourses.some(
       (c) => c.id === course.id
     );
@@ -104,7 +141,7 @@ const Courses = () => {
         <h3>{course.title}</h3>
 
         <p>
-          {course.lessons} Lessons • {course.students} Students
+          {numLessons1} Lessons • {numStudents} Students
         </p>
 
         <div className="bottom">

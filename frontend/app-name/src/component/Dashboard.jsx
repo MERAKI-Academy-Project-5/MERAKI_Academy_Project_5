@@ -15,8 +15,41 @@ const AdminDashboard = () => {
   const courses = useSelector((state) => state.courses.courses);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [numStudents, setNumStudents] = useState([]);
+  const [instructors , setInstructors] = useState([])
+  const getAllcoursesInstructors = ()=>{
+     axios
+      .get(`http://localhost:5000/courses/allInstructors`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((result) => {
+        console.log(result);
+        
+        setInstructors(result.data.instructors);
+      })
+      .catch((err) => console.log(err));
+  }
+  const getAllStudents = () => {
+    axios
+      .get(`http://localhost:5000/courses/getStudents`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((result) => {
+        setNumStudents(result.data.students);
+      })
+      .catch((err) => console.log(err));
+  };
   // Fetch users
+   useEffect(() => {
+    getAllcoursesInstructors();
+  }, []);
+  useEffect(() => {
+    getAllStudents();
+  }, []);
   useEffect(() => {
     axios
       .get("http://localhost:5000/users/", {
@@ -40,6 +73,7 @@ const AdminDashboard = () => {
       .then((res) => dispatch(setCourses(res.data.allcourses)))
       .catch((err) => console.log(err));
   }, [dispatch]);
+console.log(instructors);
 
   return (
     <div className="dashboard">
@@ -47,16 +81,15 @@ const AdminDashboard = () => {
         <h2 className="logo">EduAdmin</h2>
 
         <ul>
-          <li className="active" onClick={() => navigate("/dashboard")}>Dashboard</li>
+          <li className="active" onClick={() => navigate("/dashboard")}>
+            Dashboard
+          </li>
           <li onClick={() => navigate("/courses")}>Courses</li>
           <li onClick={() => navigate("/student")}>Students</li>
           <li>Instructors</li>
 
           {/* Dropdown */}
-          <li
-            className="dropdown"
-            onClick={() => setOpenMenu(!openMenu)}
-          >
+          <li className="dropdown" onClick={() => setOpenMenu(!openMenu)}>
             Settings
             {openMenu && (
               <ul className="dropdown-menu">
@@ -113,18 +146,25 @@ const AdminDashboard = () => {
                 <th>Course</th>
                 <th>Instructor</th>
                 <th>Students</th>
-                <th>Status</th>
               </tr>
             </thead>
             <tbody>
-              {courses.map((course) => (
-                <tr key={course.id}>
-                  <td>{course.title}</td>
-                  <td>{course.instructor || "—"}</td>
-                  <td>{course.students || 0}</td>
-                  <td className="active-status">Active</td>
-                </tr>
-              ))}
+              {courses.map((course) => {
+                const numStudents1 =
+                  numStudents.find((s) => s.title === course.title)
+                    ?.totalstudents || 0;
+                    const instrucotrFirstName =
+  instructors.find((l) => l.title === course.title)?.firstname || "";
+                const instrucotrLastName =
+  instructors.find((l) => l.title === course.title)?.lastname || "";
+                return (
+                  <tr key={course.id}>
+                    <td>{course.title}</td>
+                    <td>{instrucotrFirstName} {instrucotrLastName} </td>
+                    <td>{numStudents1}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

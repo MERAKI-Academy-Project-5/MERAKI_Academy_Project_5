@@ -119,7 +119,6 @@ const updateUserById = async (req, res) => {
     });
 };
 const getUserById = (req, res) => {
-
   id = req.params.id;
   pool
     .query(`SELECT * FROM users WHERE id =$1`, [id])

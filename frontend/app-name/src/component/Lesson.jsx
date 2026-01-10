@@ -41,7 +41,6 @@ const Lesson = () => {
         key={lesson.id || index}
         className="lesson-card magic-bento-card magic-bento-card--border-glow"
       >
-        {/* Image */}
         <div className="lesson-image">
           <img
             src={lesson.image}
@@ -49,7 +48,7 @@ const Lesson = () => {
           />
         </div>
 
-        {/* Content */}
+        
         <div className="lesson-content">
           <h3>{lesson.title}</h3>
 
