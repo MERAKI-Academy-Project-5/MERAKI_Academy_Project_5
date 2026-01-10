@@ -3,85 +3,77 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #eee;
 }
 
-/* هذا اللي بعمل scale حسب الشاشة */
 .certificate-scale {
-  width: 90vw;
-  max-width: 1000px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
-/* Canvas ثابت */
 .certificate-canvas {
   position: relative;
-  width: 1000px;
-  height: 600px;
-  transform-origin: top left;
+  width: 90%;
+  max-width: 1000px; 
 }
 
-/* الصورة */
 .certificate-canvas img {
   width: 100%;
-  height: 100%;
+  height: auto;
   display: block;
 }
 
-/* ==== النصوص (ثابتة بالـ px) ==== */
 
 .cert-title {
   position: absolute;
-  top: 70px;
+  top: 41%;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 40px;
+  font-size: clamp(2px, 3vw, 40px);
   font-weight: bold;
-  color: #0b3c5d;
+  color: #1f3b57;
 }
 
 .cert-subtitle {
   position: absolute;
-  top: 130px;
+  top: 60%;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 18px;
-  color: #555;
+  font-size: clamp(14px, 2vw, 20px);
+  color: #444;
 }
 
 .cert-name {
   position: absolute;
-  top: 220px;
+  top: 32%;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 34px;
+  font-size: clamp(22px, 3vw, 34px);
   font-weight: bold;
-  color: #c28b2d;
+  color: #000;
 }
 
 .cert-desc {
   position: absolute;
-  top: 290px;
+  top: 50%;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 18px;
-  color: #333;
+  font-size: clamp(16px, 2.3vw, 24px);
 }
 
 .cert-course {
   position: absolute;
-  top: 330px;
+  top: 50%;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 26px;
-  font-weight: bold;
-  color: #0b3c5d;
+  font-size: clamp(18px, 2.6vw, 28px);
+  font-weight: 600;
 }
 
 .cert-grade {
   position: absolute;
-  bottom: 80px;
-  right: 140px;
-  font-size: 20px;
+  bottom: 15%;
+  right: 10%;
+  font-size: clamp(14px, 2vw, 20px);
   font-weight: bold;
-  color: #000;
 }

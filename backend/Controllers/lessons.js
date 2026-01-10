@@ -152,6 +152,73 @@ const updatelessonsById = (req, res) => {
 }
 
 
+const isCourseCompleted = (req, res) => {
+  const { courseId } = req.params;
+
+  pool
+    .query(
+      `SELECT COUNT(*) AS remaining
+       FROM lessons
+       WHERE course=$1 AND is_completed=false`,
+      [courseId]
+    )
+    .then(result => {
+      const allCompleted = Number(result.rows[0].remaining) === 0;
+
+      res.status(200).json({
+        success: true,
+        allCompleted, 
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+};
+
+const getCertificate = (req, res) => {
+  const { courseId } = req.params;
+
+  pool
+    .query(
+      `SELECT COUNT(*) AS remaining
+       FROM lessons
+       WHERE course=$1 AND is_completed=false`,
+      [courseId]
+    )
+    .then(async result => {
+      if (Number(result.rows[0].remaining) !== 0) {
+        return res.status(403).json({
+          success: false,
+          message: "Course is not fully completed yet",
+        });
+      }
+
+      const data = await pool.query(
+        `SELECT title AS courseName FROM courses WHERE id=$1`,
+        [courseId]
+      );
+
+      res.status(200).json({
+        success: true,
+        certificate: data.rows[0], 
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+};
+
+
 module.exports = {
-    createlessons, getAlllessons, getlessonsById, deletelessonsById, updatelessonsById,getlessonsByCourseId
+    createlessons, getAlllessons, getlessonsById, deletelessonsById, updatelessonsById,getlessonsByCourseId,isCourseCompleted,getCertificate
 }
