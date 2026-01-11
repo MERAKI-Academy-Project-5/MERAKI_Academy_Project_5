@@ -11,8 +11,8 @@ import { FcLike } from "react-icons/fc";
 import { jwtDecode } from "jwt-decode";
 
 const Home = () => {
-  const decodedToken = jwtDecode(localStorage.getItem("token"));
-  localStorage.setItem("userId", decodedToken.userId);
+  const decodedToken = localStorage.getItem("token") || ""
+  localStorage.setItem("userId",jwtDecode( decodedToken).userId);
   const [students, setStudents] = useState([]);
   const [numLessons, setNumLessons] = useState([]);
   const navigate = useNavigate();

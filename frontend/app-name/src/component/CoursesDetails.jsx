@@ -26,7 +26,9 @@ const CourseDetails = () => {
   const [course, setCourse] = useState(null);
   const [user, setUser] = useState(null);
   const [lessons, setLessons] = useState([]);
-  const [allCompleted, setAllCompleted] = useState(false); // حالة اكتمال كل الدروس
+  const [allCompleted, setAllCompleted] = useState(false); 
+
+
   console.log(userid);
   
   const getCourseById = async () => {
