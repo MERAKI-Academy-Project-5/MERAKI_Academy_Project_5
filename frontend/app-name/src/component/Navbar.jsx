@@ -129,7 +129,7 @@ const Navbar = () => {
             <>
               <Button className="btn-btn" onClick={() => navigate("/login")}>
                 Login <TbLogin />
-              </Button>
+              </Button>{"   "}
 
               <Button
                 className="btn-btn1"

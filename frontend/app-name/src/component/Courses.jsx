@@ -154,6 +154,7 @@ const numLessons1 =
               <AiOutlineHeart style={{ fontSize: "24px" }} />
             )}
           </button>
+          
         </div>
       </div>
     );
