@@ -190,41 +190,27 @@ const isCourseCompleted = (req, res) => {
 
 
 const getCertificate = (req, res) => {
-  const { coursesid } = req.params;
+  const { coursesid, } = req.params;
 
   pool
     .query(
-      `SELECT COUNT(*) AS remaining
-       FROM lessons_users
-       WHERE coursesid = $1 AND completed = false`,
+      `SELECT * FROM lessons_users WHERE courseid = $1 AND userid = $2`,
       [coursesid]
     )
     .then(async (result) => {
-      const remaining = Number(result.rows[0].remaining);
+      const lessonsArray = result.rows;
+      const isCompleted = true;
+      lessonsArray.forEach((lesson,index)=>{
+        if(lesson.completed===false){
+          res.status(200).json("no finish")
+          isCompleted=false;
+        } 
+        }
+      )
+      if(isCompleted===true){
+      res.status(200).json("completed")
 
-      if (remaining > 0) {
-        return res.status(403).json({
-          success: false,
-          message: "Course is not fully completed yet",
-        });
       }
-
- 
-      const data = await pool.query(
-        `SELECT * FROM courses WHERE id=$1`,
-        [coursesid])
-
-      const course = await pool.query(
-        `SELECT title FROM courses WHERE id = $1`,
-        [coursesid]
-      );
-
-      res.status(200).json({
-        success: true,
-        certificate: {
-          courseTitle: course.rows[0].title,
-        },
-      });
     })
     .catch((err) => {
       res.status(500).json({

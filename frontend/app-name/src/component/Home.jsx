@@ -43,11 +43,13 @@ const Home = () => {
       .catch((err) => console.log(err));
   };
   useEffect(() => {
-    getNumLessons();
-  }, []);
-  useEffect(() => {
-    getAllStudents();
-  }, []);
+  const token = localStorage.getItem("token");
+  if (token) {
+    const decoded = jwtDecode(token);
+    localStorage.setItem("userId", decoded.userId);
+  }
+}, []);
+
   const getAllCourses = () => {
     axios
       .get(`http://localhost:5000/courses/getAllcourses`, {
@@ -70,7 +72,9 @@ const Home = () => {
     }
   });
   useEffect(() => {
-    getAllCourses();
+    getNumLessons();
+    getAllStudents();
+     getAllCourses();
   }, []);
   return (
     <div className="home">

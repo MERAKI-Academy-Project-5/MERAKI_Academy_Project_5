@@ -46,9 +46,9 @@ const InstructorCourses = () => {
   };
 
   useEffect(() => {
-    if (role1 === "Admin") {
+    if (role1 === "Teacher") {
       axios
-        .get(`http://localhost:5000/courses/getCoursesByInstructorId/${id}`, {
+        .get(`http://localhost:5000/courses/getCoursesByInstructorId/instructor/${id}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },

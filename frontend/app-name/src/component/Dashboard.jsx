@@ -11,7 +11,7 @@ const AdminDashboard = () => {
   const [students, setStudents] = useState([]);
   const [teachers, setTeachers] = useState([]);
   const [openMenu, setOpenMenu] = useState(false);
-
+  let totalrevenue = 0 ;
   const courses = useSelector((state) => state.courses.courses);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -26,7 +26,6 @@ const AdminDashboard = () => {
       })
       .then((result) => {
         console.log(result);
-        
         setInstructors(result.data.instructors);
       })
       .catch((err) => console.log(err));
@@ -46,8 +45,6 @@ const AdminDashboard = () => {
   // Fetch users
    useEffect(() => {
     getAllcoursesInstructors();
-  }, []);
-  useEffect(() => {
     getAllStudents();
   }, []);
   useEffect(() => {
@@ -86,7 +83,7 @@ console.log(instructors);
           </li>
           <li onClick={() => navigate("/courses")}>Courses</li>
           <li onClick={() => navigate("/student")}>Students</li>
-          <li>Instructors</li>
+          <li onClick={() => navigate("/Instructors")}>Instructors</li>
 
           {/* Dropdown */}
           <li className="dropdown" onClick={() => setOpenMenu(!openMenu)}>
@@ -118,23 +115,18 @@ console.log(instructors);
 
         <div className="stats">
           <div className="card">
-            <h3>Total Students</h3>
-            <p>{students.length}</p>
+            <h3 style={{"alignSelf":"center"}}>Total Students</h3>
+            <p style={{"alignSelf":"center"}}>{students.length}</p>
           </div>
 
           <div className="card">
-            <h3>Total Courses</h3>
-            <p>{courses.length}</p>
+            <h3 style={{"alignSelf":"center"}}>Total Courses</h3>
+            <p style={{"alignSelf":"center"}}>{courses.length}</p>
           </div>
 
           <div className="card">
-            <h3>Instructors</h3>
-            <p>{teachers.length}</p>
-          </div>
-
-          <div className="card">
-            <h3>Revenue</h3>
-            <p>$12,400</p>
+            <h3 style={{"alignSelf":"center"}}>Instructors</h3>
+            <p style={{"alignSelf":"center"}}>{teachers.length}</p>
           </div>
         </div>
 
@@ -146,10 +138,11 @@ console.log(instructors);
                 <th>Course</th>
                 <th>Instructor</th>
                 <th>Students</th>
+                <th>Revenue</th>
               </tr>
             </thead>
             <tbody>
-              {courses.map((course) => {
+              {courses.map((course , index) => {
                 const numStudents1 =
                   numStudents.find((s) => s.title === course.title)
                     ?.totalstudents || 0;
@@ -157,15 +150,22 @@ console.log(instructors);
   instructors.find((l) => l.title === course.title)?.firstname || "";
                 const instrucotrLastName =
   instructors.find((l) => l.title === course.title)?.lastname || "";
+   const  revenue =  course.price * numStudents1;;
+   totalrevenue = totalrevenue + revenue
                 return (
                   <tr key={course.id}>
                     <td>{course.title}</td>
                     <td>{instrucotrFirstName} {instrucotrLastName} </td>
-                    <td>{numStudents1}</td>
+                    <td >{numStudents1}</td>
+                    <td>{revenue} $</td>
                   </tr>
                 );
               })}
             </tbody>
+             <div className="totalRevenue">
+            <h3>Total Revenue</h3>
+            <h3>{totalrevenue} $</h3>
+          </div>
           </table>
         </div>
       </main>

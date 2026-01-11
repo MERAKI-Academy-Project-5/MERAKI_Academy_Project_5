@@ -4,7 +4,7 @@ export const auth = createSlice({
   name: "auth",
   initialState: {
     token: localStorage.getItem("token") || null,
-    userid: localStorage.getItem("userid") || null,
+    userid: localStorage.getItem("userId") || null,
     role: localStorage.getItem("role")
       ? Number(localStorage.getItem("role"))
       : null,

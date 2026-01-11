@@ -231,7 +231,7 @@ const getStudents = (req, res) => {
   COUNT(sc.student) AS totalstudents
 FROM courses c
 LEFT JOIN students_courses sc ON c.id = sc.course
-GROUP BY c.id; `
+GROUP BY c.id;`
     )
     .then((result) => {
       res.status(200).json({
@@ -271,6 +271,75 @@ WHERE u.is_deleted = 0;`).then((result) => {
       }); 
     });
 }
+const getStudentsByInstructorId = (req, res) => {
+    const instructorId = req.params.instructorId;
+
+  console.log("hi");
+  pool
+    .query(
+    `SELECT
+  COUNT(u.id) OVER () AS totalstudents,
+  u.id,
+  u.firstname,
+  u.lastname,
+  u.email,
+  u.image
+FROM "students_courses" sc
+JOIN "users" u ON sc.student = u.id
+JOIN "courses" c ON sc.course = c.id
+WHERE c.instructorid = $1; 
+`, [instructorId]
+    )
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        students: result.rows,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+};
+const getDitinctStudentsByInstructorId = (req, res) => {
+    const instructorId = req.params.instructorId;
+
+  console.log("hi");
+  pool
+    .query(
+    `SELECT DISTINCT
+  u.id,
+  u.firstname,
+  u.lastname,
+  u.email,
+  u.image
+FROM "students_courses" sc
+JOIN "users" u ON sc.student = u.id
+JOIN "courses" c ON sc.course = c.id
+WHERE c.instructorid = $1; 
+`, [instructorId]
+    )
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        students: result.rows,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+};
 module.exports = {
   createNewCourse,
   getAllcourses,
@@ -281,6 +350,8 @@ module.exports = {
   getCoursesBystudentId,
   addCourseToStudent,
   getStudents,
-  getAllcoursesInstructors
+  getAllcoursesInstructors,
+  getStudentsByInstructorId,
+  getDitinctStudentsByInstructorId
  
 };

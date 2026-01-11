@@ -6,8 +6,7 @@ import { useSelector } from "react-redux";
 
 const UpdateCourses = () => {
 
-   const id = useSelector((state) => state.courseDetails.courseId);
- 
+   const id = localStorage.getItem("userId") || null;;
  
   const navigate = useNavigate();
 

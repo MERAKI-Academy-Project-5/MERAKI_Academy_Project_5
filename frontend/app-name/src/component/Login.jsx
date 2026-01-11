@@ -26,7 +26,7 @@ const Login = () => {
           login({
             token: res.data.token,
             role: res.data.role,
-            userId: res.data.userId,
+            userid: res.data.userId,
           })
         );
         navigate("/");

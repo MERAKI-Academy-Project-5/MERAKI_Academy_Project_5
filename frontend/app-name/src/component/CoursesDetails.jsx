@@ -16,7 +16,7 @@ import {
 
 const CourseDetails = () => {
   const navigate = useNavigate();
-  const userid = useSelector((state) => state.auth.userid);
+  const userid = localStorage.getItem("userId") || null;;
   const role = useSelector(selectRole);
   const isAdmin = useSelector(selectIsAdmin);
   const isTeacher = useSelector(selectIsTeacher);
@@ -27,7 +27,8 @@ const CourseDetails = () => {
   const [user, setUser] = useState(null);
   const [lessons, setLessons] = useState([]);
   const [allCompleted, setAllCompleted] = useState(false); // حالة اكتمال كل الدروس
-
+  console.log(userid);
+  
   const getCourseById = async () => {
     try {
       const res = await axios.get(
