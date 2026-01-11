@@ -10,7 +10,6 @@ const register = async (req, res) => {
       [firstName, lastName, role, age, email, hashpassowrd,description, image]
     )
     .then((result) => {
-      console.log(result);
       res.status(201).json({
         success: true,
         message: "Account created successfully",
@@ -123,7 +122,6 @@ const getUserById = (req, res) => {
   pool
     .query(`SELECT * FROM users WHERE id =$1`, [id])
     .then((result) => {
-      console.log(result);
 
       res.status(200).json({
         success: true,
@@ -184,7 +182,6 @@ const getInstructorIdByCourseTitle = (res , req)=>{
     .query(`SELECT * FROM courses WHERE title =$1`, [title])
     .then((result) => {
       id = result.rows[0].instructorid
-      console.log(result);
       res.status(200).json({
         success: true,
         course: result.rows[0],

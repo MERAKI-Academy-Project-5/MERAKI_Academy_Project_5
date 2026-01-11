@@ -190,69 +190,78 @@ const isCourseCompleted = (req, res) => {
 
 
 const getCertificate = (req, res) => {
-  const { coursesid } = req.params;
+  const { courseId, userid } = req.params;
 
+  /* 
+  l.id AS lesson_id,
+        l.title AS lesson_title,
+        lu.completed */
   pool
     .query(
-      `SELECT COUNT(*) AS remaining
-       FROM lessons_users
-       WHERE coursesid = $1 AND completed = false`,
-      [coursesid]
+      `
+      SELECT 
+        *
+      FROM lessons l
+      LEFT JOIN lessons_users lu
+        ON l.id = lu.lessonid AND lu.userid = $1
+      WHERE l.course = $2
+      `,
+      [userid, courseId]
     )
-    .then(async (result) => {
-      const remaining = Number(result.rows[0].remaining);
+    .then((result) => {
+      // console.log(userid, coursesId);
 
-      if (remaining > 0) {
-        return res.status(403).json({
-          success: false,
-          message: "Course is not fully completed yet",
-        });
+      const lessons = result.rows;
+      console.log(result.rows)
+      if (result.rows.length === 0) {
+        // console.clear()
+        console.log(userid, courseId)
+        return res.status(404).json({ message: "No lessons found for this course" });
       }
 
- 
-      const data = await pool.query(
-        `SELECT * FROM courses WHERE id=$1`,
-        [coursesid])
+      const allCompleted = lessons.every((lesson) => lesson.completed === true);
 
-      const course = await pool.query(
-        `SELECT title FROM courses WHERE id = $1`,
-        [coursesid]
-      );
+      if (!allCompleted) {
+        return res.status(200).json({ message: "Course not finished" });
+      }
 
-      res.status(200).json({
-        success: true,
-        certificate: {
-          courseTitle: course.rows[0].title,
-        },
-      });
+      return res.status(200).json({ message: "Course completed, certificate available" });
     })
     .catch((err) => {
-      res.status(500).json({
-        success: false,
-        error: err.message,
-      });
+      console.error(err);
+      res.status(500).json({ success: false, error: err.message });
     });
 };
 
 const addLessonsToCourse = (req, res) => {
   const { coursesid, userid } = req.body;
+
   pool
     .query(
-      `INSERT INTO lessons_users (userid, lessonid, coursesid)
-    SELECT $1, l.id, $2
-    FROM lessons l
-    WHERE l.course = $3`,
-      [userid, coursesid, coursesid]
+      `
+      INSERT INTO lessons_users (userid, lessonid, coursesid)
+      SELECT $1, l.id, $2
+      FROM lessons l
+      WHERE l.courseid = $2
+      AND NOT EXISTS (
+        SELECT 1
+        FROM lessons_users lu
+        WHERE lu.userid = $1
+        AND lu.lessonid = l.id
+      )
+      `,
+      [userid, coursesid]
     )
     .then((result) => {
       res.status(201).json({
-        message: "Lessons added successfully",
-        lessonsAdded: result.affectedRows,
+        success: true,
+        lessonsAdded: result.rowCount,
       });
     })
     .catch((err) => {
       console.error(err);
       res.status(500).json({
+        success: false,
         message: "Database error",
       });
     });
@@ -260,8 +269,8 @@ const addLessonsToCourse = (req, res) => {
 
 
 
-const getNumberOflessons = (req,res)=>{
-    pool.query(`SELECT
+const getNumberOflessons = (req, res) => {
+  pool.query(`SELECT
   c.id,
   c.title,
   COUNT(l.id) AS totallessons
@@ -270,20 +279,20 @@ LEFT JOIN lessons l ON l.course = c.id
 GROUP BY c.id, c.title
 ORDER BY c.id;
 `).then((result) => {
-            res.status(200).json({
-                success: true,
-                message: `get all lessons`,
-                lessons: result.rows,
-            });
-        })
-        .catch((err) => {
-            console.log(err);
-            res.status(500).json({
-                success: false,
-                message: "Server error",
-                err: err.message,
-            });
-        });
+    res.status(200).json({
+      success: true,
+      message: `get all lessons`,
+      lessons: result.rows,
+    });
+  })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
 }
 
 module.exports = {
@@ -297,4 +306,4 @@ module.exports = {
   getCertificate,
   addLessonsToCourse,
   getNumberOflessons
-};
+}

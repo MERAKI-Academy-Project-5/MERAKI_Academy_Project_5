@@ -28,11 +28,11 @@ function IsCompleted() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/lessons/certificate/${courseId}`, {
+      .get(`http://localhost:5000/lessons/certificate/${courseId}/users/${userid}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((res) =>{ setData(res.data.certificate)
-        console.log(res.data.certificate);
+      .then((res) =>{ setData(res.data)
+        console.log(res.data);
         
       })
       .catch((err) => console.log(err));
@@ -47,9 +47,9 @@ function IsCompleted() {
           <img src="/images/p2.png" alt="Certificate" />
 
           <div className="cert-title">Certificate of appreciation</div>
-          <div className="cert-subtitle">مقدمة من منصة التعليم الإلكتروني</div>
+          <div className="cert-subtitle">{}</div>
           <div className="cert-name">{user.firstname} {user.lastname}</div>
-          <div className="cert-desc">وذلك لإجتيازه دورة {data.title}</div>
+          <div className="cert-desc">{data.title}</div>
           <div className="cert-course">{data.courseName}</div>
           
         </div>

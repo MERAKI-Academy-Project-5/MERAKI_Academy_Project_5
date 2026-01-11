@@ -18,7 +18,7 @@ lessonsRouter.delete("/remove/:id",authentication,deletelessonsById)
 
 lessonsRouter.put("/update/:id",authentication,updatelessonsById)
 lessonsRouter.get("/isCompleted/:courseId/:userid", isCourseCompleted);
-lessonsRouter.get("/certificate/:courseId", getCertificate);
+lessonsRouter.get("/certificate/:courseId/users/:userid", getCertificate);
 lessonsRouter.post("/addLessonsToCourse",addLessonsToCourse)
 
 module.exports = lessonsRouter;
