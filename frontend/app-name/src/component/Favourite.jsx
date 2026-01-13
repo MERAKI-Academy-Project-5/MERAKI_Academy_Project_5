@@ -3,10 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { addToFavourite, removeFromFavourite, setFavourite } from "../redux/favouriteSlice";
 import "./Favourite.css";
+import { useNavigate } from "react-router-dom";
+
 
 function Favourite() {
   const dispatch = useDispatch();
   const favouriteCourses = useSelector((state) => state.favourite.items);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -50,9 +53,10 @@ function Favourite() {
         ) : (
           favouriteCourses.map((course) => (
             <div className="unauth-card" key={course.id}>
-              <img src={course.image} alt={course.title} />
+              <img onClick={(()=>{
+                navigate("/")
+              })} src={course.image} alt={course.title} />
               <h3>{course.title}</h3>
-              <p>{course.description}</p>
               <div className="unauth-bottom">
                 <span className="price">${course.price}</span>
                 <button
