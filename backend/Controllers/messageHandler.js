@@ -1,18 +1,22 @@
+// controllers/messageHandler.js
 const messageHandler = (socket, io) => {
   socket.on("message", (data) => {
-    // data = { toUserId, fromUserId, message }
-    const { to, from, message } = data;
-    console.log(to, from, message)
+    const { to, message } = data;
+
+    if (!to || !message) return;
+
     const msgData = {
-      from,
+      from: socket.user.user_id, // ✅ TRUST SERVER ONLY
+      to,
       message,
       timestamp: new Date(),
     };
 
-    // Send to recipient
+    // ✅ send to receiver
     io.to("room-" + to).emit("message", msgData);
-    // Send to sender for immediate display
-    io.to("room-" + from).emit("message", msgData);
+
+    // ✅ send to sender (for sync across tabs/devices)
+    io.to("room-" + socket.user.user_id).emit("message", msgData);
   });
 };
 

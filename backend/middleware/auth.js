@@ -1,12 +1,14 @@
+// middleware/auth.js
 const auth = (socket, next) => {
-  const token = socket.handshake.auth.token || socket.handshake.headers.token;
-  const user_id = socket.handshake.auth.user_id || socket.handshake.headers.user_id;
+  const token =
+    socket.handshake.auth?.token ||
+    socket.handshake.headers?.token;
 
-  console.log(socket.handshake.headers || socket.handshake.auth);
-  console.log(socket.handshake);
+  const user_id =
+    socket.handshake.auth?.user_id ||
+    socket.handshake.headers?.user_id;
+
   if (!token || !user_id) {
-    console.log(user_id, token);
-
     return next(new Error("Unauthorized"));
   }
 
@@ -15,9 +17,10 @@ const auth = (socket, next) => {
     token,
   };
 
-  // Join the user to a private room
+  // ✅ join private room
   socket.join("room-" + socket.user.user_id);
 
+  console.log("🔐 Authenticated:", socket.user.user_id);
   next();
 };
 

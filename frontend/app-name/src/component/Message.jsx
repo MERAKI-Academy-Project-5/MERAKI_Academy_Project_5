@@ -5,37 +5,37 @@ const Message = ({ socket, user_id, toUser }) => {
   const [message, setMessage] = useState("");
   const [allMessages, setAllMessages] = useState([]);
 
-  // ================== Receive messages ==================
+  // 🔄 reset chat when switching user
+  useEffect(() => {
+    setAllMessages([]);
+  }, [toUser]);
+
+  // ================= RECEIVE =================
   useEffect(() => {
     if (!socket) return;
 
     const handler = (msg) => {
-      console.log("Received message:", msg);
+      const isThisChat =
+        (msg.from === user_id && msg.to === toUser) ||
+        (msg.from === toUser && msg.to === user_id);
+
+      if (!isThisChat) return;
+
       setAllMessages((prev) => [...prev, msg]);
     };
 
     socket.on("message", handler);
-
     return () => socket.off("message", handler);
-  }, [socket]);
+  }, [socket, user_id, toUser]);
 
-  // ================== Send message ==================
+  // ================= SEND =================
   const sendMessage = () => {
-    if (!message || !toUser) return;
+    if (!message.trim() || !toUser) return;
 
-    const msgData = {
+    socket.emit("message", {
       to: toUser,
-      from: user_id,
       message,
-    };
-console.log(msgData)
-    socket.emit("message", msgData);
-
-    // Add immediately to sender view
-    setAllMessages((prev) => [
-      ...prev,
-      { ...msgData, timestamp: new Date() },
-    ]);
+    });
 
     setMessage("");
   };
@@ -46,19 +46,18 @@ console.log(msgData)
         {allMessages.map((m, index) => (
           <div
             key={index}
-            className={`message ${
-              m.fromUserId === user_id ? "mine" : "theirs"
-            }`}
+            className={`message ${m.from === user_id ? "mine" : "theirs"}`}
           >
             <span>{m.message}</span>
-            <small>{new Date(m.timestamp).toLocaleTimeString()}</small>
+            <small>
+              {new Date(m.timestamp).toLocaleTimeString()}
+            </small>
           </div>
         ))}
       </div>
 
       <div className="message-input">
         <input
-          type="text"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Type a message..."

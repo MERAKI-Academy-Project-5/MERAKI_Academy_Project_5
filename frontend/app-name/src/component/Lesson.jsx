@@ -42,10 +42,10 @@ const Lesson = () => {
         className="lesson-card magic-bento-card magic-bento-card--border-glow"
       >
         <div className="lesson-image">
-          <img
-            src={lesson.image}
-            alt={lesson.title}
-          />
+       <img
+  src={lesson.image.startsWith("http") ? lesson.image : `http://localhost:5000/uploads/${lesson.image}`}
+  alt={lesson.title}
+/>
         </div>
 
         
