@@ -12,8 +12,11 @@ import { jwtDecode } from "jwt-decode";
 import GradientText from "./react bits/GradientText/GradientText";
 import SplashCursor from "./react bits/SplashCursor/SplashCursor";
 const Home = () => {
-  const decodedToken = localStorage.getItem("token") || "";
-  localStorage.setItem("userId", jwtDecode(decodedToken).userId);
+
+  const decodedToken = localStorage.getItem("token") || ""
+  if(decodedToken){
+  localStorage.setItem("userId",jwtDecode( decodedToken).userId);
+  }
   const [students, setStudents] = useState([]);
   const [numLessons, setNumLessons] = useState([]);
   const navigate = useNavigate();

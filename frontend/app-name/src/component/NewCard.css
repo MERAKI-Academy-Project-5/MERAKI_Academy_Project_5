@@ -1,0 +1,93 @@
+.newcard-container {
+  max-width: 420px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 22px;
+  padding: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+  font-family: "Segoe UI", sans-serif;
+}
+
+.newcard-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* Card Preview */
+.card-preview {
+  background: linear-gradient(135deg, #7b3fe4, #9b5cff);
+  border-radius: 18px;
+  padding: 22px;
+  color: #fff;
+  margin-bottom: 25px;
+}
+
+.card-bank {
+  font-size: 14px;
+  opacity: 0.9;
+  margin-bottom: 25px;
+}
+
+.card-number {
+  font-size: 14px;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+/* Form */
+.card-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.card-form label {
+  font-size: 13px;
+  color: #555;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.card-form input {
+  height: 42px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  padding: 0 12px;
+  font-size: 14px;
+}
+
+.save-card {
+  flex-direction: row !important;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.confirm-btn {
+  margin-top: 10px;
+  height: 46px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #7b3fe4, #9b5cff);
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.confirm-btn:hover {
+  opacity: 0.9;
+}
+.card-name{
+    font-size: 14px;
+  letter-spacing: 2px;
+  margin-bottom: 20px
+}

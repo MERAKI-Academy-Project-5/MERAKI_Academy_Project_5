@@ -86,7 +86,7 @@ const TeacherDashboard = () => {
       <main className="main-content1">
         <header className="dashboard-header1">
           <h1>Teacher Dashboard</h1>
-          <button className="add-course-btn1">
+          <button onClick={()=>{navigate("/createcourse")}} className="add-course-btn1">
             <FaPlus /> New Course
           </button>
         </header>

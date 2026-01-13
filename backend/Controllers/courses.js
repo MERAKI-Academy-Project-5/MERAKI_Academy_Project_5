@@ -2,6 +2,8 @@ const express = require("express");
 const { pool } = require("../models/db");
 
 const createNewCourse = (req, res) => {
+  console.log("create");
+  
   const {
     title,
     description,
@@ -10,12 +12,11 @@ const createNewCourse = (req, res) => {
     category,
     startCourse,
     endCourse,
-    price,
-    rate,
+    price
   } = req.body;
   pool
     .query(
-      `INSERT INTO courses (title,description,image,instructorId,category,startCourse,endCourse, price,rate) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
+      `INSERT INTO courses (title,description,image,instructorId,category,startCourse,endCourse, price) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *`,
       [
         title,
         description,
@@ -24,14 +25,14 @@ const createNewCourse = (req, res) => {
         category,
         startCourse,
         endCourse,
-        price,
-        rate,
+        price
       ]
     )
     .then((result) => {
       res.status(201).json({
         success: true,
         message: "course created successfully",
+        course: result.rows[0]
       });
     })
     .catch((err) => {
@@ -340,6 +341,32 @@ WHERE c.instructorid = $1;
       });
     });
 };
+
+const getCourseStudent = (req,res)=>{
+  const {student , course} = req.params
+   pool
+    .query(
+   ` SELECT *
+FROM students_courses
+WHERE student = $1
+  AND course = $2;`,
+   [student,course] )
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        studentCourse: result.rows,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+
+}
 module.exports = {
   createNewCourse,
   getAllcourses,
@@ -352,6 +379,7 @@ module.exports = {
   getStudents,
   getAllcoursesInstructors,
   getStudentsByInstructorId,
-  getDitinctStudentsByInstructorId
+  getDitinctStudentsByInstructorId,
+  getCourseStudent
  
 };

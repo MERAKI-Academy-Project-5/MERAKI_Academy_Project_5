@@ -115,7 +115,7 @@ const Courses = () => {
    const numStudents =
   students.find((s) => s.title === course.title)?.totalstudents || 0;
 const numLessons1 =
-  numLessons.find((l) => l.title === course.title)?.firstname || 0;
+  numLessons.find((l) => l.title === course.title)?.totallessons || 0;
     const isFavourite = favouriteCourses.some(
       (c) => c.id === course.id
     );
