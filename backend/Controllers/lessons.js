@@ -206,12 +206,6 @@ const isCourseCompleted = (req, res) => {
 
 const getCertificate = (req, res) => {
   const { courseId, userid } = req.params;
-
-
-  /* 
-  l.id AS lesson_id,
-        l.title AS lesson_title,
-        lu.completed */
   pool
     .query(
       `
@@ -225,12 +219,10 @@ const getCertificate = (req, res) => {
       [userid, courseId]
     )
     .then((result) => {
-      // console.log(userid, coursesId);
 
       const lessons = result.rows;
       console.log(result.rows)
       if (result.rows.length === 0) {
-        // console.clear()
         console.log(userid, courseId)
         return res.status(404).json({ message: "No lessons found for this course" });
       }
@@ -241,7 +233,7 @@ const getCertificate = (req, res) => {
         return res.status(200).json({ message: "Course not finished" });
       }
 
-      return res.status(200).json({ message: "Course completed, certificate available" });
+      return res.status(200).json({ message: "Course completed certificate available" });
      
 
     })

@@ -24,6 +24,9 @@ const CourseDetails = () => {
   const [course, setCourse] = useState(null);
   const [user, setUser] = useState(null);
   const [lessons, setLessons] = useState([]);
+
+
+
   const [allCompleted, setAllCompleted] = useState(false); 
   const [open, setOpen] = useState(false);
   const [isPaid , setPaid] = useState(false);
@@ -137,6 +140,40 @@ isPaidFun()
     diffDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
   }
 
+  const addCourseToStudent = () => {
+    const student = userid;
+    const course = courseId;
+    axios
+      .post(
+        `http://localhost:5000/courses/addCourseToStudent`,
+        { student, course },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
+      .then((res) => { })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const addLessonsToCourse = () => {
+    const coursesid = courseId
+    axios.post(
+      "http://localhost:5000/lessons/addLessonsToCourse",
+      { userid, coursesid },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    ).then((res) => { })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   
   if (!course) return <p>Loading course...</p>;
 
@@ -171,7 +208,8 @@ isPaidFun()
                 >
                   Update
                 </button>
-             <button className="delete-btn" onClick={deleteCourseById}>
+
+                <button className="delete-btn" onClick={deleteCourseById}>
                   Delete
                 </button>
                
@@ -196,7 +234,7 @@ isPaidFun()
                 Profile
               </button>
             </div>
-                        </div>
+          </div>
 
         )}
       </div>
@@ -209,14 +247,16 @@ isPaidFun()
             <Lesson />
           </div>
 
-          
+
           {allCompleted && isStudent && (
-            <button
-              className="completed-btn"
-              onClick={() => navigate(`/completed/${courseId}`)}
-            >
-              Go to Completed Page
-            </button>
+            <div className="completed-btn-wrapper">
+              <button
+                className="completed-btn"
+                onClick={() => navigate(`/completed/${courseId}`)}
+              >
+                Finish Course
+              </button>
+            </div>
           )}
         </div>
         
