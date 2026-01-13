@@ -1,22 +1,36 @@
 const { pool } = require("../models/db");
 const createlessons = (req, res) => {
-  const { title, video, course, image, duration, is_completed } = req.body;
+  const { title, course, duration, videoLink, imageLink } = req.body;
+
+  const videoFile = req.files?.video?.[0]?.filename || null;
+  const imageFile = req.files?.image?.[0]?.filename || null;
+
+  const video = videoFile || videoLink || null;
+  const image = imageFile || imageLink || null;
+
+  if (!title || !duration || !course || !video || !image) {
+    return res.status(400).json({
+      success: false,
+      message: "Missing required fields: title, duration, course, video, image",
+    });
+  }
+
   pool
     .query(
-      `INSERT INTO lessons (title , video , course,image ,duration, is_completed)
-        VALUES ($1, $2, $3,$4, $5, $6)
-        RETURNING *`,
-      [title, video, course, image, duration, is_completed]
+      `INSERT INTO lessons (title, video, course, image, duration, is_completed)
+       VALUES ($1, $2, $3, $4, $5, $6)
+       RETURNING *`,
+      [title, video, course, image, duration, false]
     )
     .then((result) => {
       res.status(201).json({
         success: true,
         message: "Lesson created successfully",
-        result: result.rows,
+        lesson: result.rows[0],
       });
     })
     .catch((err) => {
-      console.log(err);
+      console.error("err" , err);
       res.status(500).json({
         success: false,
         message: "Server error",
@@ -24,6 +38,7 @@ const createlessons = (req, res) => {
       });
     });
 };
+
 const getAlllessons = (req, res) => {
   pool
     .query(`SELECT * FROM lessons`)
@@ -237,7 +252,7 @@ const addLessonsToCourse = (req, res) => {
       INSERT INTO lessons_users (userid, lessonid, coursesid)
       SELECT $1, l.id, $2
       FROM lessons l
-      WHERE l.courseid = $2
+      WHERE l.course = $2
       AND NOT EXISTS (
         SELECT 1
         FROM lessons_users lu

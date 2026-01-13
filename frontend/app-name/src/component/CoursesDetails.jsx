@@ -13,24 +13,39 @@ import {
   selectIsTeacher,
   selectIsStudent,
 } from "../redux/selectors";
-
 const CourseDetails = () => {
   const navigate = useNavigate();
-  const userid = localStorage.getItem("userId") || null;;
+  const userid = localStorage.getItem("userId") || null;
   const role = useSelector(selectRole);
   const isAdmin = useSelector(selectIsAdmin);
   const isTeacher = useSelector(selectIsTeacher);
   const isStudent = useSelector(selectIsStudent);
   const courseId = useSelector((state) => state.courseDetails.courseId);
-
   const [course, setCourse] = useState(null);
   const [user, setUser] = useState(null);
   const [lessons, setLessons] = useState([]);
-  const [allCompleted, setAllCompleted] = useState(false);
 
 
-  console.log(userid);
 
+  const [allCompleted, setAllCompleted] = useState(false); 
+  const [open, setOpen] = useState(false);
+  const [isPaid , setPaid] = useState(false);
+  const isPaidFun = ()=>{
+    const course = courseId;
+    const student = userid;
+    axios.get( `http://localhost:5000/courses/course/student/${course}/${student}`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }).then((result)=>{
+          console.log(result.data.studentCourse.length);
+          console.log(result.data.studentCourse.length === 1 );
+          
+          if(result.data.studentCourse.length === 1 ){
+            setPaid(true)
+          }
+        }).catch((err)=>{console.log(err);
+        })
+
+    }
   const getCourseById = async () => {
     try {
       const res = await axios.get(
@@ -100,7 +115,9 @@ const CourseDetails = () => {
   useEffect(() => {
     if (courseId) getCourseById();
   }, [courseId]);
-
+useEffect(() => {
+isPaidFun()
+  }, []);
   useEffect(() => {
     if (course && userid) {
       getUserById(course.instructorid);
@@ -114,6 +131,7 @@ const CourseDetails = () => {
         .catch((err) => console.error(err));
     }
   }, [course, userid]);
+
 
   let diffDays = 0;
   if (course?.startcourse && course?.endcourse) {
@@ -156,6 +174,7 @@ const CourseDetails = () => {
       });
   };
 
+  
   if (!course) return <p>Loading course...</p>;
 
   return (
@@ -176,10 +195,13 @@ const CourseDetails = () => {
               <span>$ {course.price}</span>
             </div>
 
-            {isStudent && <button className="start-btn">Start Course</button>}
+            {isStudent && !isPaid && <button onClick={()=>{navigate(`/newcard/${course.price}`)}} className="start-btn">Start Course</button>}
 
-            {(isAdmin || isTeacher) && (
+            {(isAdmin || course?.instructorid==userid) && (
               <div className="admin-actions">
+                  <button className="update-btn" onClick={()=>{navigate(`/AddLessons/${courseId}`)}}>
+                  Add Lessons
+                </button>
                 <button
                   className="update-btn"
                   onClick={() => navigate("/UpdateCourses")}
@@ -190,21 +212,10 @@ const CourseDetails = () => {
                 <button className="delete-btn" onClick={deleteCourseById}>
                   Delete
                 </button>
+               
               </div>
             )}
-            {isStudent && (
-              <div className="admin-actions">
-                <button
-                  className="update-btn"
-                  onClick={() => {
-                    addCourseToStudent();
-                    addLessonsToCourse()
-                  }}
-                >
-                  Add Course
-                </button>
-              </div>
-            )}
+          
           </div>
         </div>
 
@@ -248,6 +259,7 @@ const CourseDetails = () => {
             </div>
           )}
         </div>
+        
       </div>
     </div>
   );

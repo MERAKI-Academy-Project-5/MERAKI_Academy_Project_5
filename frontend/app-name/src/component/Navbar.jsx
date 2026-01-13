@@ -91,8 +91,7 @@ const Navbar = () => {
                 Menu
               </button>
 
-              {open && (isAdmin || isTeacher) &&(
-                
+              {open && isAdmin  &&(
                 <div className="dropdown-content">
                   <button
                     className="dropdown-link-btn"
@@ -102,6 +101,26 @@ const Navbar = () => {
                     }}
                   >
                     Admin Dashboard
+                  </button>
+
+                  <button
+                    className="dropdown-link-btn logout"
+                    onClick={handleLogout}
+                  >
+                    Logout <GrLogout />
+                  </button>
+                </div>
+              )}
+                 {open && isTeacher  &&(
+                <div className="dropdown-content">
+                  <button
+                    className="dropdown-link-btn"
+                    onClick={() => {
+                      navigate("/teacherDashboard");
+                      setOpen(false);
+                    }}
+                  >
+                    Teacher Dashboard
                   </button>
 
                   <button
