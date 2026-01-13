@@ -30,7 +30,7 @@ const createlessons = (req, res) => {
       });
     })
     .catch((err) => {
-      console.error("err" , err);
+      console.error("err", err);
       res.status(500).json({
         success: false,
         message: "Server error",
@@ -202,8 +202,6 @@ const isCourseCompleted = (req, res) => {
     });
 };
 
-
-
 const getCertificate = (req, res) => {
   const { courseId, userid } = req.params;
   pool
@@ -219,12 +217,15 @@ const getCertificate = (req, res) => {
       [userid, courseId]
     )
     .then((result) => {
+      console.log(result);
 
       const lessons = result.rows;
-      console.log(result.rows)
+      console.log(result.rows);
       if (result.rows.length === 0) {
-        console.log(userid, courseId)
-        return res.status(404).json({ message: "No lessons found for this course" });
+        console.log(userid, courseId);
+        return res
+          .status(404)
+          .json({ message: "No lessons found for this course" });
       }
 
       const allCompleted = lessons.every((lesson) => lesson.completed === true);
@@ -233,9 +234,9 @@ const getCertificate = (req, res) => {
         return res.status(200).json({ message: "Course not finished" });
       }
 
-      return res.status(200).json({ message: "Course completed certificate available" });
-     
-
+      return res
+        .status(200)
+        .json({ message: "Course completed certificate available" });
     })
     .catch((err) => {
       console.error(err);
@@ -277,10 +278,10 @@ const addLessonsToCourse = (req, res) => {
     });
 };
 
-
-
 const getNumberOflessons = (req, res) => {
-  pool.query(`SELECT
+  pool
+    .query(
+      `SELECT
   c.id,
   c.title,
   COUNT(l.id) AS totallessons
@@ -288,13 +289,15 @@ FROM courses c
 LEFT JOIN lessons l ON l.course = c.id
 GROUP BY c.id, c.title
 ORDER BY c.id;
-`).then((result) => {
-    res.status(200).json({
-      success: true,
-      message: `get all lessons`,
-      lessons: result.rows,
-    });
-  })
+`
+    )
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        message: `get all lessons`,
+        lessons: result.rows,
+      });
+    })
     .catch((err) => {
       console.log(err);
       res.status(500).json({
@@ -303,7 +306,7 @@ ORDER BY c.id;
         err: err.message,
       });
     });
-}
+};
 
 module.exports = {
   createlessons,
@@ -315,5 +318,5 @@ module.exports = {
   isCourseCompleted,
   getCertificate,
   addLessonsToCourse,
-  getNumberOflessons
-}
+  getNumberOflessons,
+};

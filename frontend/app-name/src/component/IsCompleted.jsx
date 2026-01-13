@@ -10,7 +10,7 @@ function IsCompleted() {
   const [course, setCourse] = useState({});
 
   const token = localStorage.getItem("token");
-  const userid = useSelector((state) => state.auth.userid);
+  const userid = localStorage.getItem("userId") || null;
   const { courseId } = useParams();
 
   useEffect(() => {
@@ -32,6 +32,8 @@ function IsCompleted() {
   }, [courseId, token]);
 
   useEffect(() => {
+    console.log(userid);
+    
     axios
       .get(
         `http://localhost:5000/lessons/certificate/${courseId}/users/${userid}`,
@@ -40,6 +42,7 @@ function IsCompleted() {
       .then((res) => setMessage(res.data.message))
       .catch((err) => console.log(err));
   }, [courseId, userid, token]);
+  console.log(message);
 
   if (message !== "Course completed certificate available") {
     return (
@@ -57,8 +60,8 @@ function IsCompleted() {
             <h2 className="unauth-title">Course Not Completed</h2>
 
             <p className="unauth-text">
-               You have not completed all lessons of this course yet.
-               Please finish all lessons to access the certificate.
+              You have not completed all lessons of this course yet. Please
+              finish all lessons to access the certificate.
             </p>
           </div>
         </div>
@@ -69,16 +72,16 @@ function IsCompleted() {
   return (
     <div className="certificate-page">
       <div className="certificate-wrapper">
-        <img src="/images/p2.png" className="certificate-frame" alt="Certificate" />
+        <img
+          src="/images/p2.png"
+          className="certificate-frame"
+          alt="Certificate"
+        />
 
         <div className="certificate-content">
-
           <div className="cert-name">
             {user.firstname} {user.lastname}
           </div>
-
-
-          
 
           <div className="cert-course">{course.title}</div>
 

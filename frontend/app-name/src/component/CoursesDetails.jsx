@@ -39,7 +39,7 @@ const CourseDetails = () => {
           console.log(result.data.studentCourse.length);
           console.log(result.data.studentCourse.length === 1 );
           
-          if(result.data.studentCourse.length === 1 ){
+          if(result.data.studentCourse.length !== 0 ){
             setPaid(true)
           }
         }).catch((err)=>{console.log(err);
@@ -140,39 +140,7 @@ isPaidFun()
     diffDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
   }
 
-  const addCourseToStudent = () => {
-    const student = userid;
-    const course = courseId;
-    axios
-      .post(
-        `http://localhost:5000/courses/addCourseToStudent`,
-        { student, course },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      )
-      .then((res) => { })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  const addLessonsToCourse = () => {
-    const coursesid = courseId
-    axios.post(
-      "http://localhost:5000/lessons/addLessonsToCourse",
-      { userid, coursesid },
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    ).then((res) => { })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+ 
 
   
   if (!course) return <p>Loading course...</p>;
