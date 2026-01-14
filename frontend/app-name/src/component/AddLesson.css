@@ -21,6 +21,7 @@
 }
 
 .lesson-form1 input,
+.lesson-form1 select,
 .lesson-form1 textarea {
   padding: 14px 16px;
   border-radius: 10px;

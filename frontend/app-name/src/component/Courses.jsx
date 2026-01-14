@@ -105,6 +105,13 @@ const Courses = () => {
           <button>Digital Marketing</button>
           <button>Business</button>
           <button>Management</button>
+          <button>Databases (SQL / NoSQL)</button>
+          <button>Science</button>
+          <button>Civil Engineering</button>
+          <button>Electrical Engineering</button>
+          <button>Mechanical Engineering</button>
+          <button>Software Engineering</button>
+          <button>Frontend Development</button>
         </div>
 
        <MagicBento

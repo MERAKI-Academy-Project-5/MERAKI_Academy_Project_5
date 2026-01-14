@@ -2,47 +2,36 @@ const express = require("express");
 const { pool } = require("../models/db");
 
 const createNewCourse = (req, res) => {
-  console.log("create");
-  
+  const imageFile = req.file;
+  const imageLink = req.body.imageLink;
+
   const {
     title,
     description,
-    image,
-    instructorId,
     category,
     startCourse,
     endCourse,
-    price
+    price,
+    instructorId
   } = req.body;
-  pool
-    .query(
-      `INSERT INTO courses (title,description,image,instructorId,category,startCourse,endCourse, price) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *`,
-      [
-        title,
-        description,
-        image,
-        instructorId,
-        category,
-        startCourse,
-        endCourse,
-        price
-      ]
-    )
-    .then((result) => {
-      res.status(201).json({
-        success: true,
-        message: "course created successfully",
-        course: result.rows[0]
-      });
-    })
-    .catch((err) => {
-      console.log(err);
 
-      res.status(409).json({
-        success: false,
-        err: err,
-      });
-    });
+  const image = imageFile
+    ? `${req.protocol}://${req.get("host")}/uploads/${imageFile.filename}`
+    : imageLink;
+
+  pool.query(
+    `INSERT INTO courses 
+     (title, description, image, instructorId, category, startCourse, endCourse, price)
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *`,
+    [title, description, image, instructorId, category, startCourse, endCourse, price]
+  )
+  .then(result => {
+    res.status(201).json({ success: true, course: result.rows[0] });
+  })
+  .catch(err => {
+    console.error(err);
+    res.status(500).json({ success: false, err: err.message });
+  });
 };
 
 const getAllcourses = (req, res) => {

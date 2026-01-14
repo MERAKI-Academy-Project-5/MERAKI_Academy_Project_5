@@ -1,4 +1,6 @@
 const express = require("express");
+const upload = require("../middleware/upload");
+
 const {
   createNewCourse,
   getAllcourses,
@@ -21,7 +23,12 @@ const authorization = require("../middleware/authorization");
 const courseRouter = express.Router();
 
 //add permissions
-courseRouter.post("/createNewCourse", authentication, createNewCourse);
+courseRouter.post(
+  "/createNewCourse",
+  authentication,
+  upload.single("image"), // only one image for course
+  createNewCourse
+);
 courseRouter.get("/getAllcourses", getAllcourses);
 courseRouter.get("/getCourseById/:id", getCourseById);
 courseRouter.get("/getCoursesByInstructorId/instructor/:id",   getCoursesByInstructorId);
