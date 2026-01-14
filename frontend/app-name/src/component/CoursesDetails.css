@@ -263,8 +263,8 @@
   background: #a71d1d;
 }
 
-/* ===== INSTRUCTOR CARD ===== */
 .instructor-card {
+  margin-top: 50px;
   right: 30px;
   bottom: -40px;
   background: linear-gradient(135deg, #7c3aed, #9333ea);

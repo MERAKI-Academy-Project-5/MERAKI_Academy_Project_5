@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {setCourses} from "../redux/coursesSlice"
 import { useNavigate } from "react-router-dom";
@@ -12,8 +12,9 @@ const Search = () => {
   const courses = useSelector((state) => state.courses.courses);
   const [searchValue, setSearchValue] = useState("");
   const [searchCourses, setSearchCourses] = useState([]);
-
+const dropdownRef = useRef();
   const handleSearch = (e) => {
+    
     const value = e.target.value;
     setSearchValue(value);
 
@@ -28,9 +29,19 @@ const Search = () => {
 
     setSearchCourses(filteredCourses);
   };
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setSearchCourses([]);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
-    <div className="search-wrapper">
+    <div className="search-wrapper" ref={dropdownRef}>
       <input
         type="text"
         placeholder="Search courses..."
