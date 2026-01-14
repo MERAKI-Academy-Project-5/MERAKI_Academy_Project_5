@@ -1,62 +1,70 @@
-.unauth-wrapper {
-  min-height: 90vh;
-  background-color: #6c28d972;
+/* شاشة كاملة */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Wrapper */
+.unauth-full {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 
-}
+  background: linear-gradient(135deg, #6a0dad, #8b5cf6, #40ffaa);
+  background-size: 300% 300%;
+  animation: bgMove 8s ease infinite;
 
-.unauth-card {
-  background: #ffffff;
-  width: 600px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-  overflow: hidden;
-}
-
-.browser-bar {
-  background-color: #c76fd4;
-  padding: 10px;
-  display: flex;
-  gap: 8px;
-  
-}
-
-.browser-bar span {
-  width: 12px;
-  height: 12px;
-  background: #ffffff;
-  border-radius: 50%;
-  opacity: 0.9;
-}
-
-.unauth-content {
-  padding: 50px 40px;
+  color: white;
   text-align: center;
 }
 
+@keyframes bgMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Content */
+.unauth-content {
+  animation: fadeUp 0.8s ease;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .unauth-emoji {
-  font-size: 64px;
+  font-size: 70px;
   margin-bottom: 10px;
 }
 
 .unauth-code {
   font-size: 96px;
-  font-weight: bold;
-  color: #982a98;
+  font-weight: 900;
   margin: 0;
 }
 
 .unauth-title {
   font-size: 28px;
   margin: 10px 0;
-  color: #df1111c0;
 }
 
 .unauth-text {
   font-size: 16px;
-  color: #000000;
-  margin-bottom: 30px;
+  opacity: 0.9;
 }
-
-

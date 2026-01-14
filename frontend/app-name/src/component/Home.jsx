@@ -103,7 +103,7 @@ const Home = () => {
             </div>
           </section>
           <div className="hero-image">
-            <img className="girl-home" src="/images/girl.png" />
+            <img className="" src="/images/girl.png" />
           </div>
           <section className="cards">
             <div className="card-left">

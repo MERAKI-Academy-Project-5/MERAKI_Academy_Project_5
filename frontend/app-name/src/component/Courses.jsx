@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Courses.css";
-import Navbar from "./navbar";
+import Navbar from "./Navbar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
