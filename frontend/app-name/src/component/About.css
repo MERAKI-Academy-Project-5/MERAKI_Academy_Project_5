@@ -1,6 +1,7 @@
 .about-page {
   background: linear-gradient(180deg, #f4f7fb, #ffffff);
   min-height: 100vh;
+  margin-top: 50px;
 }
 
 .about-header h1 {
