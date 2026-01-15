@@ -96,7 +96,7 @@ const SearchCategory = () => {
     <div>
       <Navbar />
       <section className="courses-section">
-        <h2> Courses</h2>
+        <h2> {category}</h2>
 
 
        <MagicBento
@@ -141,8 +141,12 @@ const SearchCategory = () => {
               </div>
             );
           })}
-</MagicBento>
+</MagicBento> 
+<button className="update-btn" onClick={()=>{
+  navigate("/courses")
+}}>back to courses</button>
       </section>
+      
     </div>
   );
 };
