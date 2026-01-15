@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 import { setCourseId } from "../redux/courseDetailsSlice";
 import FuzzyText from "./react bits/FuzzyText/FuzzyText";
+import Nofav from "./nofav";
 
 function Favourite() {
   const dispatch = useDispatch();
@@ -56,22 +57,7 @@ function Favourite() {
     <div className="unauth-wrapper">
       <div className="unauth-grid">
         {favouriteCourses.length === 0 ? (
-          <div>
-            <FuzzyText
-              baseIntensity={0.2}
-              hoverIntensity={0.6}
-              enableHover={true}
-            >
-              Favourite Courses ❤️
-            </FuzzyText>
-            <FuzzyText
-              baseIntensity={0.2}
-              hoverIntensity={0.6}
-              enableHover={true}
-            >
-              No favourite courses yet
-            </FuzzyText>
-          </div>
+          <Nofav/>
         ) : (
           favouriteCourses.map((course) => (
             <div className="unauth-card" key={course.id}>

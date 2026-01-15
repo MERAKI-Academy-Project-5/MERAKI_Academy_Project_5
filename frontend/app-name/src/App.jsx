@@ -34,6 +34,8 @@ import PayPalPayment from "./component/Payment";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import NewCard from "./component/NewCard";
 import CheckoutReview from "./component/CheckoutReview";
+import Nofav from "./component/nofav";
+import Notcompleted from "./component/Notcompleted";
 const initialOptions = {
   "client-id": "YOUR_SANDBOX_CLIENT_ID", // sandbox key
   currency: "USD",
@@ -80,6 +82,8 @@ const App = () => {
           <Route path="/newcard/:price" element={<NewCard />} />{" "}
           <Route path="/payment/:price" element={<Payment />} />{" "}
           <Route path="/checkout/:price" element={<CheckoutReview />} />{" "}
+          <Route path="/Nofav" element={<Nofav/>} />
+          <Route path="/Notcompleted" element={<Notcompleted/>} />
         </Routes>
         <Footer />
       </div>

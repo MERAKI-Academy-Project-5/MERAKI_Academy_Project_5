@@ -4,6 +4,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import FuzzyText from "./react bits/FuzzyText/FuzzyText";
+import Notcompleted from "./Notcompleted";
 function IsCompleted() {
   const [message, setMessage] = useState(null);
   const [user, setUser] = useState({});
@@ -46,23 +47,7 @@ function IsCompleted() {
 
   if (message !== "Course completed certificate available") {
     return (
-      <div className="unauth-wrapper">
-        <div>
-          <div className="unauth-content">
-            <FuzzyText
-              baseIntensity={0.2}
-              hoverIntensity={0.6}
-              enableHover={true}
-            >
-              Course Not Completed
-            </FuzzyText>
-            <p style={{"marginLeft":"250px","marginTop":"100px", "fontSize":"20px"}} className="unauth-text">
-              You have not completed all lessons of this course yet. Please
-              finish all lessons to access the certificate.
-            </p>
-          </div>
-        </div>
-      </div>
+    <Notcompleted/>
     );
   }
 

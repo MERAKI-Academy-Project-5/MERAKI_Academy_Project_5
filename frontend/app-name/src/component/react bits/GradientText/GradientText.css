@@ -52,3 +52,20 @@
   -webkit-background-clip: text;
   color: transparent;
 }
+.animated-gradient-text {
+  position: relative;
+  margin: 0 auto;
+  display: inline-flex;
+  max-width: fit-content;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1.25rem;
+  font-weight: 500;
+
+  /* 👇 الحل */
+  background: transparent !important;
+  backdrop-filter: none !important;
+
+  overflow: hidden;
+  cursor: pointer;
+}
