@@ -104,6 +104,7 @@ const InstructorCourses = () => {
         .catch((err) => console.log(err));
     }
   };
+console.log(instructorCourses);
 
   return (
     <div>
@@ -123,6 +124,8 @@ const InstructorCourses = () => {
   glowColor="132, 0, 255"
 >
           {instructorCourses.map((course) => {
+            console.log(course.id);
+            
             const numStudents =
               students.find((s) => s.title === course.title)?.totalstudents ||
               0;

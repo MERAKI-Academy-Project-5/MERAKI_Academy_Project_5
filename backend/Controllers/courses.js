@@ -168,7 +168,7 @@ const getCoursesBystudentId = (req, res) => {
   u.id AS student_id,
   u.firstName,
   u.lastName,
-  c.id AS course_id,
+  c.id AS id,
   c.title,
   c.category,
   c.price,
@@ -180,6 +180,8 @@ WHERE u.id = $1 `,
       [id]
     )
     .then((result) => {
+      console.log(result.rows);
+      
       res.status(200).json({
         success: true,
         courses: result.rows,
