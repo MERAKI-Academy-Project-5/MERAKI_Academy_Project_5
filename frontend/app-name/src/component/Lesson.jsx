@@ -4,13 +4,12 @@ import "./Lesson.css";
 import { useSelector } from "react-redux";
 import MagicBento from "./react bits/MagicBento/MagicBento";
 
-
 const Lesson = () => {
   const [lessons, setLessons] = useState([]);
   const courseId = useSelector((state) => state.courseDetails.courseId);
 
   useEffect(() => {
-    if (!courseId) return; 
+    if (!courseId) return;
 
     axios
       .get(`http://localhost:5000/lessons/getlessonbyCourseId/${courseId}`, {
@@ -18,57 +17,73 @@ const Lesson = () => {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
-      .then((res) => setLessons(res.data.lessons || []))
+      .then((res) => {
+        setLessons(res.data.lessons || []);
+      })
       .catch((err) => console.log(err));
   }, [courseId]);
+
   return (
-  
-     <MagicBento
-  enableSpotlight
-  enableBorderGlow
-  enableTilt
-  enableMagnetism
-  clickEffect
-  spotlightRadius={300}
-  particleCount={10}
-  glowColor="132, 0, 255"
->
-  {lessons.length === 0 ? (
-    <p style={{ color: "#fff" }}>No lessons available</p>
-  ) : (
-    lessons.map((lesson, index) => (
-      <div
-        key={lesson.id || index}
-        className="lesson-card magic-bento-card magic-bento-card--border-glow"
-      >
-        <div className="lesson-image">
-       <img
-  src={lesson.image.startsWith("http") ? lesson.image : `http://localhost:5000/uploads/${lesson.image}`}
-  alt={lesson.title}
-/>
-        </div>
+    <MagicBento
+      enableSpotlight
+      enableBorderGlow
+      enableTilt
+      enableMagnetism
+      clickEffect
+      spotlightRadius={300}
+      particleCount={10}
+      glowColor="132, 0, 255"
+    >
+      {lessons.length === 0 ? (
+        <p style={{ color: "#fff" }}>No lessons available</p>
+      ) : (
+        lessons.map((lesson, index) => {
+          // ✅ معالجة الصورة (Base64 / Link / Uploads)
+          const imageSrc = lesson.image
+            ? lesson.image.startsWith("data:image")
+              ? lesson.image
+              : lesson.image.trim().startsWith("http")
+              ? encodeURI(lesson.image.trim())
+              : `http://localhost:5000/uploads/${lesson.image.trim()}`
+            : "https://via.placeholder.com/400x200?text=No+Image";
 
-        
-        <div className="lesson-content">
-          <h3>{lesson.title}</h3>
+          return (
+            <div
+              key={lesson.id || index}
+              className="lesson-card magic-bento-card magic-bento-card--border-glow"
+            >
+              <div className="lesson-image">
+                <img
+                  src={imageSrc}
+                  alt={lesson.title}
+                  loading="lazy"
+                  onError={(e) => {
+                    console.log("Image error:", imageSrc);
+                    e.target.src =
+                      "https://via.placeholder.com/400x200?text=Image+Error";
+                  }}
+                />
+              </div>
 
-          <p className="lesson-duration">
-            ⏱ Duration: {lesson.duration}
-          </p>
+              <div className="lesson-content">
+                <h3>{lesson.title}</h3>
 
-          <button
-            className="watch-btn"
-            onClick={() => window.open(lesson.video, "_blank")}
-          >
-            ▶ Watch Video
-          </button>
-        </div>
-      </div>
-    ))
-  )}
-</MagicBento>
+                <p className="lesson-duration">
+                  ⏱ Duration: {lesson.duration}
+                </p>
 
-    
+                <button
+                  className="watch-btn"
+                  onClick={() => window.open(lesson.video, "_blank")}
+                >
+                  ▶ Watch Video
+                </button>
+              </div>
+            </div>
+          );
+        })
+      )}
+    </MagicBento>
   );
 };
 
